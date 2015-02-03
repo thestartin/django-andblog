@@ -32,7 +32,7 @@ class Article(BaseArticle):
 
 class ArticleSection(models.Model):
     article = models.ForeignKey(Article)
-    section_order = models.IntegerField(max_length=2)
+    section_order = models.IntegerField(max_length=2) # This must have been a composite key, but Django ORM does not support it
     title = models.CharField(max_length=150)
     content = models.TextField()
     likes = models.IntegerField(max_length=4)
@@ -61,5 +61,4 @@ class ArticleSectionComment(models.Model):
     approved = models.BooleanField(default=False)  # Only approved comments are visible
     commented_by = models.ForeignKey(UserSocialAuth)
     commented_date_time = models.DateTimeField(auto_now_add=True)
-
 
