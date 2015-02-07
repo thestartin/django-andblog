@@ -1,11 +1,10 @@
 from django.shortcuts import render
-from django.views.generic.edit import BaseFormView
+from django.views.generic.edit import FormView
 from django.contrib.auth.decorators import login_required
 
 from .forms import BlogEntryForm
 
-@login_required('/')
-class BlogEntry(BaseFormView):
+class BlogEntry(FormView):
     """"
     View to create and edit blog posts.
     """

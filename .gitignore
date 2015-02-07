@@ -57,3 +57,8 @@ target/
 
 # Pycharm
 .idea/
+
+# Local settings files
+local_settings.py
+
+blog/migrations/

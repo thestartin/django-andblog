@@ -5,9 +5,9 @@ from taggit.managers import TaggableManager
 from django.conf import settings
 
 
-class BaseArticle(models.Model):
+class Article(models.Model):
     """
-    Base model for all articles
+    Article model
     """
     slug = models.SlugField(max_length=150)
     title = models.CharField(max_length=150)
@@ -15,19 +15,9 @@ class BaseArticle(models.Model):
     author = models.ForeignKey(UserSocialAuth)
     published = models.BooleanField(default=False)
     created_date_time = models.DateTimeField(auto_now_add=True)
-    updated_by = models.ForeignKey(UserSocialAuth)
+    updated_by = models.ForeignKey(UserSocialAuth, related_name='updated_by')
     updated_date_time = models.DateTimeField(auto_now=True)
     tags = TaggableManager()
-
-    class Meta:
-        abstract = True
-
-
-class Article(BaseArticle):
-    """
-    Simple article which covers news/informational articles, with an image and one section
-    """
-    pass
 
 
 class ArticleSection(models.Model):
@@ -40,10 +30,6 @@ class ArticleSection(models.Model):
     abusive = models.IntegerField(max_length=3)
     updated_by = models.ForeignKey(UserSocialAuth)
     updated_date_time = models.DateTimeField(auto_now=True)
-
-
-class ArticleSectionReference(models.Model):
-    pass
 
 
 class ArticleSectionLikeUnlike(models.Model):

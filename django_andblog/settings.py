@@ -44,6 +44,8 @@ INSTALLED_APPS = (
     'disqus',
     'redis_cache',
     'social.apps.django_app.default',
+    'ckeditor',
+    'blog',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -78,8 +80,10 @@ WSGI_APPLICATION = 'django_andblog.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'andblog',
+        'USERNAME': '',
+        'PASSWORD': ''
     }
 }
 
@@ -117,3 +121,16 @@ STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder"
 )
+
+# Thumbnails
+MEDIA_ROOT = UPLOAD_TO = os.path.join(BASE_DIR, 'django_andblog', 'media')
+
+MEDIA_URL = '/media/'
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.contrib.auth.context_processors.auth',
+)
+
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
+CKEDITOR_UPLOAD_PATH = 'uploads/'
