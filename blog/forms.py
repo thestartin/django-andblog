@@ -20,19 +20,17 @@ class BlogEntryForm(forms.Form):
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Div(
-                Button('reset', 'Reset Section', data_section_id=1, data_btn_nm='reset', css_class='sec_btn rep'),
-                Button('del', 'Delete Section', data_section_id=1, data_btn_nm='del', css_class='sec_btn rep'),
-                Field('title', css_class='rep'),  # Class rep tells it is replicable item
-                Field('image', css_class='norep'),  # Class norep tells the item must be removed from replica's
-                Field('content', css_class='rep'),
-                Button('reset', 'Reset Section', data_section_id=1, data_btn_nm='reset', css_class='sec_btn rep'),
-                Button('del', 'Delete Section', data_section_id=1, data_btn_nm='del', css_class='sec_btn rep'),
+                Button('reset', 'Reset Section', data_section_id=1, data_btn_nm='reset', wrapper_class='rep', css_class='sec_btn'),
+                Button('del', 'Delete Section', data_section_id=1, data_btn_nm='del', wrapper_class='rep', css_class='sec_btn'),
+                Field('title', wrapper_class='rep'),  # Class rep tells it is replicable item
+                Field('image', wrapper_class='norep'),  # Class norep tells the item must be removed from replica's
+                Field('content', wrapper_class='rep'),
                 css_class='section',
-                css_id='sec_1'
+                css_id='sec'
             ),
             Field('tags'),
             ButtonHolder(
-                Button('add', 'Add Section', data_section_count=1, css_id='add'),
+                Button('add', 'Add Section', data_btn_nm='add', data_section_count=1, css_id='add', css_class='sec_btn'),
                 Button('save', 'Save Section', css_id='save'),
                 Submit('submit', 'Submit Post', css_id='submit'),
                 css_id='buttons'
