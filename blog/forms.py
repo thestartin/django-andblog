@@ -22,11 +22,12 @@ class BlogEntryForm(forms.Form):
             Div(
                 Button('reset', 'Reset Section', data_section_id=1, data_btn_nm='reset', wrapper_class='rep', css_class='sec_btn'),
                 Button('del', 'Delete Section', data_section_id=1, data_btn_nm='del', wrapper_class='rep', css_class='sec_btn'),
-                Field('title', wrapper_class='rep'),  # Class rep tells it is replicable item
-                Field('image', wrapper_class='norep'),  # Class norep tells the item must be removed from replica's
-                Field('content', wrapper_class='rep'),
+                Field('title', wrapper_class='rep', css_class='rep'),  # Class rep tells it is replicable item
+                Field('image', wrapper_class='norep', css_class='rep'),  # Class norep tells the item must be removed from replica's
+                Field('content', wrapper_class='rep', css_class='rep'),
                 css_class='section',
-                css_id='sec'
+                css_id='sec',
+                data_section_id=1
             ),
             Field('tags'),
             ButtonHolder(
