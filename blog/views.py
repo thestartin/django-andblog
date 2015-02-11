@@ -1,7 +1,7 @@
-from django.shortcuts import render
 from django.views.generic.edit import FormView
 from django.contrib.auth.decorators import login_required
 from django import forms
+from django.http import JsonResponse
 from ckeditor.widgets import CKEditorWidget
 
 from .forms import BlogEntryForm
@@ -16,7 +16,7 @@ class BlogEntry(FormView):
     form_class = BlogEntryForm
     # Custom fields used by the form form the Client
     # The format is dict with <field_name>:[<field_type>, <list of args as in form>, <dict of kwargs as in form>]
-    widget = CKEditorWidget
+    widget = CKEditorWidget()
     custom_fields = {
         'title': (forms.CharField, (), {'max_length': 150}),
         'content': (forms.CharField, (), {'widget': widget})
@@ -34,7 +34,8 @@ class BlogEntry(FormView):
         if form.is_valid():
             return self.form_valid(form)
         else:
-            return self.form_invalid(form)
+            # We use Ajax forms so return the errors
+            return JsonResponse(form.errors)
 
     def add_custom_fields(self, form, request):
         for field in get_custom_fields(self.custom_fields, request):
