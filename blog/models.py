@@ -1,8 +1,11 @@
+from collections import defaultdict
+
 from django.db import models
+from django.conf import settings
+from django.template.defaultfilters import slugify
 from social.apps.django_app.default.models import UserSocialAuth
 from sorl.thumbnail import ImageField
 from taggit.managers import TaggableManager
-from django.conf import settings
 
 
 class Article(models.Model):
@@ -19,15 +22,42 @@ class Article(models.Model):
     updated_date_time = models.DateTimeField(auto_now=True)
     tags = TaggableManager()
 
+    def add_article(self, data, user, fields):
+        self.title = data['title']
+        self.image = data['image']
+        self.tags = data['tags']
+        self.slug = slugify(self.title)
+        self.author = user
+        self.updated_by = user
+        self.save()
+
+        article_section = ArticleSection()
+        article_section.article = self
+        article_section.section_order = 1
+        article_section.title = self.title
+        article_section.content = self.content
+        article_section.save()
+
+        sections = defaultdict(ArticleSection)
+        for key, value in data.iteritems():
+            if '_' in key:
+                keys = key.split('_')
+                sort_order = int(keys[-1])
+                sections[sort_order].section_order = sort_order
+                if hasattr(sections[sort_order], keys[0]):
+                    setattr(sections[sort_order], keys[0], value)
+        
+        for sort_order_num, section in sections.iteritems():
+            section.save()
 
 class ArticleSection(models.Model):
     article = models.ForeignKey(Article)
     section_order = models.IntegerField(max_length=2) # This must have been a composite key, but Django ORM does not support it
     title = models.CharField(max_length=150)
     content = models.TextField()
-    likes = models.IntegerField(max_length=4)
-    unlikes = models.IntegerField(max_length=4)
-    abusive = models.IntegerField(max_length=3)
+    likes = models.IntegerField(max_length=4, default=0)
+    unlikes = models.IntegerField(max_length=4, default=0)
+    abusive = models.IntegerField(max_length=3, default=0)
     updated_by = models.ForeignKey(UserSocialAuth)
     updated_date_time = models.DateTimeField(auto_now=True)
 
