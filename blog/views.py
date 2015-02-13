@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.views.generic.edit import FormView
 from django.contrib.auth.decorators import login_required
 from django import forms
@@ -20,7 +21,9 @@ class BlogEntry(FormView):
     # The format is dict with <field_name>:[<field_type>, <list of args as in form>, <dict of kwargs as in form>]
     custom_fields = {
         'title': (forms.CharField, (), {'max_length': 150}),
-        'content': (forms.CharField, (), {'widget': CKEditorWidget()})
+        'content': (forms.CharField, (), {'widget': CKEditorWidget()}),
+        'score': (forms.DecimalField, (), {'max_digits': settings.RATING_MAX_DIGITS,
+                                           'max_value': settings.RATING_SCALE})
     }
 
     def post(self, request, *args, **kwargs):

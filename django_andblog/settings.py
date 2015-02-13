@@ -131,3 +131,9 @@ MEDIA_URL = '/media/'
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 CKEDITOR_UPLOAD_PATH = 'uploads/'
+
+
+# Settings related to ratings per section
+RATING_SCALE = 10
+# For Max digits keep in mind that decimal field is used hence +1 is required
+RATING_MAX_DIGITS = 3

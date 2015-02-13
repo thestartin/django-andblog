@@ -30,14 +30,16 @@ class Article(models.Model):
         self.author = user
         self.updated_by = user
         self.save()
-        self.add_article_sections(data)
+        self.add_article_sections(data, user)
 
-    def add_article_sections(self, data):
+    def add_article_sections(self, data, user):
         article_section = ArticleSection()
         article_section.article = self
         article_section.section_order = 1
         article_section.title = self.title
-        article_section.content = self.content
+        article_section.content = data['content']
+        article_section.score = data.get('score', 0)
+        article_section.updated_by = user
         article_section.save()
 
         sections = defaultdict(ArticleSection)
@@ -50,7 +52,10 @@ class Article(models.Model):
                     setattr(sections[sort_order], keys[0], value)
 
         for sort_order_num, section in sections.iteritems():
+            section.article = self
+            section.updated_by = user
             section.save()
+
 
 class ArticleSection(models.Model):
     article = models.ForeignKey(Article)
@@ -60,6 +65,7 @@ class ArticleSection(models.Model):
     likes = models.IntegerField(max_length=4, default=0)
     unlikes = models.IntegerField(max_length=4, default=0)
     abusive = models.IntegerField(max_length=3, default=0)
+    score = models.DecimalField(decimal_places=1, max_digits=settings.RATING_MAX_DIGITS, default=0)
     updated_by = models.ForeignKey(User)
     updated_date_time = models.DateTimeField(auto_now=True)
 

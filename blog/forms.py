@@ -1,4 +1,5 @@
 from django import forms
+from django.conf import  settings
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, ButtonHolder, Submit, Button, Div, Fieldset, Field
 from sorl.thumbnail.fields import ImageFormField
@@ -14,6 +15,7 @@ class BlogEntryForm(forms.Form):
     image = ImageFormField()
     tags = TagField()
     content = forms.CharField(widget=CKEditorWidget())
+    score = forms.DecimalField(max_value=settings.RATING_SCALE, max_digits=settings.RATING_MAX_DIGITS)
 
     def __init__(self, *args, **kwargs):
         super(BlogEntryForm, self).__init__(*args, **kwargs)
@@ -23,6 +25,7 @@ class BlogEntryForm(forms.Form):
                 Button('reset', 'Reset Section', data_section_id=1, data_btn_nm='reset', wrapper_class='rep', css_class='sec_btn'),
                 Button('del', 'Delete Section', data_section_id=1, data_btn_nm='del', wrapper_class='rep', css_class='sec_btn'),
                 Field('title', wrapper_class='rep', css_class='rep'),  # Class rep tells it is replicable item
+                Field('score', wrapper_class='rep', css_class='rep'),  # Class rep tells it is replicable item
                 Field('image', wrapper_class='norep', css_class='rep'),  # Class norep tells the item must be removed from replica's
                 Field('content', wrapper_class='rep', css_class='rep'),
                 css_class='section',
