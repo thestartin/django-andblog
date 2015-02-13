@@ -68,6 +68,7 @@ AUTHENTICATION_BACKENDS = (
 TEMPLATE_CONTEXT_PROCESSORS = (
     'social.apps.django_app.context_processors.backends',
     'social.apps.django_app.context_processors.login_redirect',
+    'django.contrib.auth.context_processors.auth',
 )
 
 ROOT_URLCONF = 'django_andblog.urls'
@@ -126,10 +127,6 @@ STATICFILES_FINDERS = (
 MEDIA_ROOT = UPLOAD_TO = os.path.join(BASE_DIR, 'django_andblog', 'media')
 
 MEDIA_URL = '/media/'
-
-TEMPLATE_CONTEXT_PROCESSORS = (
-    'django.contrib.auth.context_processors.auth',
-)
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
