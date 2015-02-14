@@ -222,3 +222,24 @@ textarea {
 /* ==========================================================================
    Custom styles
    ========================================================================== */
+
+body{
+    background-color: #eeeeee;
+}
+
+.pure-g{
+    max-width: 80em;
+    margin: auto;
+    padding: 2em;
+    background-color: #ffffff;
+}
+
+.pure-g > div{
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.section{
+    padding: 2em 0;
+}
