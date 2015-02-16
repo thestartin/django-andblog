@@ -7,6 +7,8 @@ from django.contrib.auth.models import User
 from sorl.thumbnail import ImageField
 from taggit.managers import TaggableManager
 
+from .managers import PublishedArticleSectionManager, UnPublishedArticleSectionManager, AllArticleSectionManager
+
 
 class Article(models.Model):
     """
@@ -17,10 +19,10 @@ class Article(models.Model):
     image = ImageField(upload_to=settings.UPLOAD_TO, blank=True, null=True, max_length=255)
     author = models.ForeignKey(User)
     published = models.BooleanField(default=False)
+    tags = TaggableManager()
     created_date_time = models.DateTimeField(auto_now_add=True)
     updated_by = models.ForeignKey(User, related_name='updated_by')
     updated_date_time = models.DateTimeField(auto_now=True)
-    tags = TaggableManager()
 
     def add_article(self, data, user):
         self.title = data['title']
@@ -41,6 +43,7 @@ class Article(models.Model):
         article_section.score = data.get('score', 0)
         article_section.updated_by = user
         article_section.save()
+        ArticleSection.objects.all()
 
         sections = defaultdict(ArticleSection)
         for key, value in data.iteritems():
@@ -68,6 +71,13 @@ class ArticleSection(models.Model):
     score = models.DecimalField(decimal_places=1, max_digits=settings.RATING_MAX_DIGITS, default=0)
     updated_by = models.ForeignKey(User)
     updated_date_time = models.DateTimeField(auto_now=True)
+
+    objects = AllArticleSectionManager()
+    pub = PublishedArticleSectionManager()
+    unpub = UnPublishedArticleSectionManager()
+
+    class Meta:
+        ordering = ["section_order"]
 
 
 class ArticleSectionLikeUnlike(models.Model):
