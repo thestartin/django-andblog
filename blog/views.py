@@ -1,8 +1,11 @@
 from django.conf import settings
 from django.views.generic.edit import FormView
+from django.views.generic import ListView
 from django.contrib.auth.decorators import login_required
 from django import forms
 from django.http import JsonResponse
+from django.http import Http404
+from django.core.exceptions import ImproperlyConfigured
 from ckeditor.widgets import CKEditorWidget
 
 from .forms import BlogEntryForm
@@ -50,3 +53,19 @@ class BlogEntry(FormView):
     def form_valid(self, form):
         article = Article()
         article.add_article(form.cleaned_data, self.request.user)
+
+
+class BlogList(ListView):
+    model = ArticleSection
+    template_name = 'blog_list.html'
+
+    def get_queryset(self):
+        """
+        Return the list of items for this view.
+
+        The return value must be an iterable and may be an instance of
+        `QuerySet` in which case `QuerySet` specific behavior will be enabled.
+        """
+        queryset = self.model._default_manager.get_article_with_sections()
+
+        return queryset

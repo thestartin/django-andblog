@@ -77,7 +77,7 @@ class ArticleSection(models.Model):
     unpub = UnPublishedArticleSectionManager()
 
     class Meta:
-        ordering = ["section_order"]
+        ordering = ["article_id", "section_order"]
 
 
 class ArticleSectionLikeUnlike(models.Model):
@@ -95,4 +95,3 @@ class ArticleSectionComment(models.Model):
     approved = models.BooleanField(default=False)  # Only approved comments are visible
     commented_by = models.ForeignKey(User)
     commented_date_time = models.DateTimeField(auto_now_add=True)
-

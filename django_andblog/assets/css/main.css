@@ -232,6 +232,7 @@ body{
     margin: auto;
     padding: 2em;
     background-color: #ffffff;
+    letter-spacing: 0;
 }
 
 .pure-g > div{

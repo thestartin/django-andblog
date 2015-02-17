@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static crispy_forms_tags %}
+{% load url from future %}
+
+{% block extra_js %}
+    {{ form.media }}
+{% endblock extra_js %}
+
+
+{% block main %}
+    <h1 class="pure-u-1">Articles</h1>
+    <ul class="pure-u-1">
+        {% if object_list %}
+            {% for article_id, sections in object_list.items %}
+                <li>{{ sections.0.title }} - {{ sections.0.content|wordwrap:20|safe }}</li>
+            {% endfor %}
+        {% else %}
+            <li>No articles yet.</li>
+        {% endif %}
+    </ul>
+{% endblock main %}

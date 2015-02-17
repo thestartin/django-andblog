@@ -4,7 +4,6 @@ from django.db import models
 
 from .constants import LIKES_UNLIKES
 from .services import get_client_ip
-from .models import ArticleSectionLikeUnlike
 
 
 class ArticleSectionMixin(object):
@@ -21,13 +20,17 @@ class ArticleSectionMixin(object):
             'updated_date_time'
         )
 
-        result = defaultdict(list)
+        result = {}
         for row in data:
+            if row['article_id'] not in result:
+                result[row['article_id']] = []
+
             result[row['article_id']].append(row)
 
         return result
 
     def vote(self, article_section_id, attr, request):
+        from .models import ArticleSectionLikeUnlike
         attr = attr.lower()
         article_section = self.get(pk=article_section_id)
         article_section_likes_unlikes, created = ArticleSectionLikeUnlike.objects.get_or_create(
@@ -44,16 +47,17 @@ class ArticleSectionMixin(object):
         else:
             return False
 
-class PublishedArticleSectionManager(ArticleSectionMixin, models.Manager):
+
+class PublishedArticleSectionManager(models.Manager, ArticleSectionMixin):
     def get_queryset(self):
         return super(PublishedArticleSectionManager, self).get_queryset().filter(article__published=True)
 
 
-class UnPublishedArticleSectionManager(ArticleSectionMixin, models.Manager):
+class UnPublishedArticleSectionManager(models.Manager, ArticleSectionMixin):
     def get_queryset(self):
         return super(UnPublishedArticleSectionManager, self).get_queryset().filter(article__published=False)
 
 
-class AllArticleSectionManager(ArticleSectionMixin, models.Manager):
+class AllArticleSectionManager(models.Manager, ArticleSectionMixin):
     def get_queryset(self):
         return super(AllArticleSectionManager, self).get_queryset()
