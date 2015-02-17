@@ -7,7 +7,19 @@ from .services import get_client_ip
 
 
 class ArticleSectionMixin(object):
-    def get_article_with_sections(self):
+    def get_article_with_sections(self, route=None, kwargs=None):
+        if route == 'year':
+            self.filter(article__created_date_time__year=kwargs['year'])
+
+        if route == 'year_month':
+            self.filter(article__created_date_time__year=kwargs['year'],
+                        article__created_date_time__month=kwargs['month'])
+
+        if route == 'ymd':
+            self.filter(article__created_date_time__year=kwargs['year'],
+                        article__created_date_time__month=kwargs['month'],
+                        article__created_date_time__day=kwargs['day'])
+
         data = self.values(
             'article_id', 'article__slug', 'article__title', 'article__image', 'article__author',
             'article__tags', 'article__created_date_time', 'article__updated_by', 'article__updated_date_time', 'id',
