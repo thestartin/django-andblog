@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.views.generic.edit import FormView
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from django.contrib.auth.decorators import login_required
 from django import forms
 from django.http import JsonResponse
@@ -67,10 +67,21 @@ class BlogList(ListView):
         The return value must be an iterable and may be an instance of
         `QuerySet` in which case `QuerySet` specific behavior will be enabled.
         """
-        queryset = self.model._default_manager.get_article_with_sections(self.route, self.kwargs)
+        queryset = self.model._default_manager.get_articles_with_sections(self.route, self.kwargs)
 
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super(BlogList, self).get_context_data()
         return context
+
+
+class BlogDetail(DetailView):
+    model = ArticleSection
+    template_name = 'blog_detail.html'
+
+    def get_object(self, queryset=None):
+        pk = self.kwargs.get(self.pk_url_kwarg, None)
+        slug = self.kwargs.get(self.slug_url_kwarg, None)
+
+        self.model._default_manager.get_article_with_sections(pk, slug)

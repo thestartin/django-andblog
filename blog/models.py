@@ -27,11 +27,15 @@ class Article(models.Model):
     def add_article(self, data, user):
         self.title = data['title']
         self.image = data['image']
-        self.tags = data['tags']
         self.slug = slugify(self.title)
         self.author = user
         self.updated_by = user
         self.save()
+        if isinstance(data['tags'], list):
+            map(self.tags.add, data['tags'])
+        else:
+            self.tags.add(data['tags'])
+
         self.add_article_sections(data, user)
 
     def add_article_sections(self, data, user):
@@ -58,6 +62,9 @@ class Article(models.Model):
             section.article = self
             section.updated_by = user
             section.save()
+
+    def update_article(self, data, user):
+        pass
 
 
 class ArticleSection(models.Model):

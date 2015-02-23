@@ -12,7 +12,7 @@
     <ul class="pure-u-1">
         {% if object_list %}
             {% for article_id, sections in object_list.items %}
-                <li>{{ sections.0.title }} - {{ sections.0.content|wordwrap:20|safe }}</li>
+                <li><a href="{% url "blog:blog_detail" sections.0.article__slug %}">{{ sections.0.title }}</a> - {{ sections.0.content|wordwrap:20|safe }}</li>
             {% endfor %}
         {% else %}
             <li>No articles yet.</li>

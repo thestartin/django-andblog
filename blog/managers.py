@@ -2,13 +2,15 @@ from collections import defaultdict
 
 from django.db import models
 from django.db.models import QuerySet
+from django.core.exceptions import ObjectDoesNotExist
+from django.http import Http404
 
 from .constants import LIKES_UNLIKES
 from .services import get_client_ip
 
 
 class ArticleSectionMixin(object):
-    def get_article_with_sections(self, route=None, kwargs=None):
+    def get_articles_with_sections(self, route=None, kwargs=None):
         query = self
         if route == 'year' or route == 'year_month' or route == 'ymd':
             query = self.filter(article__created_date_time__year=kwargs['year'])
@@ -39,6 +41,18 @@ class ArticleSectionMixin(object):
             result[row['article_id']].append(row)
 
         return result
+
+    def get_article_with_sections(self, pk, slug):
+        data = []
+        if pk:
+            data = self.filter(article__id=pk)
+        elif slug:
+            data = self.filter(article__slug=slug)
+
+        if not data:
+            raise Http404("Blog Entry does not exist")
+
+        return data
 
     def vote(self, article_section_id, attr, request):
         from .models import ArticleSectionLikeUnlike
