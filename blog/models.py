@@ -6,6 +6,7 @@ from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 from sorl.thumbnail import ImageField
 from taggit.managers import TaggableManager
+from autoslug.fields import AutoSlugField
 
 from .managers import PublishedArticleSectionManager, UnPublishedArticleSectionManager, AllArticleSectionManager
 
@@ -14,7 +15,7 @@ class Article(models.Model):
     """
     Article model
     """
-    slug = models.SlugField(max_length=150)
+    slug = AutoSlugField(max_length=150, unique=True)
     title = models.CharField(max_length=150)
     image = ImageField(upload_to=settings.UPLOAD_TO, blank=True, null=True, max_length=255)
     author = models.ForeignKey(User)
