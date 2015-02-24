@@ -64,9 +64,11 @@ class BlogEntryUpdateForm(forms.Form):
             base_fields['title' + delim] = forms.CharField(max_length=150, initial=section.title)
             base_fields['content' + delim] = forms.CharField(widget=CKEditorWidget(), initial=section.content)
             base_fields['score' + delim] = forms.DecimalField(max_value=settings.RATING_SCALE, max_digits=settings.RATING_MAX_DIGITS, min_value=0, initial=section.score)
+            base_fields['id' + delim] = forms.IntegerField(initial=section.id)
 
             if section.section_order == 1:
-                base_fields['image' + delim] = ImageFormField(initial=section.article.image)
+                base_fields['image'] = ImageFormField(initial=section.article.image)
+                base_fields['article'] = forms.IntegerField(initial=section.article_id)
                 # base_fields['tags' + delim] = TagField(section.article.tags)
         new_class.base_fields = base_fields
 
@@ -79,8 +81,8 @@ class BlogEntryUpdateForm(forms.Form):
         self.helper.form_class = 'pure-form pure-form-stacked pure-u-1'
         data = kwargs.pop('initial')
         # Explicitly initializing form to handle edits
-        if not self.is_bound:
-            self.initial = {}
+        #if not self.is_bound:
+        self.initial = {}
 
         layouts = []
         artcle_id = 0
@@ -93,6 +95,7 @@ class BlogEntryUpdateForm(forms.Form):
                         Field('score', wrapper_class='rep pure-control-group', css_class='rep'),  # Class rep tells it is replicable item
                         Field('image', wrapper_class='norep pure-control-group', css_class='rep'),  # Class norep tells the item must be removed from replica's
                         Field('content', wrapper_class='rep pure-control-group', css_class='rep'),
+                        Hidden('id', section.id),
                         css_class='section',
                         css_id='sec',
                         data_section_id=1,
@@ -107,6 +110,7 @@ class BlogEntryUpdateForm(forms.Form):
                         Field('title' + delim, wrapper_class='rep pure-control-group', css_class='rep'),  # Class rep tells it is replicable item
                         Field('score' + delim, wrapper_class='rep pure-control-group', css_class='rep'),  # Class rep tells it is replicable item
                         Field('content' + delim, wrapper_class='rep pure-control-group', css_class='rep'),
+                        Hidden('id' + delim, section.id),
                         css_class='section',
                         css_id='sec' + delim,
                         data_section_id=secnum

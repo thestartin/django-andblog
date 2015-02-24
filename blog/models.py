@@ -66,37 +66,42 @@ class Article(models.Model):
             section.updated_by = user
             section.save()
 
-    def update_article(self, data, user):
-        self.image = data['image']
+    def update_article(self, data, changed, user):
+        if 'image' in changed:
+            self.image = data['image']
+
         self.updated_by = user
         self.save()
 
-        try:
-            article_section = ArticleSection.objects.filter(article__id=data['article'])
+        sections = {}
+        for key, value in data.iteritems():
+            if key.startswith('id'):
+                # If the key is id that is section id which would have already been used
+                continue
 
-            article_section.section_order = 1
-            article_section.title = self.title
-            article_section.content = data['content']
-            article_section.score = data.get('score', 0)
-            article_section.updated_by = user
-            article_section.save()
-            ArticleSection.objects.all()
+            if '_' in key:
+                keys = key.split('_')
+                sort_order = int(keys[-1])
+                section_id = data['id_' + str(sort_order)]
+            else:
+                # Dont Allow title of main section to be updated, it is read only but still a check to keep hackers away.
+                if key == 'title':
+                    continue
+                sort_order = 1
+                section_id = data['id']
 
-            sections = defaultdict(ArticleSection)
-            for key, value in data.iteritems():
-                if '_' in key:
-                    keys = key.split('_')
-                    sort_order = int(keys[-1])
-                    sections[sort_order].section_order = sort_order
-                    if hasattr(sections[sort_order], keys[0]):
-                        setattr(sections[sort_order], keys[0], value)
+            try:
+                sections[sort_order] = ArticleSection.objects.get(pk=section_id)
+                col = key if sort_order == 1 else keys[0]
+                if hasattr(sections[sort_order], col) and key in changed:
+                    setattr(sections[sort_order], col, value)
 
-            for sort_order_num, section in sections.iteritems():
-                section.article = self
-                section.updated_by = user
-                section.save()
-        except ObjectDoesNotExist:
-            raise Http404
+            except ObjectDoesNotExist:
+                raise Http404
+
+        for sort_order_num, section in sections.iteritems():
+            section.updated_by = user
+            section.save()
 
 
 class ArticleSection(models.Model):

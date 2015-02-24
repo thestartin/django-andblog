@@ -111,7 +111,7 @@ class BlogUpdate(FormView):
     def form_valid(self, form):
         try:
             article = Article.objects.get(pk=form.cleaned_data['article'])
-            article.update_article(form.cleaned_data, self.request.user)
+            article.update_article(form.cleaned_data, form.changed_data, self.request.user)
         except ObjectDoesNotExist:
             raise Http404
 
