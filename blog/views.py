@@ -4,6 +4,7 @@ from django.views.generic import ListView, DetailView
 from django.contrib.auth.decorators import login_required
 from django import forms
 from django.http import JsonResponse
+from django.core.exceptions import ObjectDoesNotExist
 from django.http import Http404
 from django.core.exceptions import ImproperlyConfigured
 from ckeditor.widgets import CKEditorWidget
@@ -87,18 +88,32 @@ class BlogDetail(DetailView):
         return self.model._default_manager.get_article_with_sections(pk, slug)
 
 
-class BlogUpdate(UpdateView):
-    model = ArticleSection
+class BlogUpdate(FormView):
     template_name = 'blog_update.html'
     form_class = BlogEntryUpdateForm
+    pk_url_kwarg = 'pk'
+    slug_url_kwarg = 'slug'
 
-    def get_queryset(self):
+    def get_initial(self):
         """
         Return the list of items for this view.
 
         The return value must be an iterable and may be an instance of
         `QuerySet` in which case `QuerySet` specific behavior will be enabled.
         """
-        queryset = self.model._default_manager.get_articles_with_sections(self.route, self.kwargs)
+        pk = self.kwargs.get(self.pk_url_kwarg, None)
+        slug = self.kwargs.get(self.slug_url_kwarg, None)
 
-        return queryset
+        initial = ArticleSection._default_manager.get_article_with_sections(pk, slug)
+
+        return initial
+
+    def form_valid(self, form):
+        try:
+            article = Article.objects.get(pk=form.cleaned_data['article'])
+            article.update_article(form.cleaned_data, self.request.user)
+        except ObjectDoesNotExist:
+            raise Http404
+
+    def form_invalid(self, form):
+        return JsonResponse(form.errors)

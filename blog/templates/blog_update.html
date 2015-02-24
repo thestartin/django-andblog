@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load static crispy_forms_tags %}
+{% load url from future %}
+
+{% block extra_js %}
+    {{ form.media }}
+{% endblock extra_js %}
+
+
+{% block main %}
+    {% crispy form %}
+{% endblock main %}

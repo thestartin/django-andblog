@@ -45,9 +45,9 @@ class ArticleSectionMixin(object):
     def get_article_with_sections(self, pk, slug):
         data = []
         if pk:
-            data = self.filter(article__id=pk)
+            data = self.filter(article__id=pk).select_related('article')
         elif slug:
-            data = self.filter(article__slug=slug)
+            data = self.filter(article__slug=slug).select_related('article')
 
         if not data:
             raise Http404("Blog Entry does not exist")

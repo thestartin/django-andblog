@@ -4,6 +4,8 @@ from django.db import models
 from django.conf import settings
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
+from django.http import Http404
 from sorl.thumbnail import ImageField
 from taggit.managers import TaggableManager
 from autoslug.fields import AutoSlugField
@@ -65,7 +67,36 @@ class Article(models.Model):
             section.save()
 
     def update_article(self, data, user):
-        pass
+        self.image = data['image']
+        self.updated_by = user
+        self.save()
+
+        try:
+            article_section = ArticleSection.objects.filter(article__id=data['article'])
+
+            article_section.section_order = 1
+            article_section.title = self.title
+            article_section.content = data['content']
+            article_section.score = data.get('score', 0)
+            article_section.updated_by = user
+            article_section.save()
+            ArticleSection.objects.all()
+
+            sections = defaultdict(ArticleSection)
+            for key, value in data.iteritems():
+                if '_' in key:
+                    keys = key.split('_')
+                    sort_order = int(keys[-1])
+                    sections[sort_order].section_order = sort_order
+                    if hasattr(sections[sort_order], keys[0]):
+                        setattr(sections[sort_order], keys[0], value)
+
+            for sort_order_num, section in sections.iteritems():
+                section.article = self
+                section.updated_by = user
+                section.save()
+        except ObjectDoesNotExist:
+            raise Http404
 
 
 class ArticleSection(models.Model):
