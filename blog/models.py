@@ -70,6 +70,12 @@ class Article(models.Model):
         if 'image' in changed:
             self.image = data['image']
 
+        if 'tags' in changed:
+            if isinstance(data['tags'], list):
+                map(self.tags.add, data['tags'])
+            else:
+                self.tags.add(data['tags'])
+
         self.updated_by = user
         self.save()
 
@@ -85,7 +91,7 @@ class Article(models.Model):
                 section_id = data['id_' + str(sort_order)]
             else:
                 # Dont Allow title of main section to be updated, it is read only but still a check to keep hackers away.
-                if key == 'title':
+                if key == 'title' or key == 'tags':
                     continue
                 sort_order = 1
                 section_id = data['id']

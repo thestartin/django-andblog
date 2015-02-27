@@ -21,24 +21,13 @@ class ArticleSectionMixin(object):
         if route == 'ymd':
             query = query.filter(article__created_date_time__day=kwargs['day'])
 
-        data = query.values(
-            'article_id', 'article__slug', 'article__title', 'article__image', 'article__author',
-            'article__tags', 'article__created_date_time', 'article__updated_by', 'article__updated_date_time', 'id',
-            'section_order', 'title', 'content', 'likes', 'unlikes', 'abusive', 'score', 'updated_by',
-            'updated_date_time'
-        ).order_by(
-            'article_id', 'article__slug', 'article__title', 'article__image', 'article__author',
-            'article__tags', 'article__created_date_time', 'article__updated_by', 'article__updated_date_time', 'id',
-            'section_order', 'title', 'content', 'likes', 'unlikes', 'abusive', 'score', 'updated_by',
-            'updated_date_time'
-        )
+        data = query.select_related('article', 'user')
 
         result = {}
         for row in data:
-            if row['article_id'] not in result:
-                result[row['article_id']] = []
-
-            result[row['article_id']].append(row)
+            if row.article_id not in result:
+                result[row.article_id] = []
+            result[row.article_id].append(row)
 
         return result
 

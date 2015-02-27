@@ -61,15 +61,18 @@ class BlogEntryUpdateForm(forms.Form):
         base_fields = {}
         for section in data:
             delim = '' if section.section_order == 1 else '_' + str(section.section_order)
-            base_fields['title' + delim] = forms.CharField(max_length=150, initial=section.title)
             base_fields['content' + delim] = forms.CharField(widget=CKEditorWidget(), initial=section.content)
             base_fields['score' + delim] = forms.DecimalField(max_value=settings.RATING_SCALE, max_digits=settings.RATING_MAX_DIGITS, min_value=0, initial=section.score)
             base_fields['id' + delim] = forms.IntegerField(initial=section.id)
 
             if section.section_order == 1:
+                base_fields['title' + delim] = forms.CharField(max_length=150, initial=section.title)
+                base_fields['title'].widget.attrs['readonly'] = 'readonly'
                 base_fields['image'] = ImageFormField(initial=section.article.image)
                 base_fields['article'] = forms.IntegerField(initial=section.article_id)
-                # base_fields['tags' + delim] = TagField(section.article.tags)
+                base_fields['tags' + delim] = TagField(initial=', '.join(section.article.tags.names()))
+            else:
+                base_fields['title' + delim] = forms.CharField(max_length=150, initial=section.title)
         new_class.base_fields = base_fields
 
         return new_class
@@ -79,6 +82,7 @@ class BlogEntryUpdateForm(forms.Form):
         # Field mappings for dynamic generation
         self.helper = FormHelper()
         self.helper.form_class = 'pure-form pure-form-stacked pure-u-1'
+        # TODO: This can be moved to above super call to avoid self.initial initialize
         data = kwargs.pop('initial')
         # Explicitly initializing form to handle edits
         #if not self.is_bound:

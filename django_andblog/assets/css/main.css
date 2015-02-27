@@ -244,3 +244,15 @@ body{
 .section{
     padding: 2em 0;
 }
+
+p{
+    word-wrap: break-word;
+}
+
+li{
+    list-style: none;
+}
+
+a{
+    text-decoration: none;
+}
