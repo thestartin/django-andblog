@@ -170,4 +170,42 @@
         }
     });
 
+    // Start of Menu
+    var menu = $('#menu');
+
+    function toggleHorizontal() {
+        menu.find('.custom-can-transform').each(function(){
+            $(this).toggleClass('pure-menu-horizontal');
+        });
+    }
+
+    function toggleMenu() {
+        // set timeout so that the panel has a chance to roll up
+        // before the menu switches states
+        if (menu.hasClass('open')) {
+            setTimeout(toggleHorizontal, 500);
+        }
+        else {
+            toggleHorizontal();
+        }
+        menu.toggleClass('open');
+        $('#toggle').toggleClass('x');
+    }
+
+    function closeMenu() {
+        if (menu.hasClass('open')) {
+            toggleMenu();
+        }
+    }
+
+    $('#toggle').on('click', function (e) {
+        toggleMenu();
+    });
+
+    $(window).on('orientationchange, resize', function(){
+        closeMenu();
+    });
+
+    // End of Menu
+
 }());
