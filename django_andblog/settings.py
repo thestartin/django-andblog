@@ -69,6 +69,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'social.apps.django_app.context_processors.backends',
     'social.apps.django_app.context_processors.login_redirect',
     'django.contrib.auth.context_processors.auth',
+    'django.core.context_processors.media',
 )
 
 ROOT_URLCONF = 'django_andblog.urls'

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static crispy_forms_tags %}
+{% load static crispy_forms_tags thumbnail %}
 {% load url from future %}
 
 {% block extra_js %}
@@ -9,27 +9,42 @@
 
 {% block main %}
     <h1 class="pure-u-1">Articles</h1>
-    <ul class="pure-u-1">
+    <div class="pure-u-md-9-12">
         {% if object_list %}
             {% for article_id, sections in object_list.items %}
-                <li>
-                    <div class="pure-u-1 b-t">
-                        <a href="{% url "blog:blog_detail" sections.0.article.slug %}">{{ sections.0.title }}</a>
+                <section class="post">
+                    <div class="pure-u-1">
+                        <div class="pure-u-md-3-12 ls">
+                            {% if sections.0.article.image|is_portrait %}
+                                {% thumbnail sections.0.article.image "300x200" crop="smart" as im %}
+                                        <img src="{{ im.url }}" class="pure-img" style="padding:{{ im|margin:"300x200" }}">
+                                {% endthumbnail %}
+                            {% else %}
+                                {% thumbnail sections.0.article.image "300x200" as im %}
+                                        <img src="{{ im.url }}" class="pure-img" style="padding:{{ im|margin:"300x200" }}">
+                                {% endthumbnail %}
+                            {% endif %}
+                        </div>
+                        <div class="pure-u-md-8-12 rs">
+                            <header class="post-header">
+                                <h2 class="post-title"><a href="{% url "blog:blog_detail" sections.0.article.slug %}">{{ sections.0.title }}</a></h2>
+                                <p class="post-meta">
+                                    by <a href="{% url "blog:blog_detail" sections.0.article.slug %}">{{ sections.0.article.author.get_full_name }}</a>, at <span >{{ sections.0.article.created_date_time|timesince }}</span>,
+                                    under <a href="#" class="post-category post-category-design">css</a>
+                                </p>
+                            </header>
+                            <div class="post-description">
+                                {{ sections.0.content|truncatewords:20|safe }}
+                            </div>
+                        </div>
                     </div>
-                    <div class="pure-u-1 b-m">
-                        by <a href="{% url "blog:blog_detail" sections.0.article.slug %}">{{ sections.0.article.author.get_full_name }}</a>
-                        | <span >{{ sections.0.article.created_date_time|timesince }}</span>
-                    </div>
-                    <div class="pure-u-1 b-c-s">
-                        {{ sections.0.content|wordwrap:20|safe }}
-                    </div>
-                    <div class="pure-u-1 b-c-s">
-                        {{ sections.0.content|wordwrap:20|safe }}
-                    </div>
-                </li>
+                </section>
             {% endfor %}
         {% else %}
-            <li>No articles yet.</li>
+            <section>No articles yet.</section>
         {% endif %}
-    </ul>
+    </div>
+    <div class="pure-u-md-3-12">
+
+    </div>
 {% endblock main %}
