@@ -58,8 +58,10 @@ class BlogEntry(FormView):
 
 class BlogList(ListView):
     route = 'all'
-    model = ArticleSection
+    model = Article
     template_name = 'blog_list.html'
+    paginate_by = 10
+    context_object_name = 'articles'
 
     def get_queryset(self):
         """
@@ -68,7 +70,7 @@ class BlogList(ListView):
         The return value must be an iterable and may be an instance of
         `QuerySet` in which case `QuerySet` specific behavior will be enabled.
         """
-        queryset = self.model._default_manager.get_articles_with_sections(self.route, self.kwargs)
+        queryset = super(BlogList, self).get_queryset().prefetch_related('articlesection_set').select_related('author')
 
         return queryset
 
@@ -78,15 +80,19 @@ class BlogList(ListView):
 
 
 class BlogDetail(DetailView):
-    model = ArticleSection
+    model = Article
+    context_object_name = 'article'
     template_name = 'blog_detail.html'
 
-    def get_object(self, queryset=None):
-        pk = self.kwargs.get(self.pk_url_kwarg, None)
-        slug = self.kwargs.get(self.slug_url_kwarg, None)
+    def get_queryset(self):
+        """
+        Return the list of items for this view.
 
-        return self.model._default_manager.get_article_with_sections(pk, slug)
-
+        The return value must be an iterable and may be an instance of
+        `QuerySet` in which case `QuerySet` specific behavior will be enabled.
+        """
+        queryset = super(BlogDetail, self).get_queryset().prefetch_related('articlesection_set').select_related('author')
+        return queryset
 
 class BlogUpdate(FormView):
     template_name = 'blog_update.html'

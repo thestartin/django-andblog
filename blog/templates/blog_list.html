@@ -11,34 +11,39 @@
     {% block heading %}<h1 class="pure-u-1">Articles</h1>{% endblock heading %}
     {%  block content %}
         {% if object_list %}
-            {% for article_id, sections in object_list.items %}
+            {% for article in articles %}
+                {% with article.articlesection_set.all as sections %}
                 <section class="post">
                     <div class="pure-u-1">
                         <div class="pure-u-md-4-12 pure-u-lg-3-12 ls pure-hide-phone pure-hide-smart-phone">
-                            {% if sections.0.article.image|is_portrait %}
-                                {% thumbnail sections.0.article.image "300x200" crop="smart" as im %}
+                            {% if article.image|is_portrait %}
+                                {% thumbnail article.image "300x200" crop="smart" as im %}
                                         <img src="{{ im.url }}" class="pure-img" style="padding:{{ im|margin:"300x200" }}">
                                 {% endthumbnail %}
                             {% else %}
-                                {% thumbnail sections.0.article.image "300x200" as im %}
+                                {% thumbnail article.image "300x200" as im %}
                                         <img src="{{ im.url }}" class="pure-img" style="padding:{{ im|margin:"300x200" }}">
                                 {% endthumbnail %}
                             {% endif %}
                         </div>
                         <div class="pure-u-md-8-12 pure-u-lg-9-12 rs">
                             <header class="post-header">
-                                <h2 class="post-title"><a href="{% url "blog:blog_detail" sections.0.article.slug %}">{{ sections.0.title }}</a></h2>
+                                <h2 class="post-title"><a href="{% url "blog:blog_detail" article.slug %}">{{ sections.0.title }}</a></h2>
                                 <p class="post-meta">
-                                    by <a href="{% url "blog:blog_detail" sections.0.article.slug %}">{{ sections.0.article.author.get_full_name }}</a>, at <span >{{ sections.0.article.created_date_time|timesince }}</span>,
+                                    by <a href="{% url "blog:blog_detail" article.slug %}">{{ article.author.get_full_name }}</a>, <span >{{ article.created_date_time|timesince }} ago</span>,
                                     under <a href="#" class="post-category post-category-design">css</a>
                                 </p>
                             </header>
                             <div class="post-description">
                                 {{ sections.0.content|truncatewords:20|safe }}
                             </div>
+                            <div class="post-summary">
+
+                            </div>
                         </div>
                     </div>
                 </section>
+                {% endwith %}
             {% endfor %}
         {% else %}
             <section>No articles yet.</section>
