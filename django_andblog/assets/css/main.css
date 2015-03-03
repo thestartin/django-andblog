@@ -242,7 +242,7 @@ body *{
     letter-spacing: 0;
 }
 
-.pure-g > div{
+div{
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -351,13 +351,14 @@ a{
    ========================================================================== */
 
 .post{
-    padding-bottom: 2em;
+    padding: 2em 0;
+    border-bottom: 1px solid #cccccc;
 }
 .post header{
     padding: 0 0 1em 0;
 }
 .post header h2{
-    margin: 0;
+    margin: -.3em 0 0 0;
 }
 .post-title {
     font-size: 2em;
@@ -381,8 +382,11 @@ a{
     font-size: 90%;
     margin: 0;
 }
+.ls, .rs, .content, .sidebar{
+    float: left;
+}
 .ls{
-    margin-right: 1em;
+    padding-right: 2em;
 }
 .post-category {
     margin: 0 0.1em;

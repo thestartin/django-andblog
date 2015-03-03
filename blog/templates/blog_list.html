@@ -8,13 +8,13 @@
 
 
 {% block main %}
-    <h1 class="pure-u-1">Articles</h1>
-    <div class="pure-u-md-9-12">
+    {% block heading %}<h1 class="pure-u-1">Articles</h1>{% endblock heading %}
+    {%  block content %}
         {% if object_list %}
             {% for article_id, sections in object_list.items %}
                 <section class="post">
                     <div class="pure-u-1">
-                        <div class="pure-u-md-3-12 ls">
+                        <div class="pure-u-md-4-12 pure-u-lg-3-12 ls pure-hide-phone pure-hide-smart-phone">
                             {% if sections.0.article.image|is_portrait %}
                                 {% thumbnail sections.0.article.image "300x200" crop="smart" as im %}
                                         <img src="{{ im.url }}" class="pure-img" style="padding:{{ im|margin:"300x200" }}">
@@ -25,7 +25,7 @@
                                 {% endthumbnail %}
                             {% endif %}
                         </div>
-                        <div class="pure-u-md-8-12 rs">
+                        <div class="pure-u-md-8-12 pure-u-lg-9-12 rs">
                             <header class="post-header">
                                 <h2 class="post-title"><a href="{% url "blog:blog_detail" sections.0.article.slug %}">{{ sections.0.title }}</a></h2>
                                 <p class="post-meta">
@@ -43,8 +43,8 @@
         {% else %}
             <section>No articles yet.</section>
         {% endif %}
-    </div>
-    <div class="pure-u-md-3-12">
+    {% endblock content %}
+    {% block sidebar %}
 
-    </div>
+    {% endblock sidebar %}
 {% endblock main %}

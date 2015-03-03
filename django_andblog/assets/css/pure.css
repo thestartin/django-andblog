@@ -666,7 +666,9 @@ this the same font stack that Normalize.css sets for the `body`.
         vertical-align: top;
         text-rendering: auto;
     }
-
+    .pure-hide-smart-phone{
+        display: none;
+    }
     .pure-u-sm-1-12 {
         width: 8.3333%;
         *width: 8.3023%;
@@ -767,6 +769,9 @@ this the same font stack that Normalize.css sets for the `body`.
         text-rendering: auto;
     }
 
+    .pure-hide-tablet{
+        display: none;
+    }
     .pure-u-md-1-12 {
         width: 8.3333%;
         *width: 8.3023%;
@@ -866,7 +871,9 @@ this the same font stack that Normalize.css sets for the `body`.
         vertical-align: top;
         text-rendering: auto;
     }
-
+    .pure-hide-desktop{
+        display: none;
+    }
     .pure-u-lg-1-12 {
         width: 8.3333%;
         *width: 8.3023%;
@@ -966,7 +973,9 @@ this the same font stack that Normalize.css sets for the `body`.
         vertical-align: top;
         text-rendering: auto;
     }
-
+    .pure-hide-large-desktop{
+        display: none;
+    }
     .pure-u-xl-1-12 {
         width: 8.3333%;
         *width: 8.3023%;
@@ -1443,9 +1452,13 @@ since IE8 won't execute CSS that contains a CSS3 selector.
     font-size: 0.875em;
 }
 
-@media only screen and (max-width : 480px) {
+@media only screen and (max-width : 35.4em) {
     .pure-form button[type="submit"] {
         margin: 0.7em 0 0;
+    }
+
+    .pure-hide-phone{
+        display: none;
     }
 
     .pure-form input:not([type]),
