@@ -37,8 +37,15 @@
                             <div class="post-description">
                                 {{ sections.0.content|truncatewords:20|safe }}
                             </div>
+                            <span class="s-trig">Show Summary</span>
                             <div class="post-summary">
-
+                                {% for section in sections %}
+                                    <div>
+                                        <a rel="nofollow" class="title" href="{% url "blog:blog_detail" article.slug %}">{{ section.title }}</a>
+                                        <span class="likes">{{ section.likes }}</span>
+                                        <span class="unlikes">{{ section.unlikes }}</span>
+                                    </div>
+                                {% endfor %}
                             </div>
                         </div>
                     </div>

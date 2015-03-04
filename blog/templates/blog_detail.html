@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static crispy_forms_tags %}
+{% load static crispy_forms_tags thumbnail %}
 {% load url from future %}
 
 {% block extra_js %}
@@ -9,13 +9,23 @@
 
 {% block main %}
     {% for section in article.articlesection_set.all %}
-        <div class="pure-u-1">
-            {% if forloop.first %}<h1>{% else %}<h2>{% endif %}
-                {{ section.title }}
-            {% if forloop.first %}</h1>{% else %}</h2>{% endif %}
-        </div>
-        <div class="pure-u-1">
-            <p>{{ section.content|safe }}</p>
+        <div class="pure-u-1 s" id="section_{{ section.section_order }}">
+            <div class="s-h">
+                <div>
+                    {% if forloop.first %}
+                        <h1 class="s-t">{{ section.title }}</h1>
+                        {% thumbnail article.image "1280x768" crop="top" as im %}
+                            <img src="{{ im.url }}">
+                        {% endthumbnail %}
+                        <div class="summary"></div>
+                    {% else %}
+                        <h2 class="s-t">{{ section.title }}</h2>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="s-d">
+                <p>{{ section.content|safe }}</p>
+            </div>
         </div>
     {% endfor %}
 {% endblock main %}
