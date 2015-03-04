@@ -1,3 +1,52 @@
+from django.core.paginator import Page, Paginator
+from django.conf import settings
+
+
+class BlogPage(Page):
+
+    def get_previous_numbers(self):
+        """
+        Method to get previous numbers based on number defined in the settings file PAGE_PREVIOUS_ITEMS
+        Like say current page is 3, and if PAGE_PREVIOUS_ITEMS is 3 then 1,2 will be returned.
+        :return:
+        """
+        endrange = self.number - settings.PAGE_PREVIOUS_ITEMS
+        if endrange < 1:
+            endrange = 1
+
+        self.pre_ellips = endrange - 1 > 1
+
+        if endrange == self.number:
+            endrange += 1
+
+        return range(endrange, self.number)
+
+    def get_next_numbers(self):
+        """
+        Method to get next page numbers based on number defined in the settings file PAGE_PREVIOUS_ITEMS
+        Like say current page is 3, and if PAGE_NEXT_ITEMS is 3 then 1,2 will be returned.
+        :return:
+        """
+        endrange = self.number + settings.PAGE_NEXT_ITEMS
+        if endrange > self.paginator.num_pages:
+            endrange = self.paginator.num_pages
+
+        self.next_ellips = self.paginator.num_pages - endrange > 1
+
+        return range(self.number+1, endrange+1)
+
+
+class BlogPaginator(Paginator):
+    def _get_page(self, *args, **kwargs):
+        """
+        Returns an instance of a single page.
+
+        This hook can be used by subclasses to use an alternative to the
+        standard :cls:`Page` object.
+        """
+        return BlogPage(*args, **kwargs)
+
+
 def get_custom_fields(fields, request):
     """
     Method to get Custom Fields that was added from the Client

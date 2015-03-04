@@ -10,7 +10,7 @@ from django.core.exceptions import ImproperlyConfigured
 from ckeditor.widgets import CKEditorWidget
 
 from .forms import BlogEntryForm, BlogEntryUpdateForm
-from .services import get_custom_fields
+from .services import get_custom_fields, BlogPaginator
 from .models import Article, ArticleSection
 
 
@@ -60,8 +60,9 @@ class BlogList(ListView):
     route = 'all'
     model = Article
     template_name = 'blog_list.html'
-    paginate_by = 10
+    paginate_by = 2
     context_object_name = 'articles'
+    paginator_class = BlogPaginator
 
     def get_queryset(self):
         """
@@ -93,6 +94,7 @@ class BlogDetail(DetailView):
         """
         queryset = super(BlogDetail, self).get_queryset().prefetch_related('articlesection_set').select_related('author')
         return queryset
+
 
 class BlogUpdate(FormView):
     template_name = 'blog_update.html'
