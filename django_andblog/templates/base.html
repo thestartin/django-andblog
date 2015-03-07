@@ -75,19 +75,15 @@
             {% endblock top_bar %}
 
             <div class="pure-u-1 m-wrap">
-                {% block main %}
-                    {% block heading %}{% endblock heading %}
-                    <div class="pure-u-lg-9-12 content">
-                        {% block content %}
-
-                        {% endblock content %}
-                    </div>
-                    <div class="pure-u-lg-3-12 sidebar">
-                        {% block sidebar %}
-
-                        {% endblock sidebar %}
-                    </div>
-                {% endblock main %}
+                <main class="pure-u-lg-9-12 content">
+                    {% block main %}
+                        {% block heading %}{% endblock heading %}
+                        {% block content %}{% endblock content %}
+                    {% endblock main %}
+                </main>
+                <aside class="pure-u-lg-3-12">
+                    {% block sidebar %}{% endblock sidebar %}
+                </aside>
             </div>
         </div>
 

@@ -13,7 +13,7 @@
         {% if articles %}
             {% for article in articles %}
                 {% with article.articlesection_set.all as sections %}
-                <section class="post">
+                <article class="post">
                     <div class="pure-u-1">
                         <div class="pure-u-md-4-12 pure-u-lg-3-12 ls pure-hide-phone pure-hide-smart-phone">
                             {% if article.image|is_portrait %}
@@ -29,61 +29,24 @@
                         <div class="pure-u-md-8-12 pure-u-lg-9-12 rs">
                             <header class="post-header">
                                 <h2 class="post-title"><a href="{% url "blog:blog_detail" article.slug %}">{{ sections.0.title }}</a></h2>
-                                <p class="post-meta">
-                                    by <a href="{% url "blog:blog_detail" article.slug %}">{{ article.author.get_full_name }}</a>, <span >{{ article.created_date_time|timesince }} ago</span>,
-                                    under <a href="#" class="post-category post-category-design">css</a>
-                                </p>
+                                {% include "includes/post_meta.html" %}
                             </header>
                             <div class="post-description">
                                 {{ sections.0.content|truncatewords:20|safe }}
                             </div>
                             <span class="s-trig">Show Summary</span>
-                            <div class="post-summary">
-                                {% for section in sections %}
-                                    <div>
-                                        <a rel="nofollow" class="title" href="{% url "blog:blog_detail" article.slug %}">{{ section.title }}</a>
-                                        <span class="likes">{{ section.likes }}</span>
-                                        <span class="unlikes">{{ section.unlikes }}</span>
-                                    </div>
-                                {% endfor %}
-                            </div>
+                            {% with "hidden" as display %}
+                                {% include "includes/section_summary.html" %}
+                            {% endwith %}
                         </div>
                     </div>
-                </section>
+                </article>
                 {% endwith %}
             {% endfor %}
         {% else %}
             <section>No articles yet.</section>
         {% endif %}
-        {% if is_paginated %}
-            <div class="pagination">
-                <span class="step-links">
-                    {% if page_obj.has_previous %}
-                        <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-                    {% endif %}
-
-                    {% for pagenum in page_obj.get_previous_numbers %}
-                        <a href="?page={{ pagenum }}">{{ pagenum }}</a>
-                    {% endfor %}
-                    {% if page_obj.prev_ellips %}
-                        <span class="ellipsis">...</span>
-                    {% endif %}
-
-                    <span class="current">
-                        {{ page_obj.number }}
-                    </span>
-                    {% for pagenum in page_obj.get_next_numbers %}
-                        <a href="?page={{ pagenum }}">{{ pagenum }}</a>
-                    {% endfor %}
-                    {% if page_obj.next_ellips %}
-                        <span class="ellipsis">...</span>
-                    {% endif %}
-                    {% if page_obj.has_next %}
-                        <a href="?page={{ page_obj.next_page_number }}">next</a>
-                    {% endif %}
-                </span>
-            </div>
-        {% endif %}
+        {% include "includes/paginate.html" %}
     {% endblock content %}
     {% block sidebar %}
 

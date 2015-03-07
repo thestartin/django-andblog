@@ -1,0 +1,11 @@
+<footer class="post-summary {{ display }}">
+    {% for sec in sections %}
+        {% if not forloop.counter.first %}
+            <div>
+                <a rel="nofollow" class="title" href="{% url "blog:blog_detail" article.slug %}#section_{{ sec.section_order }}">{{ sec.title }}</a>
+                <span class="likes">{{ sec.likes }}</span>
+                <span class="unlikes">{{ sec.unlikes }}</span>
+            </div>
+        {% endif %}
+    {% endfor %}
+</footer>
