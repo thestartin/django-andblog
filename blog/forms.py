@@ -135,3 +135,10 @@ class BlogEntryUpdateForm(forms.Form):
     class Media:
         js = (
         )
+
+
+
+class VoteForm(forms.Form):
+    article = forms.IntegerField()
+    section = forms.IntegerField()
+    vote_type = forms.BooleanField()  # 0 is Negative and 1 is positive vote

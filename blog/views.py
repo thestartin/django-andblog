@@ -2,6 +2,7 @@ from django.conf import settings
 from django.views.generic.edit import FormView, UpdateView
 from django.views.generic import ListView, DetailView
 from django.contrib.auth.decorators import login_required
+from django.views.generic.base import TemplateView
 from django import forms
 from django.http import JsonResponse
 from django.core.exceptions import ObjectDoesNotExist
@@ -12,6 +13,8 @@ from ckeditor.widgets import CKEditorWidget
 from .forms import BlogEntryForm, BlogEntryUpdateForm
 from .services import get_custom_fields, BlogPaginator
 from .models import Article, ArticleSection
+from .mixins import JSONResponseMixin
+from .decorators import get_ip_hashed
 
 
 class BlogEntry(FormView):
@@ -125,3 +128,16 @@ class BlogUpdate(FormView):
 
     def form_invalid(self, form):
         return JsonResponse(form.errors)
+
+
+class Vote(JSONResponseMixin, FormView):
+    http_method_names = ['post']
+
+    def render_to_response(self, context, **response_kwargs):
+        self.render_to_json_response(context, **response_kwargs)
+
+    @get_ip_hashed
+    def post(self, request, ip_hashed, *args, **kwargs):
+        if not hashed_ip:
+            pass
+
