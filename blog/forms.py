@@ -1,5 +1,6 @@
 from django import forms
-from django.conf import  settings
+from django.conf import settings
+from django.core.exceptions import ValidationError
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, ButtonHolder, Submit, Button, Div, Fieldset, Field, Hidden
 from sorl.thumbnail.fields import ImageFormField
@@ -137,8 +138,12 @@ class BlogEntryUpdateForm(forms.Form):
         )
 
 
+def validate_vote_type(value):
+    if value not in (0, 1, 9):
+        raise ValidationError('Invalid Vote Type', code='invalid')
 
-class VoteForm(forms.Form):
+
+class BlogVoteForm(forms.Form):
     article = forms.IntegerField()
     section = forms.IntegerField()
-    vote_type = forms.BooleanField()  # 0 is Negative and 1 is positive vote
+    vote_type = forms.IntegerField(validators=[validate_vote_type,])  # 0 is Negative and 1 is positive vote, 9 is Abusive

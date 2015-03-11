@@ -11,7 +11,7 @@
 
 {% block main %}
     {% with article.articlesection_set.all as sections %}
-        <article class="post">
+        <article class="post" id="{{ article.id }}">
             {% for section in sections %}
                 <section class="pure-u-1 s" id="section_{{ section.section_order }}">
                     {% if forloop.first %}
@@ -20,7 +20,7 @@
                             {% include "includes/post_meta.html" %}
                         </header>
                         {% thumbnail article.image "1280x480" crop="top" as im %}
-                            <img src="{{ im.url }}">
+                            <img src="{{ im.url }}" class="pure-img">
                         {% endthumbnail %}
 
                         {% with "show" as display %}
@@ -35,12 +35,13 @@
                         <p>{{ section.content|safe }}</p>
                     </div>
                     <footer>
-                        <div class="l-u-b">
+                        <div class="l-u-b" id="{{ section.id }}">
                             <!-- likes inlikes wrapper -->
-                            <span class="likes">100</span>
-                            <span class="unlikes">178</span>
-                            <span class="like">Like</span>
-                            <span class="unlike">UnLike</span>
+                            <span class="likes">{{ section.likes }}</span>
+                            <span class="unlikes">{{ section.unlikes }}</span>
+                            <span class="like" data-type="1">Like</span>
+                            <span class="unlike" data-type="0">UnLike</span>
+                            <span class="abusive" data-type="9">Report Abusive</span>
                         </div>
                     </footer>
                 </section>

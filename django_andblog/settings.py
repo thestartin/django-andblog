@@ -117,7 +117,11 @@ STATICFILES_DIRS = (
 
 TEMPLATE_DIRS = (
     os.path.abspath(os.path.join(BASE_DIR, 'blog/templates/')),
+    os.path.abspath(os.path.join(BASE_DIR, 'blog/templates/includes')),
+    os.path.abspath(os.path.join(BASE_DIR, 'common/templates/')),
+    os.path.abspath(os.path.join(BASE_DIR, 'common/templates/includes')),
     os.path.abspath(os.path.join(BASE_DIR, 'django_andblog/templates/')),
+    os.path.abspath(os.path.join(BASE_DIR, 'django_andblog/templates/includes')),
 )
 
 STATICFILES_FINDERS = (

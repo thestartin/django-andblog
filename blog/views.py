@@ -10,7 +10,7 @@ from django.http import Http404
 from django.core.exceptions import ImproperlyConfigured
 from ckeditor.widgets import CKEditorWidget
 
-from .forms import BlogEntryForm, BlogEntryUpdateForm
+from .forms import BlogEntryForm, BlogEntryUpdateForm, BlogVoteForm
 from .services import get_custom_fields, BlogPaginator
 from .models import Article, ArticleSection
 from .mixins import JSONResponseMixin
@@ -74,7 +74,10 @@ class BlogList(ListView):
         The return value must be an iterable and may be an instance of
         `QuerySet` in which case `QuerySet` specific behavior will be enabled.
         """
-        queryset = super(BlogList, self).get_queryset().prefetch_related('articlesection_set').select_related('author')
+        if self.request.user.is_staff:
+            queryset = super(BlogList, self).get_queryset().prefetch_related('articlesection_set').select_related('author')
+        else:
+            queryset = super(BlogList, self).get_queryset().filter(published=True).prefetch_related('articlesection_set').select_related('author')
 
         return queryset
 
@@ -121,7 +124,7 @@ class BlogUpdate(FormView):
 
     def form_valid(self, form):
         try:
-            article = Article.objects.get(pk=form.cleaned_data['article'])
+            article = Article._default_manager.get(pk=form.cleaned_data['article'])
             article.update_article(form.cleaned_data, form.changed_data, self.request.user)
         except ObjectDoesNotExist:
             raise Http404
@@ -130,14 +133,31 @@ class BlogUpdate(FormView):
         return JsonResponse(form.errors)
 
 
-class Vote(JSONResponseMixin, FormView):
+class BlogVote(JSONResponseMixin, FormView):
     http_method_names = ['post']
+    hashed_ip = ''
+    form_class = BlogVoteForm
 
     def render_to_response(self, context, **response_kwargs):
-        self.render_to_json_response(context, **response_kwargs)
+        return self.render_to_json_response(context, **response_kwargs)
 
     @get_ip_hashed
-    def post(self, request, ip_hashed, *args, **kwargs):
-        if not hashed_ip:
-            pass
+    def post(self, request, hashed_ip, *args, **kwargs):
+        self.failure_message['message'] = 'Unable to cast your vote at this point'
+        self.success_message['message'] = 'Successfully casted the vote'
 
+        if not hashed_ip:
+            return self.render_to_response(self.failure_message, **kwargs)
+
+        self.hashed_ip = hashed_ip
+        return super(BlogVote, self).post(self, request, *args, **kwargs)
+
+    def form_invalid(self, form):
+        return self.render_to_response(self.failure_message)
+
+    def form_valid(self, form):
+        if ArticleSection._default_manager.vote(form.cleaned_data, self.hashed_ip, self.request.user):
+            return self.render_to_response(self.success_message)
+        else:
+            self.failure_message['message'] = "You have already voted"
+            return self.render_to_response(self.failure_message)

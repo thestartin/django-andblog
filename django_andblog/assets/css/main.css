@@ -263,6 +263,9 @@ li{
 a{
     text-decoration: none;
 }
+.popup-modal{
+    display: none;
+}
 
 /* ==========================================================================
    Responsive Menu styles

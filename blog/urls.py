@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, url
+from django.views.generic import TemplateView
 
-from .views import BlogEntry, BlogList, BlogDetail, BlogUpdate
+from .views import BlogEntry, BlogList, BlogDetail, BlogUpdate, BlogVote
 
 
 urlpatterns = patterns('',
@@ -11,6 +12,7 @@ urlpatterns = patterns('',
                        url('^tags/(?P<tag>\w+)/$', BlogList.as_view(route='tag'), name='blog_list_tag'),
                        url('^view/(?P<slug>[\w-]+)/edit', BlogUpdate.as_view(), name='blog_update'),
                        url('^view/(?P<slug>[\w-]+)', BlogDetail.as_view(), name='blog_detail'),
+                       url('^vote/$', BlogVote.as_view(), name='blog_vote'),
                        url('^$', BlogList.as_view(), name='blog_list'),
                        #url('^update/(?P<blog_id>\d+)/$', name='update'),
 )

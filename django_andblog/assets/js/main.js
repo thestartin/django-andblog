@@ -170,6 +170,20 @@
         }
     });
 
+    $(document).on('click', '.unlike, .like, .abusive', function(){
+        // Find the type of vote
+        var vote_type = $(this).data('type') ;
+        var sec_id = $(this).parent().attr('id');
+        var article_id = $('article').attr('id');
+        var url = '/blog/vote/';
+        $.post(url, {'article': article_id, 'section': sec_id, 'vote_type': vote_type}, function(data){
+            if (data.status == 'N'){
+                console.log('Error casting vote');
+            }
+        });
+
+    });
+
     // Start of Menu
     var menu = $('#menu');
 
@@ -207,5 +221,52 @@
     });
 
     // End of Menu
+
+    // Get Cookies
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+
+    var csrftoken = getCookie('csrftoken');
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings){
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain){
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
+    // End of Get Cookies
+
+    // Modal popup
+    $(function () {
+        $('.popup-modal').magnificPopup({
+            type: 'inline',
+            preloader: false,
+            focus: '#username',
+            modal: true
+        });
+        $(document).on('click', '.popup-modal-dismiss', function (e) {
+            e.preventDefault();
+            $.magnificPopup.close();
+        });
+    });
+    // End of Modal popup
 
 }());

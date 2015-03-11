@@ -64,8 +64,13 @@
                             <div class="pure-u-1 pure-u-md-1-3">
                                 <div class="pure-menu pure-menu-horizontal custom-menu-3 custom-can-transform">
                                     <ul class="pure-menu-list">
-                                        <li class="pure-menu-item"><a href="#" class="pure-menu-link">Yahoo</a></li>
-                                        <li class="pure-menu-item"><a href="#" class="pure-menu-link">W3C</a></li>
+                                        <li class="pure-menu-item">
+                                            {% if request.user %}
+                                                <a href="/account/{{ request.user.username }}" class="pure-menu-link">View Account</a>
+                                            {% else %}
+                                                <a href="{% url 'regular_login' %}" class="pure-menu-link">Login</a>
+                                            {% endif %}
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -76,6 +81,9 @@
 
             <div class="pure-u-1 m-wrap">
                 <main class="pure-u-lg-9-12 content">
+                    {% block message %}
+                        <div class="pure-u-1" id="message"></div>
+                    {% endblock message %}
                     {% block main %}
                         {% block heading %}{% endblock heading %}
                         {% block content %}{% endblock content %}
@@ -91,6 +99,7 @@
 
         {% block base_body_js %}
             <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.1.min.js"><\/script>')</script>
+            <script src="{% static 'js/vendor/jquery.magnific.popup.min.js' %}"></script>
             <script src="{% static 'js/plugins.js' %}"></script>
             <script src="{% static 'js/main.js' %}"></script>
             <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->

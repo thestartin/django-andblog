@@ -1,0 +1,26 @@
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="pure-u-6-12">
+        <form action="" method="post" id="loginform">
+            {% csrf_token %}
+            {% crispy form.0 %}
+        </form>
+        <p>
+            <a href="{% url 'social:begin' 'google-oauth2' %}">
+                <i class="fa fa-user"></i> Login with Google+
+            </a>
+            <a href="{% url 'social:begin' 'twitter' %}">
+                <i class="fa fa-user"></i> Login with Twitter
+            </a>
+        </p>
+    </div>
+    <div class="pure-u-6-12">
+        <form action="" method="post" id="registerform">
+            {% csrf_token %}
+            {% crispy form.1 %}
+        </form>
+    </div>
+    <div>
+    </div>
+{% endblock content %}
