@@ -3,8 +3,9 @@ from collections import defaultdict
 from django.db import models
 from django.conf import settings
 from django.template.defaultfilters import slugify
-from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
+from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.http import Http404
 from sorl.thumbnail import ImageField
 from taggit.managers import TaggableManager
@@ -20,11 +21,11 @@ class Article(models.Model):
     slug = AutoSlugField(max_length=150, unique=True)
     title = models.CharField(max_length=150)
     image = ImageField(upload_to=settings.UPLOAD_TO, blank=True, null=True, max_length=255)
-    author = models.ForeignKey(User)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL)
     published = models.BooleanField(default=False)
     tags = TaggableManager()
     created_date_time = models.DateTimeField(auto_now_add=True)
-    updated_by = models.ForeignKey(User, related_name='updated_by')
+    updated_by = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='updated_by')
     updated_date_time = models.DateTimeField(auto_now=True)
 
     def add_article(self, data, user):
@@ -119,7 +120,7 @@ class ArticleSection(models.Model):
     unlikes = models.IntegerField(max_length=4, default=0)
     abusive = models.IntegerField(max_length=3, default=0)
     score = models.DecimalField(decimal_places=1, max_digits=settings.RATING_MAX_DIGITS, default=0)
-    updated_by = models.ForeignKey(User)
+    updated_by = models.ForeignKey(settings.AUTH_USER_MODEL)
     updated_date_time = models.DateTimeField(auto_now=True)
 
     objects = AllArticleSectionManager()
@@ -134,7 +135,7 @@ class ArticleSectionLikeUnlike(models.Model):
     section = models.ForeignKey(ArticleSection)
     who = models.CharField(max_length=255)  # This is an hashed IP field for preventing spams
     vote_type = models.CharField(max_length=1)  # 0 - Unlike, 1- Like, 9 - Abusive
-    voted_by = models.ForeignKey(User)
+    voted_by = models.ForeignKey(settings.AUTH_USER_MODEL)
     voted_date_time = models.DateTimeField(auto_now_add=True)
 
 
@@ -143,5 +144,5 @@ class ArticleSectionComment(models.Model):
     title = models.CharField(max_length=100)
     comment = models.TextField(max_length=1000)
     approved = models.BooleanField(default=False)  # Only approved comments are visible
-    commented_by = models.ForeignKey(User)
+    commented_by = models.ForeignKey(settings.AUTH_USER_MODEL)
     commented_date_time = models.DateTimeField(auto_now_add=True)

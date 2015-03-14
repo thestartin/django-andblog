@@ -46,6 +46,7 @@ INSTALLED_APPS = (
     'redis_cache',
     'social.apps.django_app.default',
     'ckeditor',
+    'common',
     'blog',
 )
 
@@ -149,3 +150,5 @@ SECTION_WISE_COMMENTS = True
 
 # Paginate settings
 PAGE_NEXT_ITEMS = PAGE_PREVIOUS_ITEMS = 2
+
+AUTH_USER_MODEL = 'common.CustomUser'
