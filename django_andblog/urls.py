@@ -4,8 +4,8 @@ from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.views.generic import TemplateView
 
-import blog
 from common.views import LoginRegisterView, LogoutView, AjaxLoginRegisterView
+from common.decorators import login_redirect
 
 urlpatterns = patterns('',
     # Examples:
@@ -15,8 +15,8 @@ urlpatterns = patterns('',
     (r'^ckeditor/', include('ckeditor.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url('^logout/$', login_required(LogoutView.as_view()), name='logout'),
-    url('^login/$', LoginRegisterView.as_view(), name='regular_login'),
-    url('^login/js/$', AjaxLoginRegisterView.as_view(), name='popup_login'),
+    url('^login/$', login_redirect(LoginRegisterView.as_view()), name='regular_login'),
+    url('^login/js/$', login_redirect(AjaxLoginRegisterView.as_view()), name='popup_login'),
     url('^/', include("social.apps.django_app.urls", namespace="social")),
 
 )
