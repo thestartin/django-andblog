@@ -1,10 +1,11 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
+from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.views.generic import TemplateView
 
 import blog
-from common.views import LoginRegisterView
+from common.views import LoginRegisterView, LogoutView
 
 urlpatterns = patterns('',
     # Examples:
@@ -13,6 +14,7 @@ urlpatterns = patterns('',
     url(r'^blog/', include("blog.urls", namespace='blog')),
     (r'^ckeditor/', include('ckeditor.urls')),
     url(r'^admin/', include(admin.site.urls)),
+    url('^logout/$', login_required(LogoutView.as_view()), name='logout'),
     url('^login/$', LoginRegisterView.as_view(), name='regular_login'),
     url('^login/js/$', TemplateView.as_view(template_name='includes/../common/templates/includes/login_page.html'), name='js_login'),
     url('^/', include("social.apps.django_app.urls", namespace="social")),

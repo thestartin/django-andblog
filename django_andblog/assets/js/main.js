@@ -269,4 +269,19 @@
     });
     // End of Modal popup
 
+    $('.trig').on('click', function(e){
+        e.preventDefault();
+        var temp = $(this).attr('id').split('_');
+        var to_trigger = temp[temp.length-1];
+        var offset = $(this).offset();
+        var right = offset.left + $(this).width();
+        right = right.toString();
+        var top = offset.top + $(this).height();
+        top = top.toString();
+        var pos = {'right': right+'px', 'top': top+'px'};
+        $('#'+to_trigger).slideToggle();
+        $('#'+to_trigger).css(pos);
+
+    });
+
 }());

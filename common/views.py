@@ -1,10 +1,11 @@
-from django.shortcuts import render
 from django.views.generic import FormView
-from django.http import HttpResponseBadRequest
+from django.views.generic.base import View
+from django.http import HttpResponseBadRequest, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 
-from .forms import LoginForm, RegisterForm, EMAIL_REGEX
+from .forms import LoginForm, RegisterForm
 from .mixins import MultiFormMixin
+from .models import CustomUser
 
 
 class LoginRegisterView(MultiFormMixin, FormView):
@@ -18,7 +19,7 @@ class LoginRegisterView(MultiFormMixin, FormView):
         'registerform': 'register_user'
     }
 
-    success_url = '/login'
+    success_url = '/'
 
     def post(self, request, *args, **kwargs):
         formname = request.POST.get('formname')
@@ -36,9 +37,29 @@ class LoginRegisterView(MultiFormMixin, FormView):
         route = self.valid_routes.get(str(form))
 
         getattr(self, route)(form)
+        return HttpResponseRedirect(self.get_success_url())
 
     def login_user(self, form):
-        user = authenticate(username=form.cleaned_data['log_username'], password=form.cleaned_data['log_password'])
+        user = authenticate(username=form.cleaned_data['log_user_name_email'], password=form.cleaned_data['log_password'])
+        login(self.request, user)
 
     def register_user(self, form):
-        pass
+        data = form.cleaned_data
+        user = CustomUser.objects.create_user(data['reg_user_name'], data['reg_user_email'], data['reg_password'])
+        user = authenticate(username=user.username, password=user.password)
+        login(self.request, user)
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self):
+        return self.request.GET.get('next', self.success_url)
+
+
+class LogoutView(View):
+    success_url = '/'
+
+    def get(self, request):
+        logout(request)
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self):
+        return self.request.GET.get('next', self.success_url)

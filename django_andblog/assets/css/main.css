@@ -266,6 +266,12 @@ a{
 .popup-modal{
     display: none;
 }
+.abs{
+    position: absolute;
+}
+.hide{
+    display: none;
+}
 
 /* ==========================================================================
    Responsive Menu styles
@@ -277,7 +283,6 @@ a{
     margin-bottom: 1em;
     -webkit-font-smoothing: antialiased;
     height: 2.1em;
-    overflow: hidden;
     -webkit-transition: height 0.5s;
     -moz-transition: height 0.5s;
     -ms-transition: height 0.5s;
@@ -346,7 +351,9 @@ a{
     .custom-toggle {
         display: block;
     }
-
+    .custom-wrapper{
+        overflow: hidden;
+    }
 }
 
 /* ==========================================================================

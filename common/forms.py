@@ -6,6 +6,8 @@ from django.core.validators import validate_email
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Field, Submit, Div, Hidden
 
+from .models import CustomUser
+
 
 EMAIL_REGEX = re.compile(r".*?@.*?\..*?")
 
@@ -40,10 +42,10 @@ class LoginForm(forms.Form):
 
 
 class RegisterForm(forms.Form):
-    reg_user_name = forms.CharField(max_length=30)
+    reg_user_name = forms.CharField(max_length=30, label='User Name')
     reg_user_email = forms.EmailField(label='Email')
-    reg_password = forms.CharField(widget=forms.PasswordInput())
-    reg_confpassword = forms.CharField(widget=forms.PasswordInput(), label='Confirm Password')
+    reg_password = forms.CharField(widget=forms.PasswordInput(), label='Password', min_length=6)
+    reg_confpassword = forms.CharField(widget=forms.PasswordInput(), label='Confirm Password', min_length=6)
 
     def __init__(self, *args, **kwargs):
         super(RegisterForm, self).__init__(*args, **kwargs)
@@ -58,6 +60,19 @@ class RegisterForm(forms.Form):
                 Submit(name='register', value='Register'),
             )
         )
+
+    def clean_reg_user_email(self):
+        username = self.cleaned_data['reg_user_name']
+        email = self.cleaned_data['reg_user_email']
+        user = CustomUser.objects.get_by_user_or_email(username, email)
+        if user:
+            raise ValidationError('User with Username & Email is already in use')
+
+    def clean_reg_confpassword(self):
+        conf_password = self.cleaned_data['reg_confpassword']
+        password = self.cleaned_data['reg_password']
+        if password != conf_password:
+            raise ValidationError('Password & Confirm passwords do not match!')
 
     def __str__(self):
         return 'registerform'
