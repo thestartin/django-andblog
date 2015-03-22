@@ -4,7 +4,7 @@ from django.http import HttpResponseBadRequest, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 
 from .forms import LoginForm, RegisterForm
-from .mixins import MultiFormMixin
+from .mixins import MultiFormMixin, AjaxContextMixin
 from .models import CustomUser
 
 
@@ -63,3 +63,7 @@ class LogoutView(View):
 
     def get_success_url(self):
         return self.request.GET.get('next', self.success_url)
+
+
+class AjaxLoginRegisterView(AjaxContextMixin, LoginRegisterView):
+    template_name = 'includes/login_page.html'

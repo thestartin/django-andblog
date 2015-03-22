@@ -5,7 +5,7 @@ from django.conf import settings
 from django.views.generic import TemplateView
 
 import blog
-from common.views import LoginRegisterView, LogoutView
+from common.views import LoginRegisterView, LogoutView, AjaxLoginRegisterView
 
 urlpatterns = patterns('',
     # Examples:
@@ -16,7 +16,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url('^logout/$', login_required(LogoutView.as_view()), name='logout'),
     url('^login/$', LoginRegisterView.as_view(), name='regular_login'),
-    url('^login/js/$', TemplateView.as_view(template_name='includes/../common/templates/includes/login_page.html'), name='js_login'),
+    url('^login/js/$', AjaxLoginRegisterView.as_view(), name='popup_login'),
     url('^/', include("social.apps.django_app.urls", namespace="social")),
 
 )

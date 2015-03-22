@@ -2,7 +2,7 @@
 
 {% block content %}
     <div class="pure-u-6-12">
-        <form action="" method="post" id="loginform">
+        <form action="{% if ajax %}{% url 'popup_login' %}{% else %}{% url 'regular_login' %}{% endif %}?next={% firstof next_page request.path '/' %}" method="post" id="loginform">
             {% csrf_token %}
             {% crispy form.0 %}
         </form>

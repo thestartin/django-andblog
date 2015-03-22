@@ -59,3 +59,17 @@ class MultiFormMixin(object):
         data-filled form and errors.
         """
         return self.render_to_response(self.get_context_data(form=self.get_all_other_forms(form)))
+
+
+class AjaxContextMixin(object):
+    """
+    Mixin to add Ajax specific context data
+    """
+
+    def get_context_data(self, **kwargs):
+        context = super(AjaxContextMixin, self).get_context_data(**kwargs)
+        context['ajax'] = True
+        next_page = self.request.GET.get('next')
+        if next_page:
+            context['next_page'] = next_page
+        return context
