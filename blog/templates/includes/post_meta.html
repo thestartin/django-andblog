@@ -1,4 +1,4 @@
 <p class="post-meta">
-    by <a href="{% url "blog:blog_detail" article.slug %}">{{ article.author.get_full_name }}</a>, <span >{{ article.created_date_time|timesince }} ago</span>,
+    by <a href="{% url "blog:blog_detail" article.slug %}">{{ article.author.username }}</a>, <span >{{ article.created_date_time|timesince }} ago</span>,
     under <a href="#" class="post-category post-category-design">css</a>
 </p>

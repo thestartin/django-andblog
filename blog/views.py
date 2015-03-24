@@ -6,8 +6,9 @@ from django.views.generic.base import TemplateView
 from django import forms
 from django.http import JsonResponse
 from django.core.exceptions import ObjectDoesNotExist
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
 from django.core.exceptions import ImproperlyConfigured
+from django.core.urlresolvers import reverse_lazy
 from ckeditor.widgets import CKEditorWidget
 
 from .forms import BlogEntryForm, BlogEntryUpdateForm, BlogVoteForm
@@ -23,6 +24,7 @@ class BlogEntry(FormView):
     """
     template_name = 'entry.html'
     form_class = BlogEntryForm
+    success_url = '/'
     request_custom_fields = []
     # Custom fields used by the form form the Client
     # The format is dict with <field_name>:[<field_type>, <list of args as in form>, <dict of kwargs as in form>]
@@ -57,6 +59,7 @@ class BlogEntry(FormView):
     def form_valid(self, form):
         article = Article()
         article.add_article(form.cleaned_data, self.request.user)
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class BlogList(ListView):
@@ -115,10 +118,20 @@ class BlogUpdate(FormView):
         The return value must be an iterable and may be an instance of
         `QuerySet` in which case `QuerySet` specific behavior will be enabled.
         """
-        pk = self.kwargs.get(self.pk_url_kwarg, None)
-        slug = self.kwargs.get(self.slug_url_kwarg, None)
+        self.pk = self.kwargs.get(self.pk_url_kwarg, None)
+        self.slug = self.kwargs.get(self.slug_url_kwarg, None)
 
-        initial = ArticleSection._default_manager.get_article_with_sections(pk, slug)
+        if self.pk:
+            data = Article._default_manager.filter(pk=self.pk).prefetch_related('articlesection_set').\
+                select_related('author')
+        else:
+            data = Article._default_manager.filter(slug=self.slug).prefetch_related('articlesection_set').\
+                select_related('author')
+
+        try:
+            initial = data.get()
+        except ObjectDoesNotExist:
+            raise Http404("OOps! Article does not exist")
 
         return initial
 
@@ -126,11 +139,21 @@ class BlogUpdate(FormView):
         try:
             article = Article._default_manager.get(pk=form.cleaned_data['article'])
             article.update_article(form.cleaned_data, form.changed_data, self.request.user)
+            return HttpResponseRedirect(self.get_success_url())
         except ObjectDoesNotExist:
             raise Http404
 
     def form_invalid(self, form):
         return JsonResponse(form.errors)
+
+    def get_success_url(self):
+        kwargs = {}
+        if self.pk:
+            kwargs['pk'] = self.pk
+        if self.slug:
+            kwargs['slug'] = self.slug
+
+        return reverse_lazy('blog:blog_update', kwargs=kwargs)
 
 
 class BlogVote(JSONResponseMixin, FormView):

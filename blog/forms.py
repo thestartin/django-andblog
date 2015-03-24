@@ -58,9 +58,9 @@ class BlogEntryUpdateForm(forms.Form):
         :return:
         """
         new_class = super(BlogEntryUpdateForm, cls).__new__(cls, *args, **kwargs)
-        data = kwargs.get('initial')
+        article = kwargs.get('initial')
         base_fields = {}
-        for section in data:
+        for section in article.articlesection_set.all():
             delim = '' if section.section_order == 1 else '_' + str(section.section_order)
             base_fields['content' + delim] = forms.CharField(widget=CKEditorWidget(), initial=section.content)
             base_fields['score' + delim] = forms.DecimalField(max_value=settings.RATING_SCALE, max_digits=settings.RATING_MAX_DIGITS, min_value=0, initial=section.score)
@@ -69,9 +69,9 @@ class BlogEntryUpdateForm(forms.Form):
             if section.section_order == 1:
                 base_fields['title' + delim] = forms.CharField(max_length=150, initial=section.title)
                 base_fields['title'].widget.attrs['readonly'] = 'readonly'
-                base_fields['image'] = ImageFormField(initial=section.article.image)
-                base_fields['article'] = forms.IntegerField(initial=section.article_id)
-                base_fields['tags' + delim] = TagField(initial=', '.join(section.article.tags.names()))
+                base_fields['image'] = ImageFormField(initial=article.image)
+                base_fields['article'] = forms.IntegerField(initial=article.id)
+                base_fields['tags' + delim] = TagField(initial=', '.join(article.tags.names()))
             else:
                 base_fields['title' + delim] = forms.CharField(max_length=150, initial=section.title)
         new_class.base_fields = base_fields
@@ -84,16 +84,16 @@ class BlogEntryUpdateForm(forms.Form):
         self.helper = FormHelper()
         self.helper.form_class = 'pure-form pure-form-stacked pure-u-1'
         # TODO: This can be moved to above super call to avoid self.initial initialize
-        data = kwargs.pop('initial')
+        article = kwargs.pop('initial')
         # Explicitly initializing form to handle edits
         #if not self.is_bound:
         self.initial = {}
 
         layouts = []
-        artcle_id = 0
-        for section in data:
+        article_id = article.id
+
+        for section in article.articlesection_set.all():
             if section.section_order == 1:
-                artcle_id = section.article_id
                 layouts.append(
                     Div(
                         Field('title', wrapper_class='rep pure-control-group', css_class='rep'),  # Class rep tells it is replicable item
@@ -104,7 +104,7 @@ class BlogEntryUpdateForm(forms.Form):
                         css_class='section',
                         css_id='sec',
                         data_section_id=1,
-                        data_article_id=section.article_id
+                        data_article_id=article_id
                     )
                 )
             else:
@@ -124,7 +124,7 @@ class BlogEntryUpdateForm(forms.Form):
 
         layouts.append(Field('tags', wrapper_class='norep pure-control-group', css_class='norep'))
         layouts.append(ButtonHolder(
-            Hidden('article', artcle_id),
+            Hidden('article', article_id),
             Submit('submit', 'Update Post', css_id='submit', css_class='pure-button pure-button-primary'),
             css_id='buttons'
         ))

@@ -45,7 +45,7 @@ class LoginRegisterView(MultiFormMixin, FormView):
 
     def register_user(self, form):
         data = form.cleaned_data
-        user = CustomUser.objects.create_user(data['reg_user_name'], data['reg_user_email'], data['reg_password'])
+        user = CustomUser._default_manager.create_user(data['reg_user_name'], data['reg_user_email'], data['reg_password'])
         user = authenticate(username=user.username, password=user.password)
         login(self.request, user)
         return HttpResponseRedirect(self.get_success_url())

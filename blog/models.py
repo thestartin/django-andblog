@@ -28,6 +28,12 @@ class Article(models.Model):
     updated_by = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='updated_by')
     updated_date_time = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        ordering = ['-updated_date_time']
+
+    def __str__(self):
+        return "%s" % self.title
+
     def add_article(self, data, user):
         self.title = data['title']
         self.image = data['image']
@@ -98,7 +104,8 @@ class Article(models.Model):
                 section_id = data['id']
 
             try:
-                sections[sort_order] = ArticleSection.objects.get(pk=section_id)
+                if sort_order not in sections:
+                    sections[sort_order] = ArticleSection.objects.get(pk=section_id)
                 col = key if sort_order == 1 else keys[0]
                 if hasattr(sections[sort_order], col) and key in changed:
                     setattr(sections[sort_order], col, value)
