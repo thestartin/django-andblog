@@ -1,11 +1,12 @@
 from django.conf.urls import patterns, url
 from django.views.generic import TemplateView
+from common.decorators import staff_or_not_allowed
 
 from .views import BlogEntry, BlogList, BlogDetail, BlogUpdate, BlogVote
 
 
 urlpatterns = patterns('',
-                       url('^create/$', BlogEntry.as_view(), name='create'),
+                       url('^create/$', staff_or_not_allowed(BlogEntry.as_view()), name='create'),
                        url('^(?P<year>\d{4})/(?P<month>\d{2})/(?P<day>\d{2})/$', BlogList.as_view(route='ymd'), name='blog_list_ymd'),
                        url('^(?P<year>\d{4})/(?P<month>\d{2})/$', BlogList.as_view(route='year_month'), name='blog_list_year_month'),
                        url('^(?P<year>\d{4})/$', BlogList.as_view(route='year'), name='blog_list_year'),

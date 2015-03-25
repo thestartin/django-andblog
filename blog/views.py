@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.views.generic.edit import FormView, UpdateView
 from django.views.generic import ListView, DetailView
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.views.generic.base import TemplateView
 from django import forms
 from django.http import JsonResponse
