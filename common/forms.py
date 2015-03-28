@@ -5,6 +5,8 @@ from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Field, Submit, Div, Hidden
+from sorl.thumbnail.fields import ImageFormField
+from django.conf import settings
 
 from .models import CustomUser
 
@@ -23,7 +25,7 @@ def user_name_email(value):
 
 class LoginForm(forms.Form):
     log_user_name_email = forms.CharField(max_length=255, label='User Name or Email', validators=[user_name_email, ])
-    log_password = forms.CharField(widget=forms.PasswordInput())
+    log_password = forms.CharField(widget=forms.PasswordInput(), label='Password')
 
     def __init__(self, *args, **kwargs):
         super(LoginForm, self).__init__(*args, **kwargs)
@@ -76,3 +78,31 @@ class RegisterForm(forms.Form):
 
     def __str__(self):
         return 'registerform'
+
+
+class ProfileForm(forms.Form):
+    choices = (
+        ('N', 'No Thanks'), ('D', 'Daily'), ('W', 'Weekly'), ('M', 'Monthly')
+    )
+
+    avatar = ImageFormField(required=False)
+    name = forms.CharField(max_length=50, required=False)
+    location = forms.CharField(max_length=20, required=False)
+    about = forms.CharField(widget=forms.Textarea(), max_length=1000, required=False)
+    subscription = forms.ChoiceField(choices=choices, label='Subscribe to Updates')
+
+    def __init__(self, *args, **kwargs):
+        super(ProfileForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Div(
+                Field('avatar', css_id='avatar'),
+                Field('name'),
+                Field('location'),
+                Field('about'),
+                Field('subscription'),
+                Hidden('username', value=self.initial['username']),
+                Submit(name='save', value='Save'),
+                css_id='lhs'
+            )
+        )
