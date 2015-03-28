@@ -139,7 +139,7 @@ MEDIA_URL = '/media/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
-CKEDITOR_UPLOAD_PATH = 'uploads/'
+PROFILE_UPLOAD_PATH = CKEDITOR_UPLOAD_PATH = 'uploads/'
 
 
 # Settings related to ratings per section

@@ -2,6 +2,7 @@ from django.views.generic import FormView
 from django.views.generic.base import View
 from django.http import HttpResponseBadRequest, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
+from django.shortcuts import render_to_response
 
 from .forms import LoginForm, RegisterForm, ProfileForm
 from .mixins import MultiFormMixin, AjaxContextMixin
@@ -74,6 +75,15 @@ class ProfileView(FormView):
     self_template_name = 'profile.html'
     view_template_name = 'view_profile.html'
 
+    def get(self, request, *args, **kwargs):
+        if self.request.user.username == self.kwargs['username']:
+            form_class = self.get_form_class()
+            form = self.get_form(form_class)
+            return self.render_to_response(self.get_context_data(form=form))
+        else:
+            user = CustomUser._default_manager.filter(username=self.kwargs['username']).get()
+            return self.render_to_response(context={'viewuser': user})
+
     def form_valid(self, form):
         data = form.cleaned_data
         cleaned = form.changed_data
@@ -90,7 +100,7 @@ class ProfileView(FormView):
         if self.request.user.username == self.kwargs['username']:
             return [self.self_template_name]
         else:
-            return self.view_template_name
+            return [self.view_template_name]
 
     def get_initial(self):
         initial = {}

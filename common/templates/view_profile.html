@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+
+{% block main %}
+    <div id="lhs">
+        <p>
+            {% if viewuser.avatar %}
+                {% thumbnail viewuser.avatar "300x200" as im %}
+                    <img src="{{ im.url }}">
+                {% endthumbnail %}
+            {% endif %}
+        </p>
+        <p><span class="lbl">Name</span><span class="val">{{ viewuser.get_full_name }}</span></p>
+        <p><span class="lbl">Location</span><span class="val">{{ viewuser.location }}</span></p>
+        <p><span class="lbl">About</span><span class="val">{{ viewuser.about }}</span></p>
+    </div>
+{% endblock main %}

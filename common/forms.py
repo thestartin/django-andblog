@@ -4,7 +4,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Field, Submit, Div, Hidden
+from crispy_forms.layout import Layout, Field, Submit, Div, Hidden, HTML
 from sorl.thumbnail.fields import ImageFormField
 from django.conf import settings
 
@@ -96,7 +96,7 @@ class ProfileForm(forms.Form):
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Div(
-                Field('avatar', css_id='avatar'),
+                HTML("""{% load thumbnail %}{{ form.avatar }}{% if form.avatar.value %}{% thumbnail form.avatar.value "300x200" as im %}<img src='{{ im.url }}{% endthumbnail %}'{% endif %}"""),
                 Field('name'),
                 Field('location'),
                 Field('about'),
