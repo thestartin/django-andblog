@@ -48,6 +48,7 @@ INSTALLED_APPS = (
     'ckeditor',
     'common',
     'blog',
+    'pages',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -74,6 +75,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.auth.context_processors.auth',
     'django.core.context_processors.request',
     'django.core.context_processors.media',
+    'pages.context_processors.menu',
 )
 
 ROOT_URLCONF = 'django_andblog.urls'
@@ -154,3 +156,8 @@ SECTION_WISE_COMMENTS = True
 PAGE_NEXT_ITEMS = PAGE_PREVIOUS_ITEMS = 2
 
 AUTH_USER_MODEL = 'common.CustomUser'
+
+# Dynamic menus
+MAX_MENU_ITEMS = 5
+STATIC_MENU_ITEMS = ('Home', 'Blog')
+
