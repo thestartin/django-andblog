@@ -279,14 +279,19 @@ a{
 
 
 .custom-wrapper {
-    background-color: #ffd390;
+    background-color: #FFFFFF;
     margin-bottom: 1em;
     -webkit-font-smoothing: antialiased;
-    height: 2.1em;
+    padding: 1.5em;
     -webkit-transition: height 0.5s;
     -moz-transition: height 0.5s;
     -ms-transition: height 0.5s;
     transition: height 0.5s;
+    box-shadow: 2px 2px 2px #CCC;
+}
+
+.custom-wrapper a{
+    font-size: 1.5em;
 }
 
 .custom-wrapper.open {
@@ -347,13 +352,35 @@ a{
     .custom-menu-3 {
         text-align: left;
     }
-
     .custom-toggle {
         display: block;
     }
     .custom-wrapper{
         overflow: hidden;
+        height: 3.1em;
+        padding: 0;
     }
+    .custom-wrapper a{
+        font-size: 1em;
+    }
+    .pure-menu-item{
+        text-align: left;
+    }
+}
+
+.pure-menu-allow-hover:hover > .pure-menu-children, .pure-menu-active > .pure-menu-children{
+    width: 100%;
+    background-color: #EEE;
+    box-shadow: 2px 2px 2px #CCC;
+}
+
+.pure-menu-allow-hover{
+    background-color: #EEE;
+    box-shadow: 2px 2px 2px #CCC;
+}
+
+.pure-menu-item{
+    text-align: center;
 }
 
 /* ==========================================================================
@@ -426,6 +453,27 @@ a{
     margin-left: 1em;
     color: #fff;
     text-shadow: 0 1px 1px #333;
+}
+
+/* ==========================================================================
+   Pagination
+   ========================================================================== */
+
+.step-links a, .step-links span {
+    font-size: 1.3em;
+    padding: .5em 1em;
+    background-color: #EEE;
+    width: 1em;
+}
+
+.pagination {
+    padding: .5em 0;
+    margin: 1em 0;
+    text-align: center;
+}
+
+.step-links span {
+    margin-right: .2em;
 }
 
 /* ==========================================================================
