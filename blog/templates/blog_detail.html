@@ -19,13 +19,13 @@
                             <h1 class="s-t">{{ section.title }}</h1>
                             {% include "includes/post_meta.html" %}
                         </header>
-                        {% thumbnail article.image "1280x480" crop="top" as im %}
-                            <img src="{{ im.url }}" class="pure-img">
-                        {% endthumbnail %}
 
                         {% with "show" as display %}
                             {% include "includes/section_summary.html" %}
                         {% endwith %}
+                        {% thumbnail article.image "1280x480" crop="top" as im %}
+                            <img src="{{ im.url }}" class="pure-img" id="article-img">
+                        {% endthumbnail %}
                     {% else %}
                         <header>
                             <h2 class="s-t">{{ section.title }}</h2>
@@ -34,14 +34,16 @@
                     <div class="s-d">
                         <p>{{ section.content|safe }}</p>
                     </div>
-                    <footer>
+                    <footer class="post-summary">
                         <div class="l-u-b" id="{{ section.id }}">
                             <!-- likes inlikes wrapper -->
-                            <span class="likes">{{ section.likes }}</span>
-                            <span class="unlikes">{{ section.unlikes }}</span>
-                            <span class="like" data-type="1">Like</span>
-                            <span class="unlike" data-type="0">UnLike</span>
-                            <span class="abusive" data-type="9">Report Abusive</span>
+                            <div class="sec-lu">
+                                <span class="icon-thumbsup like" data-type="1"></span>
+                                <span class="likes">{{ section.likes }}</span>
+                                <span class="icon-thumbsdown unlike" data-type="0"></span>
+                                <span class="unlikes">{{ section.unlikes }}</span>
+                                <span class="label abusive" data-type="9">Report Abusive</span>
+                            </div>
                         </div>
                     </footer>
                 </section>
