@@ -32,7 +32,7 @@
                         </header>
                     {% endif %}
                     <div class="s-d">
-                        <p>{{ section.content|safe }}</p>
+                        {{ section.content|safe }}
                     </div>
                     <footer class="post-summary">
                         <div class="l-u-b" id="{{ section.id }}">
@@ -49,6 +49,6 @@
                 </section>
             {% endfor %}
         </article>
-        {% disqus_show_comments %}
+        {% comment %}{% disqus_show_comments %}{% endcomment %}
     {% endwith %}
 {% endblock main %}

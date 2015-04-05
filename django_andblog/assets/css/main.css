@@ -475,6 +475,16 @@ footer > div > * {
     color: #999;
     font-size: 90%;
     margin: 0;
+    padding: .5em;
+    background: #F2F2F2;
+}
+span.s-trig {
+    float: right;
+    padding: .5em;
+}
+.post-meta * {
+    float: left;
+    position: relative;
 }
 .ls, .rs, .content, .sidebar{
     float: left;

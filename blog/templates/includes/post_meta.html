@@ -1,4 +1,4 @@
-<p class="post-meta">
-    by <a href="{% url "blog:blog_detail" article.slug %}">{{ article.author.username }}</a>, <span >{{ article.created_date_time|timesince }} ago</span>,
-    under <a href="#" class="post-category post-category-design">css</a>
+<p class="pure-u-1 pure-u-lg-12-12 post-meta pure-hide-phone pure-hide-smart-phone">
+    <span>by </span><a href="{% url "blog:blog_detail" article.slug %}">{{ article.author.username }}</a><span>, {{ article.created_date_time|timesince }} ago, under</span>
+     <a href="#" class="post-category post-category-design">css</a><span class="s-trig pure-button-primary">View Summary</span>
 </p>
