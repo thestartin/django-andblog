@@ -117,7 +117,7 @@
         sec_id ++;
         var mainT = $(mainHtml);
         iId(mainT, true);
-        $('form').append(mainT);
+        mainT.insertBefore($('form #div_id_tags'));
         ckInit();
     };
 
@@ -282,6 +282,13 @@
         $('#'+to_trigger).slideToggle();
         $('#'+to_trigger).css(pos);
 
+    });
+
+    $('.s-trig').on('click', function(e){
+        var this_id = $(this).data('sec-id');
+        var text = $(this).text() == 'View Summary' ? 'Hide Summary' : 'View Summary';
+        $('#summary_' + this_id).slideToggle();
+        $(this).text(text);
     });
 
     $('.ajax-popup-link').magnificPopup({

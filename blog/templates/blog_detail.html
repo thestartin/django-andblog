@@ -20,7 +20,7 @@
                             {% include "includes/post_meta.html" %}
                         </header>
 
-                        {% with "show" as display %}
+                        {% with "hide" as display %}
                             {% include "includes/section_summary.html" %}
                         {% endwith %}
                         {% thumbnail article.image "1280x480" crop="top" as im %}

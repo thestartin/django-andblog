@@ -108,9 +108,8 @@ textarea {
     height: 150%;
 }
 
-.hidden {
-    display: none !important;
-    visibility: hidden;
+.hide {
+    display: none;
 }
 
 .visuallyhidden {
@@ -329,6 +328,9 @@ footer > div > * {
 .sec-lu > * {
     float: left;
 }
+.s-trig{
+    cursor: pointer;
+}
 /* ==========================================================================
    Responsive Menu styles
    ========================================================================== */
@@ -482,9 +484,10 @@ span.s-trig {
     float: right;
     padding: .5em;
 }
-.post-meta * {
+.post-meta > *{
     float: left;
     position: relative;
+    margin-right: .5em;
 }
 .ls, .rs, .content, .sidebar{
     float: left;
@@ -521,7 +524,15 @@ span.s-trig {
     color: #fff;
     text-shadow: 0 1px 1px #333;
 }
-
+main {
+    padding-bottom: 3em;
+}
+.section {
+    border-bottom: 1px solid #CCC;
+}
+#buttons {
+    padding-top: 1em;
+}
 /* ==========================================================================
    Pagination
    ========================================================================== */
