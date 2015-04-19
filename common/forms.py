@@ -35,7 +35,7 @@ class LoginForm(forms.Form):
                 Field('log_user_name_email', placeholder='Email or Username'),
                 Field('log_password', placeholder='Password'),
                 Hidden('formname', value='loginform'),
-                Submit('login', 'Login'),
+                Submit('login', 'Login', css_class='pure-button'),
             )
         )
 
@@ -59,7 +59,7 @@ class RegisterForm(forms.Form):
                 Field('reg_password', placeholder='Password'),
                 Field('reg_confpassword', placeholder='Confirm Password'),
                 Hidden('formname', value='registerform'),
-                Submit(name='register', value='Register'),
+                Submit(name='register', value='Register', css_class='pure-button'),
             )
         )
 
@@ -96,13 +96,16 @@ class ProfileForm(forms.Form):
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Div(
-                HTML("""{% load thumbnail %}{{ form.avatar }}{% if form.avatar.value %}{% thumbnail form.avatar.value "300x200" as im %}<img src='{{ im.url }}{% endthumbnail %}'{% endif %}"""),
+                HTML("""<div class='avatar'>{% load thumbnail %}{{ form.avatar }}{% if form.avatar.value %}{% thumbnail form.avatar.value "300x200" as im %}<img src='{{ im.url }}{% endthumbnail %}'>{% endif %}></div>"""),
+                css_class='pure-u-1 pure-u-md-6-12 pure-u-lg-5-12 ls'
+            ),
+            Div(
                 Field('name'),
                 Field('location'),
                 Field('about'),
                 Field('subscription'),
                 Hidden('username', value=self.initial['username']),
-                Submit(name='save', value='Save'),
-                css_id='lhs'
-            )
+                css_class='pure-u-1 pure-u-md-6-12 pure-u-lg-7-12 rs'
+            ),
+            Submit(name='save', value='Save', css_class='pure-button'),
         )

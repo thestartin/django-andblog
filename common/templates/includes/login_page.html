@@ -1,21 +1,24 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-    <div class="pure-u-6-12">
+    {% if ajax %}
+        <div class="ajax-content-wrap">
+    {% endif %}
+    <div class="pure-u-1 pure-u-md-6-12 pure-u-lg-5-12 ls">
         <form action="{% if ajax %}{% url 'popup_login' %}{% else %}{% url 'regular_login' %}{% endif %}?next={% firstof next_page request.path '/' %}" method="post" id="loginform">
             {% csrf_token %}
             {% crispy form.0 %}
         </form>
         <p>
-            <a href="{% url 'social:begin' 'google-oauth2' %}">
-                <i class="fa fa-user"></i> Login with Google+
+            <a href="{% url 'social:begin' 'google-oauth2' %}" class="pure-button">
+                <i class="fa fa-user"></i> Login with <span class="icon-google-plus"></span>
             </a>
-            <a href="{% url 'social:begin' 'twitter' %}">
-                <i class="fa fa-user"></i> Login with Twitter
+            <a href="{% url 'social:begin' 'twitter' %}" class="pure-button">
+                <i class="fa fa-user"></i> Login with <span class="icon-twitter"></span>
             </a>
         </p>
     </div>
-    <div class="pure-u-6-12">
+    <div class="pure-u-1 pure-u-md-6-12 pure-u-lg-7-12 rs">
         <form action="" method="post" id="registerform">
             {% csrf_token %}
             {% crispy form.1 %}
@@ -23,4 +26,7 @@
     </div>
     <div>
     </div>
+    {% if ajax %}
+        </div>
+    {% endif %}
 {% endblock content %}

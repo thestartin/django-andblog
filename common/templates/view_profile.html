@@ -1,17 +1,19 @@
 {% extends "base.html" %}
 {% load thumbnail %}
 
-{% block main %}
-    <div id="lhs">
-        <p>
+{% block main_full_width %}
+    <div class="pure-u-1 pure-u-md-6-12 pure-u-lg-5-12 ls">
+        <p class="prof-img">
             {% if viewuser.avatar %}
                 {% thumbnail viewuser.avatar "300x200" as im %}
                     <img src="{{ im.url }}">
                 {% endthumbnail %}
             {% endif %}
         </p>
+    </div>
+    <div class="pure-u-1 pure-u-md-6-12 pure-u-lg-7-12 rs">
         <p><span class="lbl">Name</span><span class="val">{{ viewuser.get_full_name }}</span></p>
         <p><span class="lbl">Location</span><span class="val">{{ viewuser.location }}</span></p>
         <p><span class="lbl">About</span><span class="val">{{ viewuser.about }}</span></p>
     </div>
-{% endblock main %}
+{% endblock main_full_width %}

@@ -84,18 +84,20 @@
             {% endblock top_bar %}
 
             <div class="pure-u-1 m-wrap">
-                <main class="pure-u-1 pure-u-lg-9-12 content">
-                    {% block message %}
-                        <div class="pure-u-1" id="message"></div>
-                    {% endblock message %}
-                    {% block main %}
-                        {% block heading %}{% endblock heading %}
-                        {% block content %}{% endblock content %}
-                    {% endblock main %}
-                </main>
-                <aside class="pure-u-1 pure-u-lg-3-12">
-                    {% block sidebar %}{% endblock sidebar %}
-                </aside>
+                {% block main_full_width %}
+                    <main class="pure-u-1 pure-u-lg-9-12 content">
+                        {% block message %}
+                            <div class="pure-u-1" id="message"></div>
+                        {% endblock message %}
+                        {% block main %}
+                            {% block heading %}{% endblock heading %}
+                            {% block content %}{% endblock content %}
+                        {% endblock main %}
+                    </main>
+                    <aside class="pure-u-1 pure-u-lg-3-12">
+                        {% block sidebar %}{% endblock sidebar %}
+                    </aside>
+                {% endblock main_full_width %}
             </div>
         </div>
 
