@@ -407,6 +407,9 @@ footer > div > * {
     -ms-transform: rotate(-45deg);
     transform: rotate(-45deg);
 }
+#menuLink1{
+    min-width: 8em;
+}
 
 @media (max-width: 47.999em) {
 
@@ -431,12 +434,12 @@ footer > div > * {
 
 .pure-menu-allow-hover:hover > .pure-menu-children, .pure-menu-active > .pure-menu-children{
     width: 100%;
-    background-color: #EEE;
+    background-color: #CCCCCC;
     box-shadow: 2px 2px 2px #CCC;
 }
 
 .pure-menu-allow-hover{
-    background-color: #EEE;
+    background-color: #CCCCCC;
     box-shadow: 2px 2px 2px #CCC;
 }
 

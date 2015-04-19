@@ -19,7 +19,7 @@ urlpatterns = patterns('',
     url('^logout/$', login_required(LogoutView.as_view()), name='logout'),
     url('^login/$', login_redirect(LoginRegisterView.as_view()), name='regular_login'),
     url('^login/js/$', login_redirect(AjaxLoginRegisterView.as_view()), name='popup_login'),
-    url('^/', include("social.apps.django_app.urls", namespace="social")),
+    url('^social/', include("social.apps.django_app.urls", namespace="social")),
 
 )
 

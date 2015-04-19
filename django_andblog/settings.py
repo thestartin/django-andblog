@@ -64,6 +64,8 @@ MIDDLEWARE_CLASSES = (
 
 AUTHENTICATION_BACKENDS = (
     'social.backends.google.GoogleOAuth2',
+    'social.backends.google.GoogleOAuth',
+    'social.backends.google.GooglePlusAuth',
     'social.backends.facebook.FacebookOAuth2',
     'social.backends.twitter.TwitterOAuth',
     'django.contrib.auth.backends.ModelBackend',
@@ -155,9 +157,8 @@ SECTION_WISE_COMMENTS = True
 # Paginate settings
 PAGE_NEXT_ITEMS = PAGE_PREVIOUS_ITEMS = 2
 
-AUTH_USER_MODEL = 'common.CustomUser'
+AUTH_USER_MODEL = SOCIAL_AUTH_USER_MODEL = 'common.CustomUser'
 
 # Dynamic menus
 MAX_MENU_ITEMS = 5
 STATIC_MENU_ITEMS = ('Home', 'Blog')
-
