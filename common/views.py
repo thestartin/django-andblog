@@ -32,22 +32,28 @@ class LoginRegisterView(MultiFormMixin, FormView):
         if form.is_valid():
             return self.form_valid(form)
         else:
+            self.template_name = "login.html"
             return self.form_invalid(form)
 
     def form_valid(self, form):
         route = self.valid_routes.get(str(form))
 
-        getattr(self, route)(form)
-        return HttpResponseRedirect(self.get_success_url())
+        return getattr(self, route)(form)
 
     def login_user(self, form):
         user = authenticate(username=form.cleaned_data['log_user_name_email'], password=form.cleaned_data['log_password'])
+        if not user:
+            form._errors['log_user_name_email'] = 'User Name & password does not match'
+            self.template_name = 'login.html'
+            return self.form_invalid(form)
+
         login(self.request, user)
+        return HttpResponseRedirect(self.get_success_url())
 
     def register_user(self, form):
         data = form.cleaned_data
         user = CustomUser._default_manager.create_user(data['reg_user_name'], data['reg_user_email'], data['reg_password'])
-        user = authenticate(username=user.username, password=user.password)
+        user = authenticate(username=user.username, password=data['reg_password'])
         login(self.request, user)
         return HttpResponseRedirect(self.get_success_url())
 
@@ -76,12 +82,13 @@ class ProfileView(FormView):
     view_template_name = 'view_profile.html'
 
     def get(self, request, *args, **kwargs):
-        if self.request.user.username == self.kwargs['username']:
+        user = self.kwargs.get('username')
+        if (user and self.request.user.username == user) or (not user and self.request.user.is_authenticated):
             form_class = self.get_form_class()
             form = self.get_form(form_class)
             return self.render_to_response(self.get_context_data(form=form))
         else:
-            user = CustomUser._default_manager.filter(username=self.kwargs['username']).get()
+            user = CustomUser._default_manager.filter(username=user).get()
             return self.render_to_response(context={'viewuser': user})
 
     def form_valid(self, form):
@@ -97,7 +104,8 @@ class ProfileView(FormView):
         return HttpResponseRedirect(self.request.path)
 
     def get_template_names(self):
-        if self.request.user.username == self.kwargs['username']:
+        user = self.kwargs.get('username')
+        if (user and self.request.user.username == user) or (not user and self.request.user.is_authenticated):
             return [self.self_template_name]
         else:
             return [self.view_template_name]

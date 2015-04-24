@@ -12,15 +12,15 @@ urlpatterns = patterns('',
     # url(r'^$', 'django_andblog.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
     url(r'^pages/', include("pages.urls", namespace='pages')),
-    url(r'^blog/', include("blog.urls", namespace='blog')),
     (r'^ckeditor/', include('ckeditor.urls')),
     url(r'^admin/', include(admin.site.urls)),
-    url('^account/(?P<username>[\w]+)/$', ProfileView.as_view(), name='profile'),
+    url('^account/profile/$', ProfileView.as_view(), name='profile'),
+    url('^account/(?P<username>[\w]+)/$', ProfileView.as_view(), name='profile_with_name'),
     url('^logout/$', login_required(LogoutView.as_view()), name='logout'),
     url('^login/$', login_redirect(LoginRegisterView.as_view()), name='regular_login'),
     url('^login/js/$', login_redirect(AjaxLoginRegisterView.as_view()), name='popup_login'),
     url('^social/', include("social.apps.django_app.urls", namespace="social")),
-
+    url(r'^', include("blog.urls", namespace='blog')),
 )
 
 

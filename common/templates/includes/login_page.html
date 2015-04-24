@@ -19,7 +19,7 @@
         </p>
     </div>
     <div class="pure-u-1 pure-u-md-6-12 pure-u-lg-7-12 rs">
-        <form action="" method="post" id="registerform">
+        <form action="{% if ajax %}{% url 'popup_login' %}{% else %}{% url 'regular_login' %}{% endif %}?next={% firstof next_page request.path '/' %}" method="post" id="registerform">
             {% csrf_token %}
             {% crispy form.1 %}
         </form>

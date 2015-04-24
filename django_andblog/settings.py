@@ -10,6 +10,9 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+
+from django.core.urlresolvers import reverse_lazy
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -69,6 +72,7 @@ AUTHENTICATION_BACKENDS = (
     'social.backends.facebook.FacebookOAuth2',
     'social.backends.twitter.TwitterOAuth',
     'django.contrib.auth.backends.ModelBackend',
+    'common.backends.EmailModelBackend',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -162,3 +166,12 @@ AUTH_USER_MODEL = SOCIAL_AUTH_USER_MODEL = 'common.CustomUser'
 # Dynamic menus
 MAX_MENU_ITEMS = 5
 STATIC_MENU_ITEMS = ('Home', 'Blog')
+
+# Socai Auth URLs
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = reverse_lazy('blog:blog_list')
+SOCIAL_AUTH_LOGIN_ERROR_URL = reverse_lazy('regular_login')
+SOCIAL_AUTH_LOGIN_URL = reverse_lazy('regular_login')
+SOCIAL_AUTH_NEW_USER_REDIRECT_URL = reverse_lazy('profile')
+SOCIAL_AUTH_NEW_ASSOCIATION_REDIRECT_URL = reverse_lazy('profile')
+SOCIAL_AUTH_DISCONNECT_REDIRECT_URL = reverse_lazy('blog:blog_list')
+SOCIAL_AUTH_INACTIVE_USER_URL = reverse_lazy('regular_login')
