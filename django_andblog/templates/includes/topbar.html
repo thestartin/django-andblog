@@ -1,0 +1,36 @@
+{% block top_bar %}
+    {% block main_menu %}
+        <div class="pure-u-1">
+            <div class="custom-wrapper pure-g" id="menu">
+                <div class="pure-u-1 pure-u-md-3-12">
+                    <div class="pure-menu">
+                        <a href="#" class="pure-menu-heading custom-brand">Brand</a>
+                        <a href="#" class="custom-toggle" id="toggle"><s class="bar"></s><s class="bar"></s></a>
+                    </div>
+                </div>
+                <div class="pure-u-1 pure-u-md-6-12">
+                    <div class="pure-menu pure-menu-horizontal custom-can-transform">
+                        {% include "nav_links.html" %}
+                    </div>
+                </div>
+                <div class="pure-u-1 pure-u-md-3-12">
+                    <div class="pure-menu pure-menu-horizontal custom-menu-3 custom-can-transform">
+                        <ul class="pure-menu-list">
+                                {% if request.user.is_authenticated %}
+                                    <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+                                        <a id="menuLink1" class="pure-menu-link" href="#" rel="nofollow" class="pure-menu-link">{{ request.user.username }}</a>
+                                            <ul class="pure-menu-children">
+                                                <li class="pure-menu-item"><a class="pure-menu-link" href="{% url 'profile' %}">View Profile</a></li>
+                                                <li class="pure-menu-item"><a class="pure-menu-link" href="{% url 'logout' %}?next={% firstof request.path '/' %}">Logout</a></li>
+                                            </ul>
+                                        </li>
+                                {% else %}
+                                    <li><a class="ajax-popup-link" rel="nofollow" href="{% url 'popup_login' %}?next={% firstof request.path '/' %}" class="pure-menu-link">Login</a></li>
+                                {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock main_menu %}
+{% endblock top_bar %}

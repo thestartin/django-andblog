@@ -1,17 +1,11 @@
-from django.conf import settings
 from django.core.cache import cache
 
-from .models import Page
+from common.funcs import set_menu_cache
 
 
 def menu(request):
     menu_items = cache.get('menu')
     if not menu_items:
-        menu_items = []
-        menu_items.extend([(item, False) for item in settings.STATIC_MENU_ITEMS])
-        for item in Page.objects.all()[:settings.MAX_MENU_ITEMS-len(menu_items)]:
-            menu_items.append((item.menu_name, True))
-
-        cache.set('menu', menu_items)
-
+        set_menu_cache()
+    menu_items = cache.get('menu')
     return {'menu': menu_items}

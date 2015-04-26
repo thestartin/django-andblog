@@ -7,7 +7,7 @@
 {% block extra_js %}
     {{ form.media }}
 {% endblock extra_js %}
-
+{% block page_title %}{{ article.title }}{% endblock page_title %}
 
 {% block main %}
     {% with article.articlesection_set.all as sections %}

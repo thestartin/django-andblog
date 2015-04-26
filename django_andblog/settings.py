@@ -165,7 +165,7 @@ AUTH_USER_MODEL = SOCIAL_AUTH_USER_MODEL = 'common.CustomUser'
 
 # Dynamic menus
 MAX_MENU_ITEMS = 5
-STATIC_MENU_ITEMS = ('Home', 'Blog')
+STATIC_MENU_ITEMS = {'Home': '/'}
 
 # Socai Auth URLs
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = reverse_lazy('blog:blog_list')
