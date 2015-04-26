@@ -16,7 +16,7 @@
                 <section class="pure-u-1 s" id="section_{{ section.section_order }}">
                     {% if forloop.first %}
                         <header>
-                            <h1 class="s-t">{{ section.title }}</h1>
+                            <h1 class="s-t">{{ section.title }} </h1>
                             {% include "includes/post_meta.html" %}
                         </header>
 
@@ -27,25 +27,19 @@
                             <img src="{{ im.url }}" class="pure-img" id="article-img">
                         {% endthumbnail %}
                     {% else %}
-                        <header>
-                            <h2 class="s-t">{{ section.title }}</h2>
+                        <header class="header1">
+                            <h2 class="s-t pure-u-xl-10-12 pure-u-lg-9-12">{{ section.title }}</h2>
+                            <div class="sec-lu pure-hide-smart-phone pure-u-xl-2-12 pure-u-lg-3-12">
+                                <span class="icon-thumbsup like" data-type="1"></span>
+                                <span class="likes">{{ section.likes }}</span>
+                                <span class="icon-thumbsdown unlike" data-type="0"></span>
+                                <span class="unlikes">{{ section.unlikes }}</span>
+                            </div>
                         </header>
                     {% endif %}
                     <div class="s-d">
                         {{ section.content|safe }}
                     </div>
-                    <footer class="post-summary">
-                        <div class="l-u-b" id="{{ section.id }}">
-                            <!-- likes inlikes wrapper -->
-                            <div class="sec-lu">
-                                <span class="icon-thumbsup like" data-type="1"></span>
-                                <span class="likes">{{ section.likes }}</span>
-                                <span class="icon-thumbsdown unlike" data-type="0"></span>
-                                <span class="unlikes">{{ section.unlikes }}</span>
-                                <span class="label abusive" data-type="9">Report Abusive</span>
-                            </div>
-                        </div>
-                    </footer>
                 </section>
             {% endfor %}
         </article>

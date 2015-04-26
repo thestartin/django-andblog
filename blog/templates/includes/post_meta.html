@@ -1,4 +1,7 @@
 <p class="pure-u-1 pure-u-lg-12-12 post-meta pure-hide-phone pure-hide-smart-phone">
+    {% if request.user.is_superuser or request.user.is_staff and request.user == article.author %}
+        <a rel="nofollow" class="rb pure-button-primary" href="{% url 'blog:blog_update' article.slug %}">Edit Post</a>
+    {% endif %}
     <span>by </span><a href="{% url "blog:blog_detail" article.slug %}">{{ article.author.username }}</a><span>, {{ article.created_date_time|timesince }} ago, under</span>
      <a href="#" class="post-category post-category-design">css</a>
     {% if sections.count > 1 %}

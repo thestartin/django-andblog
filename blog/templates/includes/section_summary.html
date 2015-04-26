@@ -1,6 +1,5 @@
 {% if sections.count > 1 %}
     <footer class="post-summary {{ display }}" id="summary_{{ article.id }}">
-        <h3>Summary</h3>
         {% for sec in sections %}
             {% if not forloop.first %}
                 <div>

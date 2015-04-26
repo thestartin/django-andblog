@@ -247,7 +247,7 @@ body *{
     letter-spacing: 0;
 }
 
-div{
+*{
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -278,9 +278,10 @@ a{
     display: none;
 }
 .likes, .unlikes {
-    padding: .3em 1.5em;
+    padding: .2em 1em;
     color: white;
-    margin-right: 2.5em;
+    margin-right: .5em;
+    border-radius: 6px;
 }
 footer {
     position: relative;
@@ -299,14 +300,15 @@ footer > div > * {
 }
 .likes {
     background: green;
+    margin-right: 1.5em;
 }
 .unlikes {
     background: red;
 }
 .like, .unlike, .abusive {
     cursor: pointer;
-    font-size: 1.5em;
-    margin: .2em .5em 0 0;
+    font-size: 1.3em;
+    margin: .2em .4em 0 0;
 }
 .post-summary h3{
     margin: .3em 0;
@@ -324,6 +326,7 @@ footer > div > * {
 }
 .sec-lu {
     float: right;
+    /* background: #CCC; */
 }
 .sec-lu > * {
     float: left;
@@ -451,13 +454,25 @@ footer > div > * {
    ========================================================================== */
 .post{
     padding: 1em 0;
-    border-bottom: 1px solid #cccccc;
+    /* border-bottom: 1px solid #cccccc; */
 }
 .post header{
-    padding: 0 0 1em 0;
+    padding: .5em 0 .5em 0;
+    position: relative;
+    float: left;
+    width: 100%;
+    margin-bottom: 1em;
+}
+.header1{
+
+}
+section {
+    border-bottom: 1px solid #CCC;
+    margin-bottom: 2em;
 }
 .post header h2{
     margin: -.3em 0 0 0;
+    float: left;
 }
 .post-title {
     font-size: 2em;
@@ -483,7 +498,7 @@ footer > div > * {
     padding: .5em;
     background: #F2F2F2;
 }
-span.s-trig {
+span.s-trig, a.rb {
     float: right;
     padding: .5em;
 }
