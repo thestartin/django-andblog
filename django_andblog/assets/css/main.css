@@ -358,6 +358,14 @@ footer > div > * {
 #page_footer p.pure-u-1 {
     text-align: center;
 }
+.s-d img, .post-description img{
+    max-width: 100%;
+    height: auto !important;
+}
+.post-description img {
+    max-width: 50%;
+    height: auto !important;
+}
 /* ==========================================================================
    Responsive Menu styles
    ========================================================================== */
@@ -478,7 +486,7 @@ footer > div > * {
    ========================================================================== */
 .post{
     padding: 1em 0;
-    /* border-bottom: 1px solid #cccccc; */
+    border-bottom: 1px solid #cccccc;
 }
 .post header{
     padding: .5em 0 .5em 0;
