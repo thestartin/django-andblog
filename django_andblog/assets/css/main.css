@@ -326,13 +326,37 @@ footer > div > * {
 }
 .sec-lu {
     float: right;
-    /* background: #CCC; */
 }
 .sec-lu > * {
     float: left;
 }
 .s-trig{
     cursor: pointer;
+}
+#page_footer {
+    background: #1D3041;
+    margin: 0;
+    border-top: 5px solid #85E000;
+}
+
+#page_footer * {
+    color: #85E000;
+    float: left;
+}
+#page_footer p {
+    font-size: 0.8em;
+}
+
+#page_footer a {
+    font-size: 1em;
+}
+
+#page_footer ul * {
+    line-height: 1em;
+}
+
+#page_footer p.pure-u-1 {
+    text-align: center;
 }
 /* ==========================================================================
    Responsive Menu styles

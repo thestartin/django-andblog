@@ -10,6 +10,7 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+from collections import OrderedDict
 
 from django.core.urlresolvers import reverse_lazy
 
@@ -165,7 +166,7 @@ AUTH_USER_MODEL = SOCIAL_AUTH_USER_MODEL = 'common.CustomUser'
 
 # Dynamic menus
 MAX_MENU_ITEMS = 5
-STATIC_MENU_ITEMS = {'Home': '/'}
+STATIC_MENU_ITEMS = OrderedDict({'Home': '/', 'Contact us': 'contact-us'})
 
 # Socai Auth URLs
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = reverse_lazy('blog:blog_list')
