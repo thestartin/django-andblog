@@ -83,6 +83,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
     'django.core.context_processors.media',
     'pages.context_processors.menu',
+    'common.context_processors.meta_data'
 )
 
 ROOT_URLCONF = 'django_andblog.urls'
@@ -96,9 +97,9 @@ WSGI_APPLICATION = 'django_andblog.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'andblog',
-        'USERNAME': '',
-        'PASSWORD': ''
+        'NAME': os.environ.get('DB_NAME', 'andblog'),
+        'USER': os.environ.get('DB_USER_NAME', 'andblog'),
+        'PASSWORD': os.environ.get('DB_USER_PASSWORD', 'andblog')
     }
 }
 
@@ -176,3 +177,15 @@ SOCIAL_AUTH_NEW_USER_REDIRECT_URL = reverse_lazy('profile')
 SOCIAL_AUTH_NEW_ASSOCIATION_REDIRECT_URL = reverse_lazy('profile')
 SOCIAL_AUTH_DISCONNECT_REDIRECT_URL = reverse_lazy('blog:blog_list')
 SOCIAL_AUTH_INACTIVE_USER_URL = reverse_lazy('regular_login')
+
+# Default Meta description and Keywords
+#TODO: For now not considering sites
+DEFAULT_META_DATA = {
+    'description': '',
+    'keywords': '',
+}
+
+SITE_NAME = 'DjangoAndBlog'
+SITE_FB_ADMINS = ''
+SITE_BITLY_VERIFICATION = ''
+SITE_URL = 'https://github.com/kumarvaradarajulu/django-andblog'

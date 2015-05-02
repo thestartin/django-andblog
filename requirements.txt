@@ -3,6 +3,7 @@ Pillow==2.7.0
 PyJWT==0.4.1
 django-angular==0.7.10
 django-autoslug==1.7.2
+django-bitly==0.10
 django-braces==1.4.0
 django-ckeditor==4.4.7
 django-crispy-forms==1.4.0
@@ -12,6 +13,7 @@ django-extensions==1.4.9
 django-ipware==0.1.0
 django-pagination==1.0.7
 django-redis==3.8.2
+django-social-share==0.3.0
 django-taggit==0.12.2
 django-tinymce==1.5.3
 djangorestframework==3.0.3
