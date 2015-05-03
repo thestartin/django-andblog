@@ -188,8 +188,10 @@
         $.post(url, {'article': article_id, 'section': sec_id, 'vote_type': vote_type}, function(data){
             if (data.status == 'N'){
                 console.log('Error casting vote');
+            } else if (data.status == 'Y'){
+                parent.children('span.'+data_type).text(data.data);
             }
-            parent.children('span.'+data_type).text(data.data);
+            
         });
 
     });

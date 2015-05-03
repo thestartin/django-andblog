@@ -339,7 +339,7 @@ footer > div > * {
 #page_footer {
     background: #1D3041;
     margin: 0;
-    border-top: 5px solid #85E000;
+    padding-top: 3em;
 }
 
 #page_footer * {
@@ -531,7 +531,7 @@ section {
     font-size: 90%;
     margin: 0;
     padding: .5em;
-    background: #F2F2F2;
+    border-bottom: 1px solid #EAEAEA;
 }
 .social-buttons a {
     font-size: 2em;

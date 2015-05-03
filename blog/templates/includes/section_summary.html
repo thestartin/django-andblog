@@ -3,7 +3,7 @@
         {% for section in sections %}
             {% if not forloop.first %}
                 <div>
-                    <a rel="nofollow" class="title" href="{% url "blog:blog_detail" article.slug %}#section_{{ sec.section_order }}">{{ sec.title }}</a>
+                    <a rel="nofollow" class="title" href="{% url "blog:blog_detail" article.slug %}#section_{{ section.section_order }}">{{ section.title }}</a>
                     {% include "votes.html" %}
                 </div>
             {% endif %}
