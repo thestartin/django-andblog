@@ -2,11 +2,14 @@
 {% load static crispy_forms_tags thumbnail %}
 {% load url from future %}
 {% load disqus_tags %}
+{% load seo %}
 {% disqus_dev %}
 
+{% block meta_data %}{% get_metadata_from_str article.title article.tags.names article.title "article" %}{% endblock meta_data %}
 {% block extra_js %}
     {{ form.media }}
 {% endblock extra_js %}
+
 {% block page_title %}{{ article.title }}{% endblock page_title %}
 
 {% block main %}

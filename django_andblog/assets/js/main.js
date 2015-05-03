@@ -191,7 +191,7 @@
             } else if (data.status == 'Y'){
                 parent.children('span.'+data_type).text(data.data);
             }
-            
+
         });
 
     });

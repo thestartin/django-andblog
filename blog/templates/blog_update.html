@@ -1,7 +1,10 @@
 {% extends "base.html" %}
 {% load static crispy_forms_tags %}
 {% load url from future %}
+{% load seo %}
 
+{% block meta_data %}{% get_metadata_from_str  "Update blog post" "" form.title.field.initial "blog" %}{% endblock meta_data %}
+{% block page_title %}Update Post: {{ form.title.field.initial }}{% endblock page_title %}
 {% block extra_js %}
     {{ form.media }}
 {% endblock extra_js %}

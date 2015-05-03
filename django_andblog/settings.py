@@ -183,6 +183,7 @@ SOCIAL_AUTH_INACTIVE_USER_URL = reverse_lazy('regular_login')
 DEFAULT_META_DATA = {
     'description': '',
     'keywords': '',
+    'og_type': 'website',
 }
 
 SITE_NAME = 'DjangoAndBlog'

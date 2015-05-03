@@ -2,21 +2,56 @@ from django import template
 from django.template.loader import get_template
 from django.template.context import Context
 from django.conf import settings
+from django.db.models.query import ValuesListQuerySet
 
 
 register = template.Library()
 
 
 class MetaDataNode(template.Node):
-    def __init__(self, description="", keywords=""):
-        self.description = description and description or settings.DEFAULT_META_DATA['description']
-        self.keywords = keywords and keywords or settings.DEFAULT_META_DATA['keywords']
+    def __init__(self, description="", keywords="", page_title="", og_type=""):
+        self.description = description and description or '"{}"'.format(settings.DEFAULT_META_DATA['description'])
+        self.keywords = keywords and keywords or '"{}"'.format(settings.DEFAULT_META_DATA['keywords'])
+        self.page_title = page_title and page_title or self.description
+        self.og_type = og_type and og_type or '"{}"'.format(settings.DEFAULT_META_DATA['og_type'])
+
+        # If variable was passed then resolve it that way
+        self.description = self.description[1:-1] if \
+            (self.description[-1] == self.description[0] and self.description[0] in ('"', "'")) else \
+            template.Variable(self.description)
+
+        self.keywords = self.keywords[1:-1] if \
+            (self.keywords[-1] == self.keywords[0] and self.keywords[0] in ('"', "'")) else \
+            template.Variable(self.keywords)
+
+        self.page_title = self.page_title[1:-1] if \
+            (self.page_title[-1] == self.page_title[0] and self.page_title[0] in ('"', "'")) else \
+            template.Variable(self.page_title)
+
+        self.og_type = self.og_type[1:-1] if \
+            (self.og_type[-1] == self.og_type[0] and self.og_type[0] in ('"', "'")) else \
+            template.Variable(self.og_type)
 
     def render(self, context):
         t = get_template("metadata.html")
+        self.description = self.description.resolve(context) if \
+            isinstance(self.description, template.Variable) else self.description
+        self.page_title = self.page_title.resolve(context) if \
+            isinstance(self.page_title, template.Variable) else self.page_title
+        self.og_type = self.og_type.resolve(context) if \
+            isinstance(self.og_type, template.Variable) else self.og_type
+        self.keywords = self.keywords.resolve(context) if \
+            isinstance(self.keywords, template.Variable) else self.keywords
+
+        if isinstance(self.keywords, (list, tuple, ValuesListQuerySet)):
+            self.keywords = ','.join(self.keywords)
+
         context['meta_description'] = self.description
         context['meta_keywords'] = self.keywords
+        context['page_title'] = self.page_title
+        context['og_type'] = self.og_type
         return t.render(Context(context))
+
 
 def do_get_metadata_from_obj(parser, tokens):
     """
@@ -52,6 +87,7 @@ def do_get_metadata_from_obj(parser, tokens):
 def do_get_metadata_from_str(parser, tokens):
     bits = list(tokens.split_contents())
     args = bits[1:]
+
     # if not len(args) == 2:
     #     raise template.TemplateSyntaxError("Template tag should be in "
     #                                        "format {% get_metadata_from_str description keywords %} at the least")

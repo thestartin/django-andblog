@@ -1,5 +1,9 @@
 {% extends "base.html" %}
+{% load seo %}
+
+{% block meta_data %}{% get_metadata_from_str object.title object.menu_display_name object.title %}{% endblock meta_data %}
 {% block page_title %}{{ object.title }}{% endblock page_title %}
+
 {% block main %}
     <h1>{{ object.title }}</h1>
     {{ object.content|safe }}

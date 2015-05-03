@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% load static crispy_forms_tags %}
 {% load url from future %}
+{% load seo %}
+
+{% block meta_data %}{% get_metadata_from_str  "Share your thoughts to the world & enlighten the mighty" "" "Create Blog Post" "blog" %}{% endblock meta_data %}
+{% block page_title %}Create Blog Post{% endblock %}
 
 {% block extra_js %}
     {{ form.media }}

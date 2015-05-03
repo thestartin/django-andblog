@@ -1,5 +1,8 @@
 {% extends "base.html" %}
+{% load seo %}
 
+{% block meta_data %}{% get_metadata_from_str "Login, Register to be a part of the TheStart" "" "Login/Register to TheStart" %}{% endblock meta_data %}
+{% block page_title %}Login/Register to TheStart{% endblock page_title %}
 {% block main_full_width %}
     {% include "includes/login_page.html" %}
 {% endblock main_full_width %}

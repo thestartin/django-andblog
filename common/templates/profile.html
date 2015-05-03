@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
+{% load seo %}
+
+{% block meta_data %}{% get_metadata_from_str "Edit account details" "" "Edit Your Profile" %}{% endblock meta_data %}
+{% block page_title %}Edit Your Profile{% endblock page_title %}
 
 {% block main_full_width %}
     {% crispy form %}

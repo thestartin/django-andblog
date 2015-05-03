@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 {% load thumbnail %}
+{% load seo %}
+
+{% block meta_data %}{% get_metadata_from_str "View profile" "" viewuser.get_full_name %}{% endblock meta_data %}
+{% block page_title %}View {{ viewuser.get_full_name|default:viewuser.username }}'s profile{% endblock page_title %}
 
 {% block main_full_width %}
     <div class="pure-u-1 pure-u-md-6-12 pure-u-lg-5-12 ls">
