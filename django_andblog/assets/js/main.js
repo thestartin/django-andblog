@@ -172,14 +172,24 @@
 
     $(document).on('click', '.unlike, .like, .abusive', function(){
         // Find the type of vote
-        var vote_type = $(this).data('type') ;
-        var sec_id = $(this).parent().attr('id');
-        var article_id = $('article').attr('id');
-        var url = '/blog/vote/';
+        var vote_type = $(this).data('type');
+        var data_type = '';
+        if (vote_type == 1) {
+            data_type = 'likes';
+        } else if(vote_type == 0) {
+            data_type = 'unlikes';
+        } else {
+            data_type = 'abusive';
+        }
+        var parent = $(this).parent();
+        var sec_id = parent.attr('sec_id');
+        var article_id = parent.attr('article_id');
+        var url = '/vote/';
         $.post(url, {'article': article_id, 'section': sec_id, 'vote_type': vote_type}, function(data){
             if (data.status == 'N'){
                 console.log('Error casting vote');
             }
+            parent.children('span.'+data_type).text(data.data);
         });
 
     });

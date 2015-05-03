@@ -179,7 +179,9 @@ class BlogVote(JSONResponseMixin, FormView):
         return self.render_to_response(self.failure_message)
 
     def form_valid(self, form):
-        if ArticleSection._default_manager.vote(form.cleaned_data, self.hashed_ip, self.request.user):
+        status, vote_count = ArticleSection._default_manager.vote(form.cleaned_data, self.hashed_ip, self.request.user)
+        if status:
+            self.success_message['data'] = vote_count
             return self.render_to_response(self.success_message)
         else:
             self.failure_message['message'] = "You have already voted"

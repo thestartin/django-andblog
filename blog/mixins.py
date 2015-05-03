@@ -48,6 +48,7 @@ class ArticleFilterMixin(object):
 class ArticleSectionMixin(object):
 
     def vote(self, form_data, who, user):
+        # Import here to avoid circular dependency issues
         from .models import ArticleSectionLikeUnlike
         article_section_id = form_data['section']
         vote_type = form_data['vote_type']
@@ -76,6 +77,6 @@ class ArticleSectionMixin(object):
             article_section_likes_unlikes.vote_type = int(vote_type)
             article_section_likes_unlikes.voted_by = user
             article_section_likes_unlikes.save()
-            return True
+            return True, getattr(article_section, attr, 0)
         else:
-            return False
+            return False, 0

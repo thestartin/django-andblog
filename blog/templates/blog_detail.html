@@ -12,11 +12,11 @@
 {% block main %}
     {% with article.articlesection_set.all as sections %}
         <article class="post" id="{{ article.id }}">
-            {% for section in sections %}
-                <section class="pure-u-1 s" id="section_{{ section.section_order }}">
+            {% for sec in sections %}
+                <section class="pure-u-1 s" id="section_{{ sec.section_order }}">
                     {% if forloop.first %}
                         <header>
-                            <h1 class="s-t">{{ section.title }} </h1>
+                            <h1 class="s-t">{{ sec.title }}</h1>
                             {% include "includes/post_meta.html" %}
                         </header>
 
@@ -28,20 +28,23 @@
                         {% endthumbnail %}
                     {% else %}
                         <header class="header1">
-                            <h2 class="s-t pure-u-xl-10-12 pure-u-lg-9-12">{{ section.title }}</h2>
-                            <div class="sec-lu pure-hide-smart-phone pure-u-xl-2-12 pure-u-lg-3-12">
+                            <h2 class="s-t pure-u-xl-10-12 pure-u-lg-9-12">{{ sec.title }}</h2>
+                            <div class="sec-lu pure-hide-smart-phone pure-u-xl-2-12 pure-u-lg-3-12" article_id="{{ article.id }}" sec_id="{{ sec.id }}">
                                 <span class="icon-thumbsup like" data-type="1"></span>
-                                <span class="likes">{{ section.likes }}</span>
+                                <span class="likes">{{ sec.likes }}</span>
                                 <span class="icon-thumbsdown unlike" data-type="0"></span>
-                                <span class="unlikes">{{ section.unlikes }}</span>
+                                <span class="unlikes">{{ sec.unlikes }}</span>
                             </div>
                         </header>
                     {% endif %}
                     <div class="s-d">
-                        {{ section.content|safe }}
+                        {{ sec.content|safe }}
                     </div>
                 </section>
             {% endfor %}
+            {% with sections.0 as section %}
+                {% include "share_buttons.html" %}
+            {% endwith %}
         </article>
         {% comment %}{% disqus_show_comments %}{% endcomment %}
     {% endwith %}

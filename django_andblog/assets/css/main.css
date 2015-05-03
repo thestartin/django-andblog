@@ -533,7 +533,18 @@ section {
     padding: .5em;
     background: #F2F2F2;
 }
-span.s-trig, a.rb {
+.social-buttons a {
+    font-size: 2em;
+    border-radius: 26px;
+    margin-right: .2em;
+}
+.social-buttons {
+    float: left;
+}
+.rate-it {
+    margin-top: 2em;
+}
+span.s-trig, a.rb, div.sec-lu.inline {
     float: right;
     padding: .5em;
 }

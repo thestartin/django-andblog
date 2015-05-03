@@ -1,15 +1,10 @@
 {% if sections.count > 1 %}
     <footer class="post-summary {{ display }}" id="summary_{{ article.id }}">
-        {% for sec in sections %}
+        {% for section in sections %}
             {% if not forloop.first %}
                 <div>
                     <a rel="nofollow" class="title" href="{% url "blog:blog_detail" article.slug %}#section_{{ sec.section_order }}">{{ sec.title }}</a>
-                    <div class="sec-lu">
-                        <span class="icon-thumbsup like" data-type="1"></span>
-                        <span class="likes">{{ sec.likes }}</span>
-                        <span class="icon-thumbsdown unlike" data-type="0"></span>
-                        <span class="unlikes">{{ sec.unlikes }}</span>
-                    </div>
+                    {% include "votes.html" %}
                 </div>
             {% endif %}
         {% endfor %}

@@ -18,7 +18,7 @@
         {% if articles %}
             {% for article in articles %}
                 {% with article.articlesection_set.all as sections %}
-                <article class="post">
+                <article class="post" article_id="{{ article.id }}">
                     <div class="pure-u-1">
                         <div class="pure-u-md-4-12 pure-u-lg-3-12 ls pure-hide-phone pure-hide-smart-phone">
                             {% if article.image|is_portrait %}
@@ -34,11 +34,16 @@
                         <div class="pure-u-1 pure-u-md-8-12 pure-u-lg-9-12 rs">
                             <header class="post-header">
                                 <h2 class="post-title"><a href="{% url "blog:blog_detail" article.slug %}">{{ sections.0.title }}</a></h2>
-                                {% include "includes/post_meta.html" %}
+                                {% with sections.0 as section %}
+                                    {% include "includes/post_meta.html" %}
+                                {% endwith %}
                             </header>
                             <div class="post-description">
                                 {{ sections.0.content|truncatewords:20|safe }}
                             </div>
+                            {% with sections.0 as section %}
+                                {% include "share_buttons.html" %}
+                            {% endwith %}
                             {% with "hide" as display %}
                                 {% include "includes/section_summary.html" %}
                             {% endwith %}
