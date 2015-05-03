@@ -1,7 +1,7 @@
 <ul>
     {% for item in menu %}
         <li class="pure-menu-item">
-            <a rel="nofollow" href="/{% if item.1  %}pages/{% endif %}{% if item.2|slice:":1" == '/' %}{{ item.2.lower|slice:"1:" }}{% else %}{{ item.2.lower }}{% endif %}" class="pure-menu-link">{{ item.0|title|upper }}
+            <a rel="{{ follow }}" href="/{% if item.1  %}pages/{% endif %}{% if item.2|slice:":1" == '/' %}{{ item.2.lower|slice:"1:" }}{% else %}{{ item.2.lower }}{% endif %}" class="pure-menu-link">{{ item.0|title|upper }}
             </a>
         </li>
     {% endfor %}

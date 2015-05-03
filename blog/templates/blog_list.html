@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 {% load static crispy_forms_tags thumbnail %}
 {% load url from future %}
+{% load seo %}
+
+{% block meta_data %}
+    {% get_metadata_from_str "" "" %}
+{% endblock meta_data %}
 
 {% block extra_js %}
     {{ form.media }}

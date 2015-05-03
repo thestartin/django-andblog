@@ -1,15 +1,36 @@
 <meta name="description" content="{{ meta_description }}">
+{% if meta.site_url %}
+    <link rel="canonical" hre="{{ meta.site_url }}">
+{% endif %}
 <meta property="og:title" content="{{ page_title }}">
-<meta property="og:type" content="website">
-<meta property="og:url" content="{{ site_url }}">
-<meta property="og:site_name" content="{{ site_name }}">
+<meta property="og:type" content="blog">
+{% if meta.site_url %}
+    <meta property="og:url" content="{{ meta.site_url }}">
+{% endif %}
+
+{% if meta.site_name %}
+    <meta property="og:site_name" content="{{ meta.site_name }}">
+{% endif %}
+
 <!-- <meta name="google-site-verification" content="7JgyWgCnJ0p6cMe5IDgN04oFCKsoUZicRDKzE0X_yGg"> !-->
-<meta name="bitly-verification" content="{{ site_bitly_verification }}">
+
+{% if meta.site_bitly_verification %}
+    <meta name="bitly-verification" content="{{ meta.site_bitly_verification }}">
+{% endif %}
+
 <!-- <meta name="p:domain_verify" content="fb69533f2acad78bdd89abf093c35a28"> -->
 <!-- <meta name="msvalidate.01" content="5ABD8A078F3356F3A6A8C8643C31FB8F"> -->
+
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
-<meta name="application-name" content="{{ site_name }}">
-<meta property="fb:admins" content="{{ site_fb_admins }}">
+
+{% if meta.site_name %}
+    <meta name="application-name" content="{{ meta.site_name }}">
+{% endif %}
+
+{% if meta.site_fb_admins %}
+    <meta property="fb:admins" content="{{ meta.site_fb_admins }}">
+{% endif %}
+
 <meta property="og:title" content="{{ page_title }}">
 <!--
 <meta name="msapplication-TileColor" content="#3498db">

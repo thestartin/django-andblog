@@ -78,9 +78,9 @@ class BlogList(ListView):
         `QuerySet` in which case `QuerySet` specific behavior will be enabled.
         """
         if self.request.user.is_staff:
-            queryset = super(BlogList, self).get_queryset().prefetch_related('articlesection_set').select_related('author')
+            queryset = self.model.objects.get_posts(self.route, **self.kwargs)
         else:
-            queryset = super(BlogList, self).get_queryset().filter(published=True).prefetch_related('articlesection_set').select_related('author')
+            queryset = self.model.pub.get_posts(self.route, **self.kwargs)
 
         return queryset
 

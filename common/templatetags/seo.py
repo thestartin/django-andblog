@@ -16,7 +16,7 @@ class MetaDataNode(template.Node):
         t = get_template("metadata.html")
         context['meta_description'] = self.description
         context['meta_keywords'] = self.keywords
-        t.render(Context(context))
+        return t.render(Context(context))
 
 def do_get_metadata_from_obj(parser, tokens):
     """

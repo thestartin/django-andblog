@@ -2,8 +2,10 @@
     {% if request.user.is_superuser or request.user.is_staff and request.user == article.author %}
         <a rel="nofollow" class="rb pure-button-primary" href="{% url 'blog:blog_update' article.slug %}">Edit Post</a>
     {% endif %}
-    <span>by </span><a href="{% url "blog:blog_detail" article.slug %}">{{ article.author.username }}</a><span>, {{ article.created_date_time|timesince }} ago, under</span>
-     <a href="#" class="post-category post-category-design">css</a>
+    <span>by </span><a href="{% url "profile_with_name" article.author.username %}">{{ article.author.username }}</a><span>, {{ article.created_date_time|timesince }} ago, under</span>
+    {% for tag in article.tags.names %}
+        <a rel="nofollow" href="{% url 'blog:blog_list_tag' tag %}" class="post-category post-category-design">{{ tag }}</a>
+    {% endfor %}
     {% if sections.count > 1 %}
         <span class="s-trig pure-button-primary" data-sec-id="{{ article.id }}">View Summary</span>
     {% endif %}

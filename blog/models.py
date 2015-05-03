@@ -11,7 +11,8 @@ from sorl.thumbnail import ImageField
 from taggit.managers import TaggableManager
 from autoslug.fields import AutoSlugField
 
-from .managers import PublishedArticleSectionManager, UnPublishedArticleSectionManager, AllArticleSectionManager
+from .managers import PublishedArticleSectionManager, UnPublishedArticleSectionManager, AllArticleSectionManager, \
+    ArticleManager, ArticlePublishedManager
 
 
 class Article(models.Model):
@@ -27,6 +28,9 @@ class Article(models.Model):
     created_date_time = models.DateTimeField(auto_now_add=True)
     updated_by = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='updated_by')
     updated_date_time = models.DateTimeField(auto_now=True)
+
+    objects = ArticleManager()
+    pub = ArticlePublishedManager()
 
     class Meta:
         ordering = ['-updated_date_time']
