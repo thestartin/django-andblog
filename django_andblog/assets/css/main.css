@@ -241,12 +241,15 @@ body *{
 /* Main wrapper */
 .m-wrap{
     padding: 0 2em;
+    max-width: 80%;
+    margin: auto;
+    /* background: white; */
 }
 
 .pure-g{
-    max-width: 94em;
+    /* max-width: 94em; */
     margin: auto;
-    background-color: #ffffff;
+    /* background-color: #ffffff; */
     letter-spacing: 0;
 }
 
@@ -337,14 +340,20 @@ footer > div > * {
     cursor: pointer;
 }
 #page_footer {
-    background: #1D3041;
+    background: rgb(21, 153, 153);
     margin: 0;
     padding-top: 3em;
+    border-top: 2px solid white;
 }
-
-#page_footer * {
+div#page_footer_wrap {
+    border: none;
+    max-width: 94em;
+    margin: auto;
+}
+#page_footer_wrap * {
     color: #85E000;
     float: left;
+    border: none;
 }
 #page_footer p {
     font-size: 0.8em;
@@ -369,6 +378,26 @@ footer > div > * {
     max-width: 50%;
     height: auto !important;
 }
+#topbar, #menu {
+    background: rgb(0, 178, 178);
+}
+
+body {
+    background: rgb(250, 250, 250);
+}
+
+.pure-menu-link {
+    color: rgb(245, 245, 245);
+    background: rgb(72, 195, 195);
+}
+
+#topbar {
+    border-bottom: 3px solid rgb(0, 178, 178);
+}
+
+.pure-menu-active > .pure-menu-link, .pure-menu-link:hover, .pure-menu-link:focus {
+    color: black;
+}
 /* ==========================================================================
    Responsive Menu styles
    ========================================================================== */
@@ -376,14 +405,14 @@ footer > div > * {
     background-color: #FFFFFF;
     margin-bottom: 1em;
     -webkit-font-smoothing: antialiased;
-    padding: 1.5em;
+    padding: 2.5em 1.5em;
     -webkit-transition: height 0.5s;
     -moz-transition: height 0.5s;
     -ms-transition: height 0.5s;
     transition: height 0.5s;
-    box-shadow: 2px 2px 2px #CCC;
+    /* box-shadow: 2px 2px 2px #CCC; */
     position: relative;
-    float: left;
+    max-width: 94em;
     width: 100%;
 }
 .custom-wrapper > div{
@@ -473,12 +502,12 @@ footer > div > * {
 .pure-menu-allow-hover:hover > .pure-menu-children, .pure-menu-active > .pure-menu-children{
     width: 100%;
     background-color: #CCCCCC;
-    box-shadow: 2px 2px 2px #CCC;
+    /* box-shadow: 2px 2px 2px #CCC; */
 }
 
 .pure-menu-allow-hover{
-    background-color: #CCCCCC;
-    box-shadow: 2px 2px 2px #CCC;
+    background-color: #5ACAC5;
+    color: black;
 }
 
 .pure-menu-item{
