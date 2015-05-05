@@ -200,10 +200,25 @@ SOCIAL_LINKS = {
     'googleplus': 'https://plus.google.com/share?url={url}'
 }
 
+
+# Various Social integrations
 # BITLY
 USE_BITLY = False
 BITLY_LOGIN = os.environ.get('BITLY_LOGIN', '')
 BITLY_API_KEY = os.environ.get('BITLY_API_KEY', '')
+
+# Disqus Integration
+DISQUS_API_KEY = os.environ.get('DISQUS_API_KEY', '')
+DISQUS_WEBSITE_SHORTNAME = os.environ.get('DISQUS_WEBSITE_SHORTNAME', '')
+
+# Google Oauth Login
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET', '')
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY', '')
+
+# Twitter Login
+SOCIAL_AUTH_TWITTER_SECRET = os.environ.get('SOCIAL_AUTH_TWITTER_SECRET', '')
+SOCIAL_AUTH_TWITTER_KEY = os.environ.get('SOCIAL_AUTH_TWITTER_KEY', '')
+
 
 if USE_BITLY:
     INSTALLED_APPS = INSTALLED_APPS + (
