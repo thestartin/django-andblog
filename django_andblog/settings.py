@@ -184,9 +184,28 @@ DEFAULT_META_DATA = {
     'description': '',
     'keywords': '',
     'og_type': 'website',
+    'site_url': 'https://github.com/kumarvaradarajulu/django-andblog'
 }
 
 SITE_NAME = 'DjangoAndBlog'
 SITE_FB_ADMINS = ''
 SITE_BITLY_VERIFICATION = ''
 SITE_URL = 'https://github.com/kumarvaradarajulu/django-andblog'
+
+
+# SOCIAL LINKS
+SOCIAL_LINKS = {
+    'twitter': 'http://twitter.com/intent/tweet?status={title}+{url}',
+    'facebook': 'http://www.facebook.com/sharer/sharer.php?u={url}&title={title}',
+    'googleplus': 'https://plus.google.com/share?url={url}'
+}
+
+# BITLY
+USE_BITLY = False
+BITLY_LOGIN = os.environ.get('BITLY_LOGIN', '')
+BITLY_API_KEY = os.environ.get('BITLY_API_KEY', '')
+
+if USE_BITLY:
+    INSTALLED_APPS = INSTALLED_APPS + (
+        'django_bitly',
+    )

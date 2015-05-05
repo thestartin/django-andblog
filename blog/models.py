@@ -6,10 +6,12 @@ from django.template.defaultfilters import slugify
 from django.core.exceptions import ObjectDoesNotExist
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.contrib.sites.models import get_current_site
 from django.http import Http404
 from sorl.thumbnail import ImageField
 from taggit.managers import TaggableManager
 from autoslug.fields import AutoSlugField
+from django_bitly.models import Bittle
 
 from .managers import PublishedArticleSectionManager, UnPublishedArticleSectionManager, AllArticleSectionManager, \
     ArticleManager, ArticlePublishedManager
@@ -37,6 +39,25 @@ class Article(models.Model):
 
     def __str__(self):
         return "%s" % self.title
+
+    def get_absolute_url(self):
+        from django.core.urlresolvers import reverse
+        return ''.join(['http://', get_current_site(None).domain, reverse('blog:blog_detail', args=[self.slug])])
+
+    def get_social_url(self, social_name):
+        data = dict()
+        data['url'] = settings.USE_BITLY and Bittle.objects.bitlify(self).shortUrl or self.get_absolute_url()
+        data['title'] = self.title[:100]
+        return settings.SOCIAL_LINKS[social_name].format(**data)
+
+    def get_facebook_url(self):
+        return self.get_social_url('facebook')
+
+    def get_twitter_url(self):
+        return self.get_social_url('twitter')
+
+    def get_googleplus_url(self):
+        return self.get_social_url('googleplus')
 
     def add_article(self, data, user):
         self.title = data['title']

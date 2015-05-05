@@ -1,8 +1,8 @@
 <div class="rate-it pure-u-1">
     <div class="social-buttons">
-        <a href="" class="icon-facebook2"></a>
-        <a href="" class="icon-twitter2"></a>
-        <a href="" class="icon-google-plus2"></a>
+        <a href="{{ article.get_facebook_url }}" class="icon-facebook2"></a>
+        <a href="{{ article.get_twitter_url }}" class="icon-twitter2"></a>
+        <a href="{{ article.get_googleplus_url }}" class="icon-google-plus2"></a>
     </div>
     {% include "votes.html" %}
 </div>
