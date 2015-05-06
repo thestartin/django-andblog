@@ -284,7 +284,7 @@ a{
     display: none;
 }
 .likes, .unlikes {
-    padding: .2em 1em;
+    padding: .1em .7em;
     color: white;
     margin-right: .5em;
     border-radius: 6px;
@@ -314,7 +314,7 @@ footer > div > * {
 .like, .unlike, .abusive {
     cursor: pointer;
     font-size: 1.3em;
-    margin: .2em .4em 0 0;
+    margin: .1em .4em 0 0;
 }
 .post-summary h3{
     margin: .3em 0;
@@ -351,7 +351,7 @@ div#page_footer_wrap {
     margin: auto;
 }
 #page_footer_wrap * {
-    color: #85E000;
+    /* color: #85E000; */
     float: left;
     border: none;
 }
@@ -364,7 +364,8 @@ div#page_footer_wrap {
 }
 
 #page_footer ul * {
-    line-height: 1em;
+    margin-bottom: 1px;
+    min-width: 80%;
 }
 
 #page_footer p.pure-u-1 {
@@ -388,7 +389,7 @@ body {
 
 .pure-menu-link {
     color: rgb(245, 245, 245);
-    background: rgb(72, 195, 195);
+    /* background: rgb(72, 195, 195); */
 }
 
 #topbar {
@@ -502,7 +503,9 @@ body {
 .pure-menu-allow-hover:hover > .pure-menu-children, .pure-menu-active > .pure-menu-children{
     width: 100%;
     background-color: #CCCCCC;
-    /* box-shadow: 2px 2px 2px #CCC; */
+}
+.pure-menu-children > li > a.pure-menu-link{
+    background: rgb(72, 195, 195);
 }
 
 .pure-menu-allow-hover{
@@ -512,6 +515,9 @@ body {
 
 .pure-menu-item{
     text-align: center;
+}
+.pure-menu-children > li > a.pure-menu-link:hover {
+    background: #eee;
 }
 /* ==========================================================================
    Blog Post styles
