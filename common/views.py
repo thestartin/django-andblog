@@ -1,10 +1,11 @@
 from django.views.generic import FormView
 from django.views.generic.base import View
+from django.views.generic.edit import CreateView
 from django.http import HttpResponseBadRequest, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render_to_response
 
-from .forms import LoginForm, RegisterForm, ProfileForm
+from .forms import LoginForm, RegisterForm, ProfileForm, ContactUsForm
 from .mixins import MultiFormMixin, AjaxContextMixin
 from .models import CustomUser
 
@@ -111,7 +112,7 @@ class ProfileView(FormView):
             return [self.view_template_name]
 
     def get_initial(self):
-        initial = {}
+        initial = dict()
         initial['name'] = self.request.user.get_full_name()
         initial['subscription'] = self.request.user.subscription
         initial['avatar'] = self.request.user.avatar
@@ -119,3 +120,22 @@ class ProfileView(FormView):
         initial['about'] = self.request.user.about
         initial['location'] = self.request.user.location
         return initial.copy()
+
+
+class ContactUsView(CreateView):
+    form_class = ContactUsForm
+    template_name = "contact.html"
+    success_url = '/'
+
+    def get_initial(self):
+        if self.request.user.is_authenticated():
+            self.initial['contacted_by'] = self.request.user
+            self.initial['email'] = self.request.user.email
+        else:
+            self.initial['contacted_by'] = ''
+            self.initial['email'] = ''
+
+        return self.initial.copy()
+
+    def get_success_url(self):
+        return self.request.GET.get('next', self.success_url)

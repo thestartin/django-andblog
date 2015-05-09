@@ -508,9 +508,8 @@ body {
     background: rgb(72, 195, 195);
 }
 
-.pure-menu-allow-hover{
-    background-color: #5ACAC5;
-    color: black;
+.pure-menu-allow-hover, .ajax-popup-link{
+    background: #5ACAC5;
 }
 
 .pure-menu-item{
@@ -518,6 +517,9 @@ body {
 }
 .pure-menu-children > li > a.pure-menu-link:hover {
     background: #eee;
+}
+span[id *= "error_"] {
+    color: red;
 }
 /* ==========================================================================
    Blog Post styles

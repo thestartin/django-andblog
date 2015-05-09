@@ -27,7 +27,7 @@
                                             </ul>
                                         </li>
                                 {% else %}
-                                    <li><a class="ajax-popup-link" rel="nofollow" href="{% url 'popup_login' %}?next={% firstof request.path '/' %}" class="pure-menu-link">Login</a></li>
+                                    <li><a class="ajax-popup-link pure-menu-link" rel="nofollow" href="{% url 'popup_login' %}?next={% firstof request.path '/' %}" class="pure-menu-link">Login/Register</a></li>
                                 {% endif %}
                         </ul>
                     </div>

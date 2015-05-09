@@ -6,9 +6,8 @@ from django.core.validators import validate_email
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Field, Submit, Div, Hidden, HTML
 from sorl.thumbnail.fields import ImageFormField
-from django.conf import settings
 
-from .models import CustomUser
+from .models import CustomUser, ContactUs
 
 
 EMAIL_REGEX = re.compile(r".*?@.*?\..*?")
@@ -109,3 +108,14 @@ class ProfileForm(forms.Form):
             ),
             Submit(name='save', value='Save', css_class='pure-button'),
         )
+
+
+class ContactUsForm(forms.ModelForm):
+    class Meta:
+        model = ContactUs
+        exclude = ['contacted_date_time', 'contacted_by']
+
+    def __init__(self, *args, **kwargs):
+        super(ContactUsForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.add_input(Submit('submit', 'Submit', css_class='pure-button pure-button-primary'))

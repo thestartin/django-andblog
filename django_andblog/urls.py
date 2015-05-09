@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.views.generic import TemplateView
 
-from common.views import LoginRegisterView, LogoutView, AjaxLoginRegisterView, ProfileView
+from common.views import LoginRegisterView, LogoutView, AjaxLoginRegisterView, ProfileView, ContactUsView
 from common.decorators import login_redirect
 
 urlpatterns = patterns('',
@@ -14,6 +14,7 @@ urlpatterns = patterns('',
     url(r'^pages/', include("pages.urls", namespace='pages')),
     (r'^ckeditor/', include('ckeditor.urls')),
     url(r'^admin/', include(admin.site.urls)),
+    url('^contact-us/$', ContactUsView.as_view(), name='contact'),
     url('^account/profile/$', ProfileView.as_view(), name='profile'),
     url('^account/(?P<username>[\w]+)/$', ProfileView.as_view(), name='profile_with_name'),
     url('^logout/$', login_required(LogoutView.as_view()), name='logout'),

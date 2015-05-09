@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load seo %}
+{% load crispy_forms_tags %}
+
+{% block meta_data %}{% get_metadata_from_str "Your support and Feedback is vital for making TheStart better & useful!" "" "Contact us" %}{% endblock meta_data %}
+{% block page_title %}Contact us{% endblock page_title %}
+{% block main_full_width %}
+    <h2>Your support and Feedback is vital for making TheStar better & more useful</h2>
+    {% crispy form %}
+
+{% endblock main_full_width %}
