@@ -24,9 +24,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = 'm2hm(=+w=$=(di=zhxeo4mr+l%jbl05-cp1oc2r53do#^#uw*r'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-TEMPLATE_DEBUG = True
+TEMPLATE_DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -226,3 +226,6 @@ if USE_BITLY:
     INSTALLED_APPS = INSTALLED_APPS + (
         'django_bitly',
     )
+
+ALLOWED_HOSTS = ['localhost', ]
+SITE_ID = 1

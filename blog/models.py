@@ -1,3 +1,4 @@
+import os
 from collections import defaultdict
 
 from django.db import models
@@ -58,6 +59,9 @@ class Article(models.Model):
 
     def get_googleplus_url(self):
         return self.get_social_url('googleplus')
+
+    def filename(self):
+        return os.path.basename(self.image.name)
 
     def add_article(self, data, user):
         self.title = data['title']

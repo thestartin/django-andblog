@@ -64,3 +64,4 @@ local_settings.py
 blog/migrations/
 common/migrations/
 pages/migrations/
+django_andblog/media/
