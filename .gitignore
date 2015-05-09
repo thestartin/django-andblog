@@ -64,3 +64,5 @@ local_settings.py
 blog/migrations/
 common/migrations/
 pages/migrations/
+
+*.pyc
