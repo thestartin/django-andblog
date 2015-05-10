@@ -20,13 +20,28 @@
         </title>
 
         {% block base_css %}
-            <link rel="stylesheet" href="{% static 'css/normalize.min.css' %}">
             {% if DEBUG %}
-                <link rel="stylesheet" href="{% static 'css/pure.css' %}">
-                <link rel="stylesheet" href="{% static 'css/main.css' %}">
+                <link rel="stylesheet" href="{% static 'css/normalize.min.css' %}" type="text/css">
+                {% comment %}
+                <link rel="stylesheet" href="{% static 'css/pure.css' %}" type="text/css">
+                <link rel="stylesheet" href="{% static 'css/main.css' %}" type="text/css">
+                {% endcomment %}
+                {% if meta.accept_gzip %}
+                    <link rel="stylesheet" type="text/css" href="{% static 'css/min.all.css.gz' %}">
+                {% else %}
+                    <link rel="stylesheet" type="text/css" href="{% static 'css/min.all.css' %}">
+                {% endif %}
             {% else %}
-                <link rel="stylesheet" href="{% static 'css/min.pure.css' %}">
-                <link rel="stylesheet" href="{% static 'css/min.main.css' %}">
+                {% comment %}
+                <link rel="stylesheet" href="{% static 'css/normalize.min.css' %}" type="text/css">
+                <link rel="stylesheet" href="{% static 'css/min.pure.css' %}" type="text/css">
+                <link rel="stylesheet" href="{% static 'css/min.main.css' %}" type="text/css">
+                {% endcomment %}
+                {% if meta.accept_gzip %}
+                    <link rel="stylesheet" type="text/css" href="{% static 'css/min.all.css.gz' %}">
+                {% else %}
+                    <link rel="stylesheet" type="text/css" href="{% static 'css/min.all.css' %}">
+                {% endif %}
             {% endif %}
             <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400' rel='stylesheet' type='text/css'>
         {% endblock base_css %}
@@ -34,8 +49,13 @@
         {% block extra_css %}{% endblock extra_css %}
 
         {% block base_js %}
-            <script src="{% static 'js/vendor/jquery-1.11.1.min.js' %}" type="text/javascript"></script>
-            <script src="{% static 'js/vendor/modernizr-2.6.2.min.js' %}"></script>
+            {% if DEBUG %}
+                <script src="{% static 'js/vendor/jquery-1.11.1.min.js' %}" type="text/javascript"></script>
+                <script src="{% static 'js/vendor/modernizr-2.6.2.min.js' %}"></script>
+            {% else %}
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.0.0/jquery.magnific-popup.min.js"></script>
+            {% endif %}
         {% endblock base_js %}
 
         {% block extra_js %}
@@ -71,14 +91,15 @@
 
 
         {% block base_body_js %}
-            <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.1.min.js"><\/script>')</script>
-            <script src="{% static 'js/vendor/jquery.magnific.popup.min.js' %}"></script>
             {% if DEBUG %}
                 <script src="{% static 'js/plugins.js' %}"></script>
                 <script src="{% static 'js/main.js' %}"></script>
             {% else %}
-                <script src="{% static 'js/min.plugins.js' %}"></script>
-                <script src="{% static 'js/min.main.js' %}"></script>
+                {% if meta.accept_gzip %}
+                    <script type="text/javascript" src="{% static 'js/min.all.js.gz' %}"></script>
+                {% else %}
+                    <script type="text/javascript" src="{% static 'js/min.all.js' %}"></script>
+                {% endif %}
             {% endif %}
             <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
             <script>
