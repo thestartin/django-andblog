@@ -66,3 +66,4 @@ common/migrations/
 pages/migrations/
 
 *.pyc
+django_andblog/media/

@@ -24,6 +24,9 @@
                                             <ul class="pure-menu-children">
                                                 <li class="pure-menu-item"><a rel="nofollow" class="pure-menu-link" href="{% url 'profile' %}">View Profile</a></li>
                                                 <li class="pure-menu-item"><a rel="nofollow" class="pure-menu-link" href="{% url 'logout' %}?next={% firstof request.path '/' %}">Logout</a></li>
+                                                {% if request.user.is_staff %}
+                                                    <li class="pure-menu-item"><a rel="nofollow" class="pure-menu-link" href="{% url 'blog:create' %}?next={% firstof request.path '/' %}">Make Post</a></li>
+                                                {% endif %}
                                             </ul>
                                         </li>
                                 {% else %}

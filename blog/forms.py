@@ -2,7 +2,7 @@ from django import forms
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, ButtonHolder, Submit, Button, Div, Fieldset, Field, Hidden
+from crispy_forms.layout import Layout, ButtonHolder, Submit, Button, Div, Fieldset, Field, Hidden, HTML
 from sorl.thumbnail.fields import ImageFormField
 from taggit.forms import TagField
 from ckeditor.widgets import CKEditorWidget
@@ -98,7 +98,11 @@ class BlogEntryUpdateForm(forms.Form):
                     Div(
                         Field('title', wrapper_class='rep pure-control-group', css_class='rep'),  # Class rep tells it is replicable item
                         Field('score', wrapper_class='rep pure-control-group', css_class='rep'),  # Class rep tells it is replicable item
-                        Field('image', wrapper_class='norep pure-control-group', css_class='rep'),  # Class norep tells the item must be removed from replica's
+                        Div(
+                            HTML("""{% load thumbnail %}{% load misc %}<div class='avatar pure-u-md-6-12'>Currently: {{ form.image|filename }}{% if form.image.value %}{% thumbnail form.image.value "300x200" as im %}<img src='{{ im.url }}{% endthumbnail %}'>{% endif %}></div>"""),
+                            css_class='pure-u-1'
+                        ),
+                        #Field('image', wrapper_class='norep pure-control-group', css_class='rep'),  # Class norep tells the item must be removed from replica's
                         Field('content', wrapper_class='rep pure-control-group', css_class='rep'),
                         Hidden('id', section.id),
                         css_class='section',
