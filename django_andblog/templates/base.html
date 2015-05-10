@@ -38,7 +38,7 @@
                 <link rel="stylesheet" href="{% static 'css/min.main.css' %}" type="text/css">
                 {% endcomment %}
                 {% if meta.accept_gzip %}
-                    <link rel="stylesheet" type="text/css" href="{% static 'css/min.all.css.gz' %}">
+                    <link rel="stylesheet" type="text/css" href="{% static 'css/min.all.css' %}">
                 {% else %}
                     <link rel="stylesheet" type="text/css" href="{% static 'css/min.all.css' %}">
                 {% endif %}
@@ -96,7 +96,7 @@
                 <script src="{% static 'js/main.js' %}"></script>
             {% else %}
                 {% if meta.accept_gzip %}
-                    <script type="text/javascript" src="{% static 'js/min.all.js.gz' %}"></script>
+                    <script type="text/javascript" src="{% static 'js/min.all.js' %}"></script>
                 {% else %}
                     <script type="text/javascript" src="{% static 'js/min.all.js' %}"></script>
                 {% endif %}
