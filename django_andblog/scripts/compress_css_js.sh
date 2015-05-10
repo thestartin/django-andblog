@@ -16,6 +16,8 @@ do
   java -jar ~/yuicompressor/yuicompressor-2.4.8.jar --type css -o "min.$i" "$i"
   cat "min.$i" >> min.all.css
 done
+
+echo "Gzipping min.all.css"
 gzip min.all.css
 
 cd $JS_DIR
@@ -31,6 +33,7 @@ do
   cat "min.$i" >> min.all.js
 done
 
+echo "Gzipping min.all.js"
 gzip min.all.js
 
 echo "Done!"
