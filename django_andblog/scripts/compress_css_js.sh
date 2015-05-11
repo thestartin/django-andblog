@@ -17,8 +17,8 @@ do
   cat "min.$i" >> min.all.css
 done
 
-echo "Gzipping min.all.css"
-gzip min.all.css
+#echo "Gzipping min.all.css"
+#gzip min.all.css
 
 cd $JS_DIR
 filename="min.all.js.gz"
@@ -33,7 +33,7 @@ do
   cat "min.$i" >> min.all.js
 done
 
-echo "Gzipping min.all.js"
-gzip min.all.js
+#echo "Gzipping min.all.js"
+#gzip min.all.js
 
 echo "Done!"
