@@ -243,7 +243,8 @@ body *{
     padding: 0 2em;
     max-width: 80%;
     margin: auto;
-    /* background: white; */
+    display:block;
+    overflow: hidden;
 }
 
 .pure-g{
@@ -394,6 +395,7 @@ body {
 
 #topbar {
     border-bottom: 3px solid rgb(0, 178, 178);
+    padding: 2.5em 1.5em;
 }
 
 .pure-menu-active > .pure-menu-link, .pure-menu-link:hover, .pure-menu-link:focus {
@@ -403,10 +405,8 @@ body {
    Responsive Menu styles
    ========================================================================== */
 .custom-wrapper {
-    background-color: #FFFFFF;
     margin-bottom: 1em;
     -webkit-font-smoothing: antialiased;
-    padding: 2.5em 1.5em;
     -webkit-transition: height 0.5s;
     -moz-transition: height 0.5s;
     -ms-transition: height 0.5s;
