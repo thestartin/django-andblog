@@ -20,17 +20,10 @@
         </title>
 
         {% block base_css %}
-            {% if DEBUG %}
+            {% if meta.DEBUG %}
                 <link rel="stylesheet" href="{% static 'css/normalize.min.css' %}" type="text/css">
-                {% comment %}
                 <link rel="stylesheet" href="{% static 'css/pure.css' %}" type="text/css">
                 <link rel="stylesheet" href="{% static 'css/main.css' %}" type="text/css">
-                {% endcomment %}
-                {% if meta.accept_gzip %}
-                    <link rel="stylesheet" type="text/css" href="{% static 'css/min.all.css.gz' %}">
-                {% else %}
-                    <link rel="stylesheet" type="text/css" href="{% static 'css/min.all.css' %}">
-                {% endif %}
             {% else %}
                 {% comment %}
                 <link rel="stylesheet" href="{% static 'css/normalize.min.css' %}" type="text/css">

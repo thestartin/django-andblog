@@ -3,6 +3,7 @@
 {% load url from future %}
 {% load disqus_tags %}
 {% load seo %}
+{% load misc %}
 {% disqus_dev %}
 
 {% block meta_data %}{% get_metadata_from_str article.title article.tags.names article.title "article" article.get_absolute_url %}{% endblock meta_data %}
@@ -26,9 +27,10 @@
                         {% with "hide" as display %}
                             {% include "includes/section_summary.html" %}
                         {% endwith %}
-                        {% thumbnail article.image "1280x480" crop="top" as im %}
+                        {% thumbnail article.image "1280x640" crop="top" as im %}
                             <img src="{{ im.url }}" class="pure-img" id="article-img">
                         {% endthumbnail %}
+                        {% comment %}<img src="{{ article.image.file.name|get_media_url }}" class="pure-img" id="article-img">{% endcomment %}
                     {% else %}
                         <header class="header1">
                             <h2 class="s-t pure-u-xl-10-12 pure-u-lg-9-12">{{ sec.title }}</h2>

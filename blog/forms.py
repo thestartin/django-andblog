@@ -99,7 +99,7 @@ class BlogEntryUpdateForm(forms.Form):
                         Field('title', wrapper_class='rep pure-control-group', css_class='rep'),  # Class rep tells it is replicable item
                         Field('score', wrapper_class='rep pure-control-group', css_class='rep'),  # Class rep tells it is replicable item
                         Div(
-                            HTML("""{% load thumbnail %}{% load misc %}<div class='avatar pure-u-md-6-12'>Currently: {{ form.image|filename }}{% if form.image.value %}{% thumbnail form.image.value "300x200" as im %}<img src='{{ im.url }}{% endthumbnail %}'>{% endif %}></div>"""),
+                            HTML("""{% load thumbnail %}{% load misc %}<div class='avatar pure-u-md-6-12'>Currently: {{ form.image|filename }}<input id="id_image" name="image" type="file">{% if form.image.value %}{% thumbnail form.image.value "300x200" as im %}<img src='{{ im.url }}{% endthumbnail %}'>{% endif %}></div>"""),
                             css_class='pure-u-1'
                         ),
                         #Field('image', wrapper_class='norep pure-control-group', css_class='rep'),  # Class norep tells the item must be removed from replica's
