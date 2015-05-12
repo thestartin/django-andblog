@@ -39,7 +39,7 @@
                                 {% endwith %}
                             </header>
                             <div class="post-description">
-                                {{ sections.0.content|truncatewords:20|safe }}
+                                {{ sections.0.content|truncatewords:40|safe }}
                             </div>
                             {% with sections.0 as section %}
                                 {% include "share_buttons.html" %}
