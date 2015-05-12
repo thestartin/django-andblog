@@ -90,7 +90,7 @@ textarea {
         display:block;
         overflow: hidden;
     }
-    social-btns a{
+    .social-btns a{
         font-size: 1.5em;
     }
 }
@@ -103,7 +103,7 @@ textarea {
         display:block;
         overflow: hidden;
     }
-    social-btns a{
+    .social-btns a{
         font-size: 2em;
     }
 }
@@ -595,11 +595,11 @@ section {
     padding: .5em;
     border-bottom: 1px solid #EAEAEA;
 }
-social-btns a {
+.social-btns a {
     border-radius: 26px;
     margin-right: .2em;
 }
-social-btns {
+.social-btns {
     float: left;
 }
 .rate-it {
