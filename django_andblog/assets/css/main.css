@@ -79,8 +79,33 @@ textarea {
    Media Queries
    ========================================================================== */
 
-@media only screen and (min-width: 35em) {
+@media only screen and (max-width: 48em){
+    html {
+        font-size: .9em;
+    }
+    .m-wrap{
+        padding: 0 2em;
+        max-width: 95%;
+        margin: auto;
+        display:block;
+        overflow: hidden;
+    }
+    social-btns a{
+        font-size: 1.5em;
+    }
+}
 
+@media only screen and (min-width: 48em) {
+    .m-wrap{
+        padding: 0 2em;
+        max-width: 80%;
+        margin: auto;
+        display:block;
+        overflow: hidden;
+    }
+    social-btns a{
+        font-size: 2em;
+    }
 }
 
 @media print,
@@ -238,15 +263,6 @@ body *{
     font-family: 'Roboto Slab', serif;
 }
 
-/* Main wrapper */
-.m-wrap{
-    padding: 0 2em;
-    max-width: 80%;
-    margin: auto;
-    display:block;
-    overflow: hidden;
-}
-
 .pure-g{
     /* max-width: 94em; */
     margin: auto;
@@ -359,7 +375,13 @@ div#page_footer_wrap {
 #page_footer p {
     font-size: 0.8em;
 }
+#footer_links ul {
+    width: 100%;
+}
 
+#footer_links ul li {
+    width: 100%;
+}
 #page_footer a {
     font-size: 1em;
 }
@@ -394,6 +416,7 @@ body {
 }
 
 #topbar {
+    margin-bottom: 1em;
     border-bottom: 3px solid rgb(0, 178, 178);
     padding: 2.5em 1.5em;
 }
@@ -405,7 +428,6 @@ body {
    Responsive Menu styles
    ========================================================================== */
 .custom-wrapper {
-    margin-bottom: 1em;
     -webkit-font-smoothing: antialiased;
     -webkit-transition: height 0.5s;
     -moz-transition: height 0.5s;
@@ -498,6 +520,9 @@ body {
     .pure-menu-item{
         text-align: left;
     }
+    #topbar{
+        padding:0;
+    }
 }
 
 .pure-menu-allow-hover:hover > .pure-menu-children, .pure-menu-active > .pure-menu-children{
@@ -570,12 +595,11 @@ section {
     padding: .5em;
     border-bottom: 1px solid #EAEAEA;
 }
-.social-buttons a {
-    font-size: 2em;
+social-btns a {
     border-radius: 26px;
     margin-right: .2em;
 }
-.social-buttons {
+social-btns {
     float: left;
 }
 .rate-it {
