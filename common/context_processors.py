@@ -15,4 +15,4 @@ def meta_data(request):
 def settings_flags(request):
     options = dict()
     options['ENABLE_DISQUS'] = settings.ENABLE_DISQUS
-    return options
+    return {'options': options}
