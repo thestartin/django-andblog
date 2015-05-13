@@ -10,3 +10,9 @@ def meta_data(request):
     meta['DEBUG'] = settings.DEBUG
     meta['accept_gzip'] = 'gzip' in request.META.get('HTTP_ACCEPT_ENCODING', '')
     return {'meta': meta}
+
+
+def settings_flags(request):
+    settings = {}
+    settings['ENABLE_DISQUS'] = settings.ENABLE_DISQUS
+    return settings
