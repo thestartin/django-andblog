@@ -13,6 +13,6 @@ def meta_data(request):
 
 
 def settings_flags(request):
-    settings = {}
-    settings['ENABLE_DISQUS'] = settings.ENABLE_DISQUS
-    return settings
+    options = dict()
+    options['ENABLE_DISQUS'] = settings.ENABLE_DISQUS
+    return options
