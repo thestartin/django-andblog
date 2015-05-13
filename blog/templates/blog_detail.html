@@ -51,6 +51,6 @@
                 {% include "share_buttons.html" %}
             {% endwith %}
         </article>
-        {% comment %}{% disqus_show_comments %}{% endcomment %}
+        {% if settings.ENABLE_DISQUS %}{% disqus_show_comments %}{% endif %}
     {% endwith %}
 {% endblock main %}

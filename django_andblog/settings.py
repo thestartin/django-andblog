@@ -81,7 +81,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
     'django.core.context_processors.media',
     'pages.context_processors.menu',
-    'common.context_processors.meta_data'
+    'common.context_processors.meta_data',
+    'common.context_processors.settings_flags',
 )
 
 ROOT_URLCONF = 'django_andblog.urls'
@@ -207,6 +208,8 @@ BITLY_LOGIN = os.environ.get('BITLY_LOGIN', '')
 BITLY_API_KEY = os.environ.get('BITLY_API_KEY', '')
 
 # Disqus Integration
+#TODO: Need to disable installed apps and other logic based on this flag
+ENABLE_DISQUS = True
 DISQUS_API_KEY = os.environ.get('DISQUS_API_KEY', '')
 DISQUS_WEBSITE_SHORTNAME = os.environ.get('DISQUS_WEBSITE_SHORTNAME', '')
 
