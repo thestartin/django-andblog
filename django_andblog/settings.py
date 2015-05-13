@@ -208,6 +208,7 @@ BITLY_LOGIN = os.environ.get('BITLY_LOGIN', '')
 BITLY_API_KEY = os.environ.get('BITLY_API_KEY', '')
 
 # Disqus Integration
+#TODO: Need to disable installed apps and other logic based on this flag
 ENABLE_DISQUS = True
 DISQUS_API_KEY = os.environ.get('DISQUS_API_KEY', '')
 DISQUS_WEBSITE_SHORTNAME = os.environ.get('DISQUS_WEBSITE_SHORTNAME', '')
