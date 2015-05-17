@@ -38,11 +38,15 @@
                 </div>
                 <div class="pure-u-1 pure-hide-tablet">
                     <ul class="pure-menu-list">
-                        <li class="pure-menu-item"><a rel="nofollow" class="pure-menu-link" href="{% url 'profile' %}">VIEW PROFILE</a></li>
-                        {% if request.user.is_staff %}
-                            <li class="pure-menu-item"><a rel="nofollow" class="pure-menu-link" href="{% url 'blog:create' %}?next={% firstof request.path '/' %}">MAKE POST</a></li>
+                        {% if request.user.is_authenticated %}
+                            <li class="pure-menu-item"><a rel="nofollow" class="pure-menu-link" href="{% url 'profile' %}">VIEW PROFILE</a></li>
+                            {% if request.user.is_staff %}
+                                <li class="pure-menu-item"><a rel="nofollow" class="pure-menu-link" href="{% url 'blog:create' %}?next={% firstof request.path '/' %}">MAKE POST</a></li>
+                            {% endif %}
+                            <li class="pure-menu-item"><a rel="nofollow" class="pure-menu-link" href="{% url 'logout' %}?next={% firstof request.path '/' %}">LOGOUT</a></li>
+                        {% else %}
+                            <li><a class="ajax-popup-link pure-menu-link" rel="nofollow" href="{% url 'popup_login' %}?next={% firstof request.path '/' %}" class="pure-menu-link">LOGIN/REGISTER</a></li>
                         {% endif %}
-                        <li class="pure-menu-item"><a rel="nofollow" class="pure-menu-link" href="{% url 'logout' %}?next={% firstof request.path '/' %}">LOGOUT</a></li>
                     </ul>
                 </div>
             </div>
