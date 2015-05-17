@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.contrib.sites.models import get_current_site
 
 
 def meta_data(request):
@@ -15,4 +16,6 @@ def meta_data(request):
 def settings_flags(request):
     options = dict()
     options['ENABLE_DISQUS'] = settings.ENABLE_DISQUS
+    #options['LOGO_URL'] = ''.join(['http://', get_current_site(None).domain, settings.LOGO_URL])
+    options['LOGO_URL'] = settings.LOGO_URL
     return {'options': options}
