@@ -62,7 +62,7 @@ class Article(models.Model):
         return self.get_social_url('googleplus')
 
     def get_article_description(self):
-        return strip_tags(self.articlesection_set.all()[0].content[0:48])
+        return strip_tags(self.articlesection_set.all()[0].content[0:settings.MAX_DESCRIPTION_SIZE])
 
     def filename(self):
         return os.path.basename(self.image.name)
