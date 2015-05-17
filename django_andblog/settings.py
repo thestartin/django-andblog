@@ -191,7 +191,7 @@ SITE_NAME = 'DjangoAndBlog'
 SITE_FB_ADMINS = ''
 SITE_BITLY_VERIFICATION = ''
 SITE_URL = 'https://github.com/kumarvaradarajulu/django-andblog'
-
+SITE_TITLE = 'The Start you need'
 
 # SOCIAL LINKS
 SOCIAL_LINKS = {
@@ -199,7 +199,6 @@ SOCIAL_LINKS = {
     'facebook': 'http://www.facebook.com/sharer/sharer.php?u={url}&title={title}',
     'googleplus': 'https://plus.google.com/share?url={url}'
 }
-
 
 # Various Social integrations
 # BITLY
@@ -230,5 +229,5 @@ if USE_BITLY:
 ALLOWED_HOSTS = ['localhost', ]
 SITE_ID = 1
 LOGO_URL = MEDIA_URL + 'logo.png'
-CSS_VERSION = 0.1
+CSS_VERSION = 0.2
 JS_VERSION = 0.1

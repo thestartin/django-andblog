@@ -394,6 +394,10 @@ div#page_footer_wrap {
 #page_footer p.pure-u-1 {
     text-align: center;
 }
+#page_footer a[class^="icon-"] {
+    font-size: 2em;
+    background: white;
+}
 .s-d img, .post-description img{
     max-width: 100%;
     height: auto !important;

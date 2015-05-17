@@ -5,7 +5,9 @@ from django.contrib.sites.models import get_current_site
 def meta_data(request):
     meta = dict()
     meta['site_name'] = settings.SITE_NAME
-    meta['site_url'] = settings.SITE_URL
+    meta['site_url'] = ''.join(['http://', get_current_site(None).domain])
+    meta['site_title'] = settings.SITE_TITLE
+    meta['site_domain'] = get_current_site(None).domain
     meta['site_db_admins'] = settings.SITE_FB_ADMINS
     meta['site_bitly_verification'] = settings.SITE_BITLY_VERIFICATION
     meta['DEBUG'] = settings.DEBUG
@@ -20,4 +22,9 @@ def settings_flags(request):
     options['LOGO_URL'] = settings.LOGO_URL
     options['JS_VERSION'] = settings.JS_VERSION
     options['CSS_VERSION'] = settings.CSS_VERSION
+    options['SITE_URL'] = ''.join(['http://', get_current_site(None).domain])
+    options['SITE_TWITTER_URL'] = settings.SOCIAL_LINKS['twitter'].format(title=settings.SITE_TITLE, url=options['SITE_URL'])
+    options['SITE_GOOGLEPLUS_URL'] = settings.SOCIAL_LINKS['googleplus'].format(url=options['SITE_URL'])
+    options['SITE_FACEBOOK_URL'] = settings.SOCIAL_LINKS['facebook'].format(url=options['SITE_URL'], title=settings.SITE_TITLE)
+
     return {'options': options}
