@@ -3,6 +3,7 @@ from django.template.loader import get_template
 from django.template.context import Context
 from django.conf import settings
 from django.db.models.query import ValuesListQuerySet
+from django.contrib.sites.models import get_current_site
 
 
 register = template.Library()
@@ -14,7 +15,7 @@ class MetaDataNode(template.Node):
         self.keywords = keywords and keywords or '"{}"'.format(settings.DEFAULT_META_DATA['keywords'])
         self.page_title = page_title and page_title or self.description
         self.og_type = og_type and og_type or '"{}"'.format(settings.DEFAULT_META_DATA['og_type'])
-        self.site_url = site_url and site_url or '"{}"'.format(settings.DEFAULT_META_DATA['site_url'])
+        self.site_url = site_url and site_url or '"{}"'.format(''.join(['http://', get_current_site(None).domain]))
 
         # If variable was passed then resolve it that way
         self.metas = {'meta_description': self.description,
@@ -106,7 +107,7 @@ def do_get_metadata_from_obj(parser, tokens):
 
 def do_get_metadata_from_str(parser, tokens):
     bits = list(tokens.split_contents())
-    args = bits[1:]
+    args = [item.replace('""', '') for item in bits[1:]]
 
     # if not len(args) == 2:
     #     raise template.TemplateSyntaxError("Template tag should be in "
