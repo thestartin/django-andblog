@@ -22,8 +22,8 @@
         {% block base_css %}
             {% if meta.DEBUG %}
                 <link rel="stylesheet" href="{% static 'css/normalize.min.css' %}" type="text/css">
-                <link rel="stylesheet" href="{% static 'css/pure.css' %}" type="text/css">
-                <link rel="stylesheet" href="{% static 'css/main.css' %}" type="text/css">
+                <link rel="stylesheet" href="{% static 'css/pure.css' %}?v={{ options.CSS_VERSION }}" type="text/css">
+                <link rel="stylesheet" href="{% static 'css/main.css' %}?v={{ options.CSS_VERSION }}" type="text/css">
             {% else %}
                 {% comment %}
                 <link rel="stylesheet" href="{% static 'css/normalize.min.css' %}" type="text/css">
@@ -31,9 +31,9 @@
                 <link rel="stylesheet" href="{% static 'css/min.main.css' %}" type="text/css">
                 {% endcomment %}
                 {% if meta.accept_gzip %}
-                    <link rel="stylesheet" type="text/css" href="{% static 'css/min.all.css' %}">
+                    <link rel="stylesheet" type="text/css" href="{% static 'css/min.all.css' %}?v={{ options.CSS_VERSION }}">
                 {% else %}
-                    <link rel="stylesheet" type="text/css" href="{% static 'css/min.all.css' %}">
+                    <link rel="stylesheet" type="text/css" href="{% static 'css/min.all.css' %}?v={{ options.CSS_VERSION }}">
                 {% endif %}
             {% endif %}
             <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400' rel='stylesheet' type='text/css'>
@@ -89,9 +89,9 @@
                 <script src="{% static 'js/main.js' %}"></script>
             {% else %}
                 {% if meta.accept_gzip %}
-                    <script type="text/javascript" src="{% static 'js/min.all.js' %}"></script>
+                    <script type="text/javascript" src="{% static 'js/min.all.js' %}?v={{ options.JS_VERSION }}"></script>
                 {% else %}
-                    <script type="text/javascript" src="{% static 'js/min.all.js' %}"></script>
+                    <script type="text/javascript" src="{% static 'js/min.all.js' %}?v={{ options.JS_VERSION }}"></script>
                 {% endif %}
             {% endif %}
             <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
