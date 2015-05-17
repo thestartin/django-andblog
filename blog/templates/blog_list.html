@@ -3,10 +3,6 @@
 {% load url from future %}
 {% load seo %}
 
-{% block meta_data %}
-    {% get_metadata_from_str "" "" %}
-{% endblock meta_data %}
-
 {% block extra_js %}
     {{ form.media }}
 {% endblock extra_js %}

@@ -12,7 +12,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         {% block meta_data %}
-            {% get_metadata_from_str %}
+            {% get_metadata_from_str "" "" meta.site_title "" "" %}
         {% endblock meta_data %}
 
         <title>
