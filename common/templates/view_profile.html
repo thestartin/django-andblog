@@ -6,18 +6,29 @@
 {% block page_title %}View {{ viewuser.get_full_name|default:viewuser.username }}'s profile{% endblock page_title %}
 
 {% block main_full_width %}
-    <div class="pure-u-1 pure-u-md-6-12 pure-u-lg-5-12 ls">
+    <div class="pure-u-1 pure-u-md-4-12 pure-u-lg-3-12 ls">
         <p class="prof-img">
             {% if viewuser.avatar %}
                 {% thumbnail viewuser.avatar "300x200" as im %}
-                    <img src="{{ im.url }}">
+                    <img class="circle" src="{{ im.url }}">
                 {% endthumbnail %}
             {% endif %}
         </p>
     </div>
-    <div class="pure-u-1 pure-u-md-6-12 pure-u-lg-7-12 rs">
-        <p><span class="lbl">Name</span><span class="val">{{ viewuser.get_full_name }}</span></p>
-        <p><span class="lbl">Location</span><span class="val">{{ viewuser.location }}</span></p>
-        <p><span class="lbl">About</span><span class="val">{{ viewuser.about }}</span></p>
+    <div class="pure-u-1 pure-u-md-8-12 pure-u-lg-9-12 rs">
+        <table class="pure-table">
+            <tr>
+                <td class="lbl">Name</td>
+                <td class="val">{{ viewuser.get_full_name }}</td>
+            </tr>
+            <tr>
+                <td class="lbl">Location</td>
+                <td class="val">{{ viewuser.location }}</td>
+            </tr>
+            <tr>
+                <td class="lbl">About</td>
+                <td class="val">{{ viewuser.about }}</td>
+            </tr>
+        </table>
     </div>
 {% endblock main_full_width %}

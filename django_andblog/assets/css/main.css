@@ -550,6 +550,21 @@ a.pure-menu-heading.custom-brand {
 span[id *= "error_"] {
     color: red;
 }
+.pure-table{
+    border: none;
+}
+td.lbl{
+    border-right: 1px solid #159999;
+}
+.pure-hide-tablet .ajax-popup-link{
+    text-align: center;
+    background: inherit;
+}
+img.circle{
+    border-radius: 50%;
+    overflow: hidden;
+}
+
 /* ==========================================================================
    Blog Post styles
    ========================================================================== */
