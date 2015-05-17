@@ -229,3 +229,4 @@ if USE_BITLY:
 
 ALLOWED_HOSTS = ['localhost', ]
 SITE_ID = 1
+LOGO_URL = MEDIA_URL + 'logo.png'
