@@ -6,7 +6,7 @@
 {% load misc %}
 {% disqus_dev %}
 
-{% block meta_data %}{% get_metadata_from_str article.title article.tags.names article.title "article" article.get_absolute_url %}{% endblock meta_data %}
+{% block meta_data %}{% get_metadata_from_str article.get_article_description article.tags.names article.title "article" article.get_absolute_url %}{% endblock meta_data %}
 {% block extra_js %}
     {{ form.media }}
 {% endblock extra_js %}

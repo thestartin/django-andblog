@@ -11,7 +11,7 @@ register = template.Library()
 
 class MetaDataNode(template.Node):
     def __init__(self, description="", keywords="", page_title="", og_type="", site_url=""):
-        self.description = description and description or '"{}"'.format(settings.DEFAULT_META_DATA['description'])
+        self.description = description and description[:65] or '"{}"'.format(settings.DEFAULT_META_DATA['description'])
         self.keywords = keywords and keywords or '"{}"'.format(settings.DEFAULT_META_DATA['keywords'])
         self.page_title = page_title and page_title or self.description
         self.og_type = og_type and og_type or '"{}"'.format(settings.DEFAULT_META_DATA['og_type'])

@@ -9,6 +9,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.sites.models import get_current_site
 from django.http import Http404
+from django.utils.html import strip_tags
 from sorl.thumbnail import ImageField
 from taggit.managers import TaggableManager
 from autoslug.fields import AutoSlugField
@@ -59,6 +60,9 @@ class Article(models.Model):
 
     def get_googleplus_url(self):
         return self.get_social_url('googleplus')
+
+    def get_article_description(self):
+        return strip_tags(self.articlesection_set.all()[0].content[0:48])
 
     def filename(self):
         return os.path.basename(self.image.name)
