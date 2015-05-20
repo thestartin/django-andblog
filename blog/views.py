@@ -6,7 +6,7 @@ from django.views.generic.base import TemplateView
 from django import forms
 from django.http import JsonResponse
 from django.core.exceptions import ObjectDoesNotExist
-from django.http import Http404, HttpResponseRedirect
+from django.http import Http404, HttpResponseRedirect, HttpResponseForbidden
 from django.core.exceptions import ImproperlyConfigured
 from django.core.urlresolvers import reverse_lazy
 from ckeditor.widgets import CKEditorWidget
@@ -16,6 +16,7 @@ from .services import get_custom_fields, BlogPaginator
 from .models import Article, ArticleSection
 from .mixins import JSONResponseMixin
 from .decorators import get_ip_hashed
+from .constants import PERM_BLOG_ARTICLE_EDIT, PERM_BLOG_ARTICLE_CREATE
 
 
 class BlogEntry(FormView):
@@ -79,6 +80,8 @@ class BlogList(ListView):
         """
         if self.request.user.is_staff:
             queryset = self.model.objects.get_posts(self.route, **self.kwargs)
+        elif self.request.user.has_perm(PERM_BLOG_ARTICLE_CREATE):
+            queryset = self.model.objects.get_unpublished_posts_by_user(self.route, self.request.user, **self.kwargs)
         else:
             queryset = self.model.pub.get_posts(self.route, **self.kwargs)
 
@@ -111,7 +114,20 @@ class BlogUpdate(FormView):
     pk_url_kwarg = 'pk'
     slug_url_kwarg = 'slug'
 
-    def get_initial(self):
+    def get(self, request, *args, **kwargs):
+        """
+        Handles GET requests and instantiates a blank version of the form.
+        """
+        self.initial = self.get_article()
+
+        if isinstance(self.initial, HttpResponseForbidden):
+            return self.initial
+
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        return self.render_to_response(self.get_context_data(form=form))
+
+    def get_article(self):
         """
         Return the list of items for this view.
 
@@ -133,7 +149,13 @@ class BlogUpdate(FormView):
         except ObjectDoesNotExist:
             raise Http404("OOps! Article does not exist")
 
-        return initial
+        if self.request.user.is_superuser or initial.author == self.request.user:
+            return initial
+        else:
+            return HttpResponseForbidden()
+
+    def get_initial(self):
+        return self.get_article()
 
     def form_valid(self, form):
         try:

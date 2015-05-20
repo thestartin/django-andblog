@@ -24,7 +24,7 @@
                                         <a id="menuLink1" class="pure-menu-link" href="#" rel="nofollow" class="pure-menu-link">{{ request.user.username }}</a>
                                             <ul class="pure-menu-children">
                                                 <li class="pure-menu-item"><a rel="nofollow" class="pure-menu-link" href="{% url 'profile' %}">View Profile</a></li>
-                                                {% if request.user.is_staff %}
+                                                {% if perms.blog.add_article %}
                                                     <li class="pure-menu-item"><a rel="nofollow" class="pure-menu-link" href="{% url 'blog:create' %}?next={% firstof request.path '/' %}">Make Post</a></li>
                                                 {% endif %}
                                                 <li class="pure-menu-item"><a rel="nofollow" class="pure-menu-link" href="{% url 'logout' %}?next={% firstof request.path '/' %}">Logout</a></li>
@@ -40,7 +40,7 @@
                     <ul class="pure-menu-list">
                         {% if request.user.is_authenticated %}
                             <li class="pure-menu-item"><a rel="nofollow" class="pure-menu-link" href="{% url 'profile' %}">VIEW PROFILE</a></li>
-                            {% if request.user.is_staff %}
+                            {% if perms.blog.add_article %}
                                 <li class="pure-menu-item"><a rel="nofollow" class="pure-menu-link" href="{% url 'blog:create' %}?next={% firstof request.path '/' %}">MAKE POST</a></li>
                             {% endif %}
                             <li class="pure-menu-item"><a rel="nofollow" class="pure-menu-link" href="{% url 'logout' %}?next={% firstof request.path '/' %}">LOGOUT</a></li>
