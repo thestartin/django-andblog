@@ -1,4 +1,5 @@
 from django.http import JsonResponse
+from django.db.models import Q
 
 __all__ = ['JSONResponseMixin', 'ArticleFilterMixin', 'ArticleSectionMixin']
 
@@ -19,17 +20,32 @@ class JSONResponseMixin(object):
 
 
 class ArticleFilterMixin(object):
-    def get_posts(self, route='all', **kwargs):
+    def get_posts(self, route='all', prefetch=True, **kwargs):
         if route == 'tag':
-            return self.get_posts_by_tag(kwargs['tag'])
+            queryset = self.get_posts_by_tag(kwargs['tag'])
         elif route in ('year', 'year_month', 'ymd'):
-            return self.get_posts_by_date(route, **kwargs)
+            queryset = self.get_posts_by_date(route, **kwargs)
         else:
-            return self.get_queryset().prefetch_related('articlesection_set').select_related('author')
+            queryset = self.get_queryset()
+
+        if prefetch:
+            return queryset.prefetch_related('articlesection_set').select_related('author')
+        else:
+            return queryset
+
+    def get_unpublished_posts_by_user(self, route, user, **kwargs):
+        """
+        This method is used to get posts for a specified user who has create permissions & even if
+        the article is not published
+        :return:
+        """
+        queryset = self.get_posts(route, prefetch=False, **kwargs)
+        queryset = queryset.filter(Q(author=user) | Q(published=True))
+
+        return queryset.prefetch_related('articlesection_set').select_related('author')
 
     def get_posts_by_tag(self, tag_name):
-        return self.get_queryset().filter(tags__name=tag_name).\
-            prefetch_related('articlesection_set').select_related('author')
+        return self.get_queryset().filter(tags__name=tag_name)
 
     def get_posts_by_date(self, route, **kwargs):
         queryset = self.get_queryset()
@@ -42,7 +58,7 @@ class ArticleFilterMixin(object):
         if route == 'ymd':
             queryset = queryset.filter(created_date_time__day=kwargs['day'])
 
-        return queryset.prefetch_related('articlesection_set').select_related('author')
+        return queryset
 
 
 class ArticleSectionMixin(object):

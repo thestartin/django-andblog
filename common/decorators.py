@@ -12,9 +12,11 @@ def login_redirect(func):
     return redirect_if_logged_in
 
 
-def staff_or_not_allowed(func):
+def staff_or_not_allowed(func, route):
+    route = route
+
     def disallow_if_not_staff(request, *args, **kwargs):
-        if not request.user.is_staff:
+        if not request.user.has_perm(route):
             return HttpResponseForbidden()
         else:
             return func(request, *args, **kwargs)

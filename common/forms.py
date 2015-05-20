@@ -68,12 +68,14 @@ class RegisterForm(forms.Form):
         user = CustomUser.objects.get_by_user_or_email(username, email)
         if user:
             raise ValidationError('User with Username & Email is already in use')
+        return email
 
     def clean_reg_confpassword(self):
         conf_password = self.cleaned_data['reg_confpassword']
         password = self.cleaned_data['reg_password']
         if password != conf_password:
             raise ValidationError('Password & Confirm passwords do not match!')
+        return conf_password
 
     def __str__(self):
         return 'registerform'
