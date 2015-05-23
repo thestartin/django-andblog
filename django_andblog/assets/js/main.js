@@ -307,4 +307,33 @@
       type: 'ajax'
     });
 
+    $('.compare .inner tr > td > p > img + span').on('click', function(e){
+        var inner = $('.compare .inner');
+        var ind = $(this).attr('index');
+        if (ind){
+            var num = ind;
+            inner.find('tr:eq('+ num +') > td > p > img + span').removeAttr('index');
+        } else{
+            var num = $(this).parent().parent().parent().index();
+            inner.find('tr:eq('+ num +') > td > p > img + span').attr('index', num);
+        }
+
+        if ($(this).hasClass('only')){
+            $(this).removeClass('only');
+            //$(this).text($(this).attr('original'));
+            inner.find('tr:eq('+ num +') > td > p > img + span').text($(this).attr('original'));
+
+        } else {
+            inner.find('tr:eq('+ num +') > td > p > img + span').addClass('only');
+            var text = $(this).text();
+            inner.find('tr:eq('+ num +') > td > p > img + span').attr('original', text);
+            text = text.replace('only this', 'all');
+            text = text + "'s";
+            //$(this).text(text);
+            inner.find('tr:eq('+ num +') > td > p > img + span').text(text);
+        }
+
+        inner.find('tr:not(:eq('+ num +'))').slideToggle();
+    });
+
 }());

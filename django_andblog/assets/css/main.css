@@ -398,11 +398,11 @@ div#page_footer_wrap {
     font-size: 2em;
     background: white;
 }
-.s-d img, .post-description img{
+.s-d img.fs, .post-description img.fs{
     max-width: 100%;
     height: auto !important;
 }
-.post-description img {
+.post-description img.fs {
     max-width: 50%;
     height: auto !important;
 }
@@ -430,6 +430,38 @@ body {
 }
 a.pure-menu-heading.custom-brand {
     padding: 0;
+}
+/* Post description styles */
+table.compare.outer > tbody > tr > td:first-child{
+    border-right: 2px solid #A8A8A8;
+    border-bottom: 2px solid #A8A8A8;
+    background: #F5F5F4;
+    text-align: center;
+}
+
+table.compare.outer .inner tr {
+    border-bottom: 1px solid #CACACA;
+}
+
+table.compare.outer .inner > tbody > tr:last-child {
+}
+
+.inner td {
+    padding: 0 1.5em;
+}
+
+table.inner {
+    width: 100%;
+}
+.compare .inner tr > td > p > img + span {
+    margin-left: 5em;
+    background: #E0E0E0;
+    padding: 5px;
+    font-size: .9em;
+    cursor: pointer;
+}
+table.compare div{
+    float:left;
 }
 /* ==========================================================================
    Responsive Menu styles
