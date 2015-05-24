@@ -64,6 +64,9 @@ class Article(models.Model):
     def get_article_description(self):
         return strip_tags(self.articlesection_set.all()[0].content[0:settings.MAX_DESCRIPTION_SIZE])
 
+    def get_article_description_list(self):
+        return strip_tags(self.articlesection_set.all()[0].content[0:settings.MAX_DESCRIPTION_LIST_SIZE])
+
     def filename(self):
         return os.path.basename(self.image.name)
 

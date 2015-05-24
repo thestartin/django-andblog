@@ -2,6 +2,7 @@
 {% load static crispy_forms_tags thumbnail %}
 {% load url from future %}
 {% load seo %}
+{% load misc %}
 
 {% block extra_js %}
     {{ form.media }}
@@ -35,7 +36,7 @@
                                 {% endwith %}
                             </header>
                             <div class="post-description">
-                                {{ article.get_article_description|safe }}
+                                {{ article.get_article_description_list|safe }}{% if sections.0.content|is_more %}... <a rel="nofollow" href="{{ article.get_absolute_url }}">Read full article</a>{% endif %}
                             </div>
                             {% with sections.0 as section %}
                                 {% include "share_buttons.html" %}
