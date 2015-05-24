@@ -447,13 +447,14 @@ table.compare.outer .inner > tbody > tr:last-child {
 
 .inner td {
     padding: 0.5em 1.5em;
+    word-wrap: break-word;
 }
 
 table.inner {
     width: 100%;
 }
 .compare .inner tr > td > p > img + span {
-    margin-left: 5em;
+    margin-left: 1em;
     background: #E0E0E0;
     padding: 5px;
     font-size: .9em;
