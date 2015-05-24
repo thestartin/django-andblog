@@ -7,7 +7,7 @@
 
 {% block main_full_width %}
     <div class="pure-u-1 profile">
-        <h2>{{ viewuser.get_full_name }}</h2>
+        <h2>{{ viewuser.get_full_name|default:viewuser.username }}</h2>
         <p class="prof-img">
             {% if viewuser.avatar %}
                 {% thumbnail viewuser.avatar "300x200" as im %}
