@@ -6,21 +6,22 @@
 {% block page_title %}View {{ viewuser.get_full_name|default:viewuser.username }}'s profile{% endblock page_title %}
 
 {% block main_full_width %}
-    <div class="pure-u-1 pure-u-md-4-12 pure-u-lg-3-12 ls">
+    <div class="pure-u-1 profile">
+        <h2>{{ viewuser.get_full_name }}</h2>
         <p class="prof-img">
             {% if viewuser.avatar %}
                 {% thumbnail viewuser.avatar "300x200" as im %}
                     <img class="circle" src="{{ im.url }}">
                 {% endthumbnail %}
+            {% else %}
+                {% thumbnail options.DEFAULT_AVATAR "300x200" as im %}
+                    <img class="circle" src="{{ im.url }}">
+                {% endthumbnail %}
             {% endif %}
         </p>
     </div>
-    <div class="pure-u-1 pure-u-md-8-12 pure-u-lg-9-12 rs">
+    <div class="pure-u-1">
         <table class="pure-table">
-            <tr>
-                <td class="lbl">Name</td>
-                <td class="val">{{ viewuser.get_full_name }}</td>
-            </tr>
             <tr>
                 <td class="lbl">Location</td>
                 <td class="val">{{ viewuser.location }}</td>

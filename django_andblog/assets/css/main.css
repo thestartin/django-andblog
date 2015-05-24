@@ -447,7 +447,7 @@ table.compare.outer .inner > tbody > tr:last-child {
 }
 
 .inner td {
-    padding: 0 1.5em;
+    padding: 0.5em 1.5em;
 }
 
 table.inner {
@@ -627,7 +627,7 @@ section {
     float: left;
 }
 .post-title {
-    font-size: 2em;
+    font-size: 1.7em;
     color: #222;
     margin-bottom: 0.2em;
 }
@@ -674,6 +674,9 @@ span.s-trig, a.rb, div.sec-lu.inline {
 }
 .ls{
     padding-right: 2em;
+}
+.profile h2{
+    text-align: center;
 }
 .post-category {
     margin: 0 0.1em;

@@ -10,6 +10,8 @@ class EmailModelBackend(ModelBackend):
             UserModel = get_user_model()
             try:
                 user = UserModel._default_manager.get_by_user_or_email(None, username)
+                if not user:
+                    return
                 if user.check_password(password):
                     return user
             except UserModel.DoesNotExist:
