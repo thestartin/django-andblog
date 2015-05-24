@@ -20,6 +20,7 @@ def settings_flags(request):
     options['ENABLE_DISQUS'] = settings.ENABLE_DISQUS
     #options['LOGO_URL'] = ''.join(['http://', get_current_site(None).domain, settings.LOGO_URL])
     options['LOGO_URL'] = settings.LOGO_URL
+    options['DEFAULT_AVATAR'] = settings.DEFAULT_AVATAR
     options['JS_VERSION'] = settings.JS_VERSION
     options['CSS_VERSION'] = settings.CSS_VERSION
     options['SITE_URL'] = ''.join(['http://', get_current_site(None).domain])
