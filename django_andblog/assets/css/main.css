@@ -84,8 +84,8 @@ textarea {
         font-size: .8em;
     }
     .m-wrap{
-        padding: 0 1em;
-        max-width: 95%;
+        padding: 0 2%;
+        max-width: 98%;
         margin: auto;
         display:block;
         overflow: hidden;
