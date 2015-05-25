@@ -27,7 +27,7 @@
                         {% with "hide" as display %}
                             {% include "includes/section_summary.html" %}
                         {% endwith %}
-                        {% thumbnail article.image "1280x640" crop="top" as im %}
+                        {% thumbnail article.image "1080x480" crop="top" as im %}
                             <img src="{{ im.url }}" class="fs pure-img" id="article-img">
                         {% endthumbnail %}
                         {% comment %}<img src="{{ article.image.file.name|get_media_url }}" class="pure-img" id="article-img">{% endcomment %}
