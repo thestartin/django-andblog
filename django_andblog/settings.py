@@ -234,3 +234,5 @@ JS_VERSION = 0.1
 MAX_DESCRIPTION_SIZE = 150
 MAX_DESCRIPTION_LIST_SIZE = 300
 DEFAULT_AVATAR = os.path.join(MEDIA_ROOT, 'avatar.jpg')
+FOOTER_TEXT = 'We strive to educate & help others make right & informed decisions.'
+FOOTER_COPY_RIGHT = 'Copyright &copy; VASA Enterprise'

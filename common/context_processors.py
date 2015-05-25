@@ -23,6 +23,8 @@ def settings_flags(request):
     options['DEFAULT_AVATAR'] = settings.DEFAULT_AVATAR
     options['JS_VERSION'] = settings.JS_VERSION
     options['CSS_VERSION'] = settings.CSS_VERSION
+    options['FOOTER_TEXT'] = settings.FOOTER_TEXT
+    options['FOOTER_COPY_RIGHT'] = settings.FOOTER_COPY_RIGHT
     options['SITE_URL'] = ''.join(['http://', get_current_site(None).domain])
     options['SITE_TWITTER_URL'] = settings.SOCIAL_LINKS['twitter'].format(title=settings.SITE_TITLE, url=options['SITE_URL'])
     options['SITE_GOOGLEPLUS_URL'] = settings.SOCIAL_LINKS['googleplus'].format(url=options['SITE_URL'])
