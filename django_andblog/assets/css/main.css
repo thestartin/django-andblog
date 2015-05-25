@@ -446,7 +446,7 @@ table.compare.outer .inner > tbody > tr:last-child {
 }
 
 .inner td {
-    padding: 0.5em 1.5em;
+    padding: 0.5% 1.5%;
     word-wrap: break-word;
 }
 

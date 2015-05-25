@@ -6,7 +6,7 @@
             {% endwith %}
         </nav>
     {% endblock footer_links %}
-        <p class="pure-u-1 pure-u-sm-6-12">{{ options.FOOTER_TEXT }}</p>
+        <p class="pure-u-1 pure-u-sm-6-12">{{ options.FOOTER_TEXT|safe }}</p>
     {% block footer_share %}
         <div class="social-btns pure-u-sm-2-12">
             <a href="{{ options.SITE_FACEBOOK_URL }}" class="icon-facebook2"></a>
@@ -15,6 +15,6 @@
         </div>
     {% endblock footer_share %}
     {% block footer_copy %}
-        <p class="pure-u-1">{{ options.FOOTER_COPY_RIGHT }}</p>
+        <p class="pure-u-1">{{ options.FOOTER_COPY_RIGHT|safe }}</p>
     {% endblock footer_copy %}
 {% endblock footer %}
