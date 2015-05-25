@@ -372,7 +372,8 @@ div#page_footer_wrap {
     border: none;
 }
 #page_footer p {
-    font-size: 0.8em;
+    padding: 0 2%;
+    font-family: inherit;
 }
 #footer_links ul {
     width: 100%;
@@ -390,7 +391,7 @@ div#page_footer_wrap {
     min-width: 80%;
 }
 
-#page_footer p.pure-u-1 {
+#page_footer p.copy {
     text-align: center;
 }
 #page_footer a[class^="icon-"] {
