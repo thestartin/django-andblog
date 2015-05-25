@@ -1,6 +1,6 @@
 {% block footer %}
     {% block footer_links %}
-        <nav id="footer_links" class="pure-u-1 pure-u-sm-4-12">
+        <nav id="footer_links" class="pure-u-1 pure-u-sm-3-12">
             {% with "nofollow" as follow %}
                 {% include "nav_links.html" %}
             {% endwith %}
@@ -8,13 +8,13 @@
     {% endblock footer_links %}
         <p class="pure-u-1 pure-u-sm-6-12">{{ options.FOOTER_TEXT|safe }}</p>
     {% block footer_share %}
-        <div class="social-btns pure-u-sm-2-12">
+        <div class="social-btns pure-u-sm-3-12">
             <a href="{{ options.SITE_FACEBOOK_URL }}" class="icon-facebook2"></a>
             <a href="{{ options.SITE_TWITTER_URL }}" class="icon-twitter2"></a>
             <a href="{{ options.SITE_GOOGLEPLUS_URL }}" class="icon-google-plus2"></a>
         </div>
     {% endblock footer_share %}
     {% block footer_copy %}
-        <p class="pure-u-1">{{ options.FOOTER_COPY_RIGHT|safe }}</p>
+        <p class="copy pure-u-1">{{ options.FOOTER_COPY_RIGHT|safe }}</p>
     {% endblock footer_copy %}
 {% endblock footer %}
