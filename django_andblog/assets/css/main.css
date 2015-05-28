@@ -464,6 +464,17 @@ table.inner {
 table.compare div{
     float:left;
 }
+.item-descr, .item-source{
+    padding: 0.5em 0 0.5em 1.5em;
+}
+.item-head{
+    color: rgb(46, 114, 173);
+    padding: 5px 0;
+}
+.item-source{
+    font-size: 0.9em;
+    color: rgb(35, 161, 94);
+}
 /* ==========================================================================
    Responsive Menu styles
    ========================================================================== */

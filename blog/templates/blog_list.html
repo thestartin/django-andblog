@@ -20,11 +20,11 @@
                         <div class="pure-u-md-4-12 pure-u-lg-3-12 ls pure-hide-phone pure-hide-smart-phone">
                             {% if article.image|is_portrait %}
                                 {% thumbnail article.image "300x200" crop="smart" as im %}
-                                        <img src="{{ im.url }}" class="pure-img" style="padding:{{ im|margin:"300x200" }}">
+                                        <img alt="{{ article.title }}" src="{{ im.url }}" class="pure-img" style="padding:{{ im|margin:"300x200" }}">
                                 {% endthumbnail %}
                             {% else %}
                                 {% thumbnail article.image "300x200" as im %}
-                                        <img src="{{ im.url }}" class="pure-img" style="padding:{{ im|margin:"300x200" }}">
+                                        <img alt="{{ article.title }}" src="{{ im.url }}" class="pure-img" style="padding:{{ im|margin:"300x200" }}">
                                 {% endthumbnail %}
                             {% endif %}
                         </div>
