@@ -21,7 +21,7 @@
                         <ul class="pure-menu-list">
                                 {% if request.user.is_authenticated %}
                                     <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
-                                        <a id="menuLink1" class="pure-menu-link" href="#" rel="nofollow" class="pure-menu-link">{{ request.user.username }}</a>
+                                        <a id="menuLink1" class="pure-menu-link" href="#" rel="nofollow">{{ request.user.username }}</a>
                                             <ul class="pure-menu-children">
                                                 <li class="pure-menu-item"><a rel="nofollow" class="pure-menu-link" href="{% url 'profile' %}">View Profile</a></li>
                                                 {% if perms.blog.add_article %}
