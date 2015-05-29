@@ -33,12 +33,14 @@
                         {% comment %}<img src="{{ article.image.file.name|get_media_url }}" class="pure-img" id="article-img">{% endcomment %}
                     {% else %}
                         <header class="header1">
-                            <h2 class="s-t pure-u-xl-10-12 pure-u-lg-9-12">{{ sec.title }}</h2>
-                            <div class="sec-lu pure-hide-smart-phone pure-u-xl-2-12 pure-u-lg-3-12" article_id="{{ article.id }}" sec_id="{{ sec.id }}">
-                                <span class="icon-thumbsup like" data-type="1"></span>
-                                <span class="likes">{{ sec.likes }}</span>
-                                <span class="icon-thumbsdown unlike" data-type="0"></span>
-                                <span class="unlikes">{{ sec.unlikes }}</span>
+                            <h2 class="s-t pure-u-lg-9-12">{{ sec.title }}</h2>
+                            <div class="sec-lu pure-hide-smart-phone pure-u-lg-3-12" article_id="{{ article.id }}" sec_id="{{ sec.id }}">
+                                <div>
+                                    <span class="icon-thumbsup like" data-type="1"></span>
+                                    <span class="likes">{{ sec.likes }}</span>
+                                    <span class="icon-thumbsdown unlike" data-type="0"></span>
+                                    <span class="unlikes">{{ sec.unlikes }}</span>
+                                </div>
                             </div>
                         </header>
                     {% endif %}

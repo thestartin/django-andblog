@@ -181,15 +181,15 @@
         } else {
             data_type = 'abusive';
         }
-        var parent = $(this).parent();
-        var sec_id = parent.attr('sec_id');
-        var article_id = parent.attr('article_id');
+        var parent = $(this).parent().parent();
+        var sec_id = parent.data('sec_id');
+        var article_id = parent.data('article_id');
         var url = '/vote/';
         $.post(url, {'article': article_id, 'section': sec_id, 'vote_type': vote_type}, function(data){
             if (data.status == 'N'){
                 console.log('Error casting vote');
             } else if (data.status == 'Y'){
-                parent.children('span.'+data_type).text(data.data);
+                parent.children().children('span.'+data_type).text(data.data);
             }
 
         });

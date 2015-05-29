@@ -49,8 +49,10 @@ class BlogEntry(FormView):
         if form.is_valid():
             return self.form_valid(form)
         else:
+            #TODO: Once the forms are made Ajax the below can be used
             # We use Ajax forms so return the errors
-            return JsonResponse(form.errors)
+            #return JsonResponse(form.errors)
+            return self.form_invalid(form)
 
     def add_custom_fields(self, form, request):
         for field in self.request_custom_fields:
