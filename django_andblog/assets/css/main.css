@@ -300,10 +300,10 @@ a{
     display: none;
 }
 .likes, .unlikes {
-    padding: .1em .7em;
-    color: white;
+    padding: .1em .8em;
+    background-color: rgb(216, 216, 216);
     margin-right: .5em;
-    border-radius: 6px;
+    border-radius: 3px;
 }
 footer {
     position: relative;
@@ -320,17 +320,17 @@ footer > div > * {
     position: relative;
     float: left;
 }
-.likes {
-    background: green;
-    margin-right: 1.5em;
+.like {
+    color: green;
+    /* margin-right: 1.5em; */
 }
-.unlikes {
-    background: red;
+.unlike {
+    color: red;
 }
 .like, .unlike, .abusive {
     cursor: pointer;
-    font-size: 1.3em;
-    margin: .1em .4em 0 0;
+    font-size: 1.2em;
+    margin: .3em .4em 0 0;
 }
 .post-summary h3{
     margin: .3em 0;
@@ -474,6 +474,13 @@ table.compare div{
 .item-source{
     font-size: 0.9em;
     color: rgb(35, 161, 94);
+}
+.s-d .pure-table, .s-d .pure-table tr {
+    border: 1px solid #DDD;
+}
+
+.s-d .pure-table > tbody > tr:first-child {
+    background: rgb(0, 207, 255);
 }
 /* ==========================================================================
    Responsive Menu styles
@@ -675,6 +682,9 @@ section {
 span.s-trig, a.rb, div.sec-lu.inline {
     float: right;
     padding: .5em;
+}
+.sec-lu > div {
+    float: right;
 }
 .post-meta > *{
     float: left;

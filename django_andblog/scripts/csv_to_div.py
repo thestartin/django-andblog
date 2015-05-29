@@ -45,6 +45,8 @@ class Items(object):
                     print "CATEGORY: ", category
                     print LINE_SEP
                     print self.WRAPPER_HTML.format(''.join(items_html))
+                    features = []
+
 
 class VerticalItems(Items):
     """
