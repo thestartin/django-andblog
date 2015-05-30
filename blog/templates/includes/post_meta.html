@@ -2,7 +2,9 @@
 
     <span>by </span><a rel="nofollow" href="{% url "profile_with_name" article.author.username %}">{{ article.author.username }}</a><span>, {{ article.created_date_time|timesince }} ago, under</span>
     {% for tag in article.tags.names %}
+        {% if forloop.counter < options.NUMBER_OF_TAGS %}
         <a rel="nofollow" href="{% url 'blog:blog_list_tag' tag %}" class="post-category post-category-design">{{ tag }}</a>
+        {% endif %}
     {% endfor %}
     {% if sections.count > 1 %}
         <span class="s-trig pure-button-primary" data-sec-id="{{ article.id }}">View Summary</span>

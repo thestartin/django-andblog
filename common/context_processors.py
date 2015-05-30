@@ -25,6 +25,7 @@ def settings_flags(request):
     options['CSS_VERSION'] = settings.CSS_VERSION
     options['FOOTER_TEXT'] = settings.FOOTER_TEXT
     options['FOOTER_COPY_RIGHT'] = settings.FOOTER_COPY_RIGHT
+    options['NUMBER_OF_TAGS'] = settings.NUMBER_OF_TAGS
     options['SITE_URL'] = ''.join(['http://', get_current_site(None).domain])
     options['SITE_TWITTER_URL'] = settings.SOCIAL_LINKS['twitter'].format(title=settings.SITE_TITLE, url=options['SITE_URL'])
     options['SITE_GOOGLEPLUS_URL'] = settings.SOCIAL_LINKS['googleplus'].format(url=options['SITE_URL'])
