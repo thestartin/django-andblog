@@ -279,6 +279,7 @@ body *{
     padding: 2em 0;
 }
 section {
+    border-bottom: 1px solid #CCC;
     margin: 0;
     padding: 1em 0;
 }
@@ -468,6 +469,11 @@ table.inner {
 table.compare div{
     float:left;
 }
+.item {
+    position: relative;
+    float: left;
+    margin-bottom: .5em;
+}
 .item-descr, .item-source{
     padding: 0.5em 0 0.5em 1.5em;
 }
@@ -479,9 +485,10 @@ table.compare div{
     font-size: 0.9em;
     color: rgb(35, 161, 94);
 }
-.item-source > *{
+.item-source span, .item-source a{
     position: relative;
     float: left;
+    width: 100%;
 }
 .s-d .pure-table, .s-d .pure-table tr {
     border: 1px solid #DDD;
@@ -643,14 +650,6 @@ img.circle{
     position: relative;
     float: left;
     width: 100%;
-    margin-bottom: 1em;
-}
-.header1{
-
-}
-section {
-    border-bottom: 1px solid #CCC;
-    margin-bottom: 2em;
 }
 .post header h2{
     margin: -.3em 0 0 0;
