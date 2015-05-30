@@ -278,6 +278,10 @@ body *{
 .section{
     padding: 2em 0;
 }
+section {
+    margin: 0;
+    padding: 1em 0;
+}
 
 p{
     word-wrap: break-word;
@@ -475,13 +479,21 @@ table.compare div{
     font-size: 0.9em;
     color: rgb(35, 161, 94);
 }
+.item-source > *{
+    position: relative;
+    float: left;
+}
 .s-d .pure-table, .s-d .pure-table tr {
     border: 1px solid #DDD;
 }
-
+.s-d{
+    position: relative;
+    float: left;
+}
 .s-d .pure-table > tbody > tr:first-child {
     background: rgb(0, 207, 255);
 }
+.ite
 /* ==========================================================================
    Responsive Menu styles
    ========================================================================== */
