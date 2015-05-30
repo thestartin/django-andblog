@@ -242,3 +242,4 @@ CKEDITOR_CONFIGS = {
         'extraAllowedContent': ['div(*)', 'p(*)', 'ul(*)', 'li(*)'],
     }
 }
+PAGINATE_BY = 10
