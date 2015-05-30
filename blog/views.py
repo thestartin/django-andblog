@@ -69,7 +69,7 @@ class BlogList(ListView):
     route = 'all'
     model = Article
     template_name = 'blog_list.html'
-    paginate_by = 2
+    paginate_by = settings.PAGINATE_BY
     context_object_name = 'articles'
     paginator_class = BlogPaginator
 
