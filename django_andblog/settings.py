@@ -239,6 +239,6 @@ FOOTER_COPY_RIGHT = 'Copyright &copy; VASA Enterprise'
 
 CKEDITOR_CONFIGS = {
     'default': {
-        'extraAllowedContent': ['div(*)', 'p(*)'],
+        'extraAllowedContent': ['div(*)', 'p(*)', 'ul(*)', 'li(*)'],
     }
 }
