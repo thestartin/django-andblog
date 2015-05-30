@@ -500,6 +500,19 @@ table.compare div{
 .s-d .pure-table > tbody > tr:first-child {
     background: rgb(0, 207, 255);
 }
+.item div {
+    position: relative;
+    float: left;
+    width: 100%;
+}
+
+.item h3 {
+    margin: .5em 0;
+    color: rgb(0, 129, 186);
+}
+.item-descr > p {
+    margin: .5em 0;
+}
 /* ==========================================================================
    Responsive Menu styles
    ========================================================================== */
